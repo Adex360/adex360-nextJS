@@ -59,8 +59,8 @@ export default function Header() {
               <button
                 className={`flex items-center gap-1 rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wide transition-colors ${
                   transparent
-                    ? "text-white/90 hover:text-white"
-                    : "text-ink hover:text-brand-blue"
+                    ? "text-white/90 hover:text-[#E38A19]"
+                    : "text-ink hover:text-[#E38A19]"
                 }`}
                 aria-expanded={openMenu === item.label}
               >
@@ -74,9 +74,9 @@ export default function Header() {
                       <Link
                         key={child.href}
                         href={child.href}
-                        className="block rounded-xl px-4 py-3 transition-colors hover:bg-surface"
+                        className="group block rounded-xl px-4 py-3 transition-colors hover:bg-surface"
                       >
-                        <span className="block text-sm font-semibold text-ink">
+                        <span className="block text-sm font-semibold text-ink transition-colors group-hover:text-[#E38A19]">
                           {child.label}
                         </span>
                         {child.description && (
