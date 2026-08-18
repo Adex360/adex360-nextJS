@@ -19,18 +19,19 @@ export default function Projects() {
     <section className="px-4 py-20 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-brand-blue">
+          <p data-reveal="up" className="text-xs font-semibold uppercase tracking-widest text-brand-blue">
             Latest Projects
           </p>
-          <h2 className="mt-3 text-2xl font-extrabold text-ink sm:text-3xl">
+          <h2 data-reveal="up" className="mt-3 text-2xl font-extrabold text-ink sm:text-3xl">
             Our Latest and Completed Project
           </h2>
         </div>
 
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
+        <div data-reveal-group="" data-stagger="0.05" className="mt-8 flex flex-wrap items-center justify-center gap-2">
           {categories.map((cat) => (
             <button
               key={cat}
+              data-reveal="fade"
               onClick={() => setActive(cat)}
               className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
                 active === cat
@@ -43,11 +44,12 @@ export default function Projects() {
           ))}
         </div>
 
-        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <div data-reveal-group="" data-stagger="0.1" className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
           {filtered.map((project) => (
             <div
               key={project.name}
-              className="group overflow-hidden rounded-3xl border border-black/5 bg-white shadow-lg shadow-brand-900/5"
+              data-reveal="up"
+              className="group overflow-hidden rounded-3xl border border-black/5 bg-white shadow-lg shadow-brand-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
             >
               <div
                 className={`flex aspect-video items-center justify-center bg-gradient-to-br ${project.gradient} text-2xl font-extrabold text-white transition-transform duration-500 group-hover:scale-105`}

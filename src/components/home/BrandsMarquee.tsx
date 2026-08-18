@@ -44,15 +44,15 @@ const brands: { name: string; logo: StaticImageData }[] = [
 export default function BrandsMarquee() {
   return (
     <section className="border-y border-black/5 bg-white px-4 py-14 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <p className="text-center text-xs font-semibold uppercase tracking-widest text-brand-blue">
+      <div data-reveal-group="" className="mx-auto max-w-7xl">
+        <p data-reveal="up" className="text-center text-xs font-semibold uppercase tracking-widest text-brand-blue">
           Brands Impacted
         </p>
-        <p className="mt-2 text-center text-lg font-semibold text-ink">
+        <p data-reveal="up" className="mt-2 text-center text-lg font-semibold text-ink">
           2000+ Satisfied Worldwide Clients
         </p>
 
-        <div className="mt-8">
+        <div data-reveal="fade" data-reveal-delay="0.15" className="mt-8">
           <Swiper
             modules={[Autoplay]}
             loop

@@ -18,14 +18,14 @@ const testimonials = [
 export default function Testimonials() {
   return (
     <section className="bg-surface px-4 py-20 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl text-center">
-        <p className="text-xs font-semibold uppercase tracking-widest text-brand-blue">
+      <div data-reveal-group="" className="mx-auto max-w-7xl text-center">
+        <p data-reveal="up" className="text-xs font-semibold uppercase tracking-widest text-brand-blue">
           Testimonials
         </p>
-        <h2 className="mt-3 text-2xl font-extrabold text-ink sm:text-3xl">
+        <h2 data-reveal="up" className="mt-3 text-2xl font-extrabold text-ink sm:text-3xl">
           What Our Clients Say About Us
         </h2>
-        <div className="mt-3 flex items-center justify-center gap-2 text-sm text-muted">
+        <div data-reveal="up" className="mt-3 flex items-center justify-center gap-2 text-sm text-muted">
           <span className="flex items-center gap-0.5 text-brand-orange">
             {Array.from({ length: 5 }).map((_, i) => (
               <Star key={i} className="h-4 w-4 fill-current" />
@@ -35,10 +35,11 @@ export default function Testimonials() {
         </div>
 
         <div className="mt-12 grid grid-cols-1 gap-6 text-left sm:grid-cols-2">
-          {testimonials.map((t) => (
+          {testimonials.map((t, i) => (
             <div
               key={t.name}
-              className="relative rounded-3xl bg-white p-8 text-left shadow-xl shadow-brand-900/5"
+              data-reveal={i === 0 ? "left" : "right"}
+              className="relative rounded-3xl bg-white p-8 text-left shadow-xl shadow-brand-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
             >
               <Quote className="h-8 w-8 text-brand-orange/40" />
               <p className="mt-4 text-sm leading-relaxed text-muted">

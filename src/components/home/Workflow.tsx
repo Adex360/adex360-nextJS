@@ -22,18 +22,18 @@ export default function Workflow() {
   return (
     <section className="bg-surface px-4 py-20 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl text-center">
-        <p className="text-xs font-semibold uppercase tracking-widest text-brand-blue">
+        <p data-reveal="up" className="text-xs font-semibold uppercase tracking-widest text-brand-blue">
           Work Flow
         </p>
-        <h2 className="mt-3 text-2xl font-extrabold text-ink sm:text-3xl">
+        <h2 data-reveal="up" className="mt-3 text-2xl font-extrabold text-ink sm:text-3xl">
           This is How It&apos;s Done
         </h2>
 
-        <div className="relative mt-14 grid grid-cols-1 gap-10 sm:grid-cols-3">
+        <div data-reveal-group="" data-stagger="0.18" className="relative mt-14 grid grid-cols-1 gap-10 sm:grid-cols-3">
           <div className="pointer-events-none absolute top-9 left-0 right-0 hidden border-t-2 border-dashed border-brand-blue/30 sm:block" />
           {steps.map((step, i) => (
-            <div key={step.title} className="relative flex flex-col items-center">
-              <div className="relative z-10 flex h-18 w-18 items-center justify-center rounded-full bg-white shadow-xl shadow-brand-900/10 ring-4 ring-surface">
+            <div key={step.title} data-reveal="scale" className="relative flex flex-col items-center">
+              <div className="relative z-10 flex h-18 w-18 items-center justify-center rounded-full bg-white shadow-xl shadow-brand-900/10 ring-4 ring-surface transition-transform duration-300 hover:scale-110">
                 <div className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-blue text-white">
                   <step.icon className="h-6 w-6" />
                 </div>

@@ -77,3 +77,4 @@ Launch and post-launch monitoring.
 ## Change Log
 - **2026-08-18:** Project scaffolded as "Adex360 - NextJS"; migration-plan.md and progress.md created inside /docs.
 - **2026-08-18:** Built Home page from Elementor design screenshots — brand Tailwind theme, sticky Header (mega-menu + mobile), Footer, and all Home sections. Verified with `tsc --noEmit`, `eslint`, and `next build` (static, no errors). Real WordPress images/logos/team photos still need to replace the placeholder gradients/initials once exported (Phase 1).
+- **2026-08-18:** Added GSAP site-wide animation system — futuristic Hero (entrance timeline, floating illustration, 3D mouse tilt, particles, scan-line, animated grid), plus a data-attribute ScrollTrigger engine (`src/components/fx/ScrollFx.tsx`) driving staggered reveals and count-up counters across all home sections, a scroll progress bar, and a back-to-top button. Respects `prefers-reduced-motion`.

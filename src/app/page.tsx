@@ -1,3 +1,4 @@
+import ScrollFx from "@/components/fx/ScrollFx";
 import Hero from "@/components/home/Hero";
 import Features from "@/components/home/Features";
 import AboutStats from "@/components/home/AboutStats";
@@ -14,6 +15,7 @@ import ClutchStrip from "@/components/home/ClutchStrip";
 export default function Home() {
   return (
     <>
+      <ScrollFx />
       <Hero />
       <Features />
       <AboutStats />

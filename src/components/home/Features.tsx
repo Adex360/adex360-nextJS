@@ -24,12 +24,18 @@ const features = [
 export default function Features() {
   return (
     <section className="relative bg-white px-4 py-20 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
+      <div data-reveal-group="" className="mx-auto max-w-7xl">
         <div className="mb-10 text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-brand-blue">
+          <p
+            data-reveal="up"
+            className="text-xs font-semibold uppercase tracking-widest text-brand-blue"
+          >
             Our Magic Mantra
           </p>
-          <h2 className="mx-auto mt-3 max-w-2xl text-2xl font-extrabold text-ink sm:text-3xl">
+          <h2
+            data-reveal="up"
+            className="mx-auto mt-3 max-w-2xl text-2xl font-extrabold text-ink sm:text-3xl"
+          >
             More Clicks, More Growth, More Sales, Less Fluff
           </h2>
         </div>
@@ -37,9 +43,10 @@ export default function Features() {
           {features.map((feature) => (
             <div
               key={feature.title}
-              className="rounded-3xl border border-black/5 bg-white p-8 shadow-xl shadow-brand-900/5 transition-transform hover:-translate-y-1"
+              data-reveal="up"
+              className="group rounded-3xl border border-black/5 bg-white p-8 shadow-xl shadow-brand-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-brand-900/10"
             >
-              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-blue to-brand-600 text-white">
+              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-blue to-brand-600 text-white transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                 <feature.icon className="h-7 w-7" />
               </div>
               <h3 className="text-lg font-bold text-ink">{feature.title}</h3>
