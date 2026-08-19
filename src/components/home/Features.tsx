@@ -44,7 +44,7 @@ export default function Features() {
             <div
               key={feature.title}
               data-reveal="up"
-              className="group rounded-3xl border border-black/5 bg-white p-8 shadow-xl shadow-brand-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-brand-900/10"
+              className="group rounded-3xl border border-[#E4E8F3] bg-white p-8 shadow-xl shadow-brand-900/5 transition-all duration-300 hover:-translate-y-1 hover:border-[#D4DAEC] hover:shadow-2xl hover:shadow-brand-900/10"
             >
               <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-blue to-brand-600 text-white transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                 <feature.icon className="h-7 w-7" />
