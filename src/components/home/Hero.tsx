@@ -160,7 +160,7 @@ export default function Hero() {
         />
       ))}
 
-      <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 pt-36 pb-20 sm:px-6 sm:pt-40 lg:grid-cols-2 lg:pt-44 lg:pb-28 lg:px-8">
+      <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 pt-32 pb-16 sm:px-6 sm:pt-40 sm:pb-20 lg:grid-cols-2 lg:gap-12 lg:pt-44 lg:pb-28 lg:px-8">
         <div>
           <a
             href={CLUTCH_URL}

@@ -54,7 +54,7 @@ export default function Testimonials() {
   const swiperRef = useRef<SwiperType | null>(null);
 
   return (
-    <section className="overflow-hidden bg-surface px-4 py-20 sm:px-6 lg:px-8">
+    <section className="overflow-hidden bg-surface px-4 py-14 sm:px-6 md:py-20 lg:px-8">
       <div data-reveal-group="" className="mx-auto max-w-7xl">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
@@ -92,7 +92,7 @@ export default function Testimonials() {
           </div>
         </div>
 
-        <div data-reveal="up" data-reveal-delay="0.15" className="mt-12">
+        <div data-reveal="up" data-reveal-delay="0.15" className="mt-8 md:mt-12">
           <Swiper
             modules={[Autoplay]}
             onSwiper={(swiper) => {

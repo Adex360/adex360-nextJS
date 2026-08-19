@@ -23,7 +23,7 @@ const features = [
 
 export default function Features() {
   return (
-    <section className="relative bg-white px-4 py-20 sm:px-6 lg:px-8">
+    <section className="relative bg-white px-4 py-14 sm:px-6 md:py-20 lg:px-8">
       <div data-reveal-group="" className="mx-auto max-w-7xl">
         <div className="mb-10 text-center">
           <p

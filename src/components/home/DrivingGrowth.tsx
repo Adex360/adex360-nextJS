@@ -136,7 +136,7 @@ export default function DrivingGrowth() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-surface-alt px-4 py-24 sm:px-6 lg:px-8">
+    <section className="relative overflow-hidden bg-surface-alt px-4 py-16 sm:px-6 md:py-24 lg:px-8">
       <div
         className="pointer-events-none absolute left-0 top-0 h-64 w-64 opacity-40"
         style={{
@@ -151,7 +151,7 @@ export default function DrivingGrowth() {
 
       <div
         ref={rootRef}
-        className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-16 lg:grid-cols-2"
+        className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 md:gap-16 lg:grid-cols-2"
       >
         <div>
           <span

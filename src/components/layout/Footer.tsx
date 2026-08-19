@@ -187,7 +187,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-6 text-xs text-white/50 sm:flex-row sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 pt-6 pb-16 text-xs text-white/50 sm:flex-row sm:px-6 sm:py-6 lg:px-8">
           <p>© {new Date().getFullYear()} Adex360. All Rights Reserved.</p>
           <div className="flex items-center gap-6">
             <Link href="/about-us" className="hover:text-white">

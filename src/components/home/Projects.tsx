@@ -16,7 +16,7 @@ export default function Projects() {
   const filtered = active === "All" ? projects : projects.filter((p) => p.category === active);
 
   return (
-    <section className="px-4 py-20 sm:px-6 lg:px-8">
+    <section className="px-4 py-14 sm:px-6 md:py-20 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="text-center">
           <p data-reveal="up" className="text-xs font-semibold uppercase tracking-widest text-brand-blue">
@@ -27,13 +27,17 @@ export default function Projects() {
           </h2>
         </div>
 
-        <div data-reveal-group="" data-stagger="0.05" className="mt-8 flex flex-wrap items-center justify-center gap-2">
+        <div
+          data-reveal-group=""
+          data-stagger="0.05"
+          className="-mx-4 mt-8 flex items-center gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 sm:pb-0"
+        >
           {categories.map((cat) => (
             <button
               key={cat}
               data-reveal="fade"
               onClick={() => setActive(cat)}
-              className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
+              className={`shrink-0 whitespace-nowrap rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
                 active === cat
                   ? "bg-brand-blue text-white shadow-lg shadow-brand-blue/30"
                   : "bg-surface text-muted hover:bg-surface-alt hover:text-ink"

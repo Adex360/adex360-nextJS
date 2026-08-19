@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${poppins.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-sans text-ink">
+      <body className="min-h-full flex flex-col overflow-x-hidden font-sans text-ink">
         <ScrollProgress />
         <Header />
         <main className="flex-1 pt-20">{children}</main>

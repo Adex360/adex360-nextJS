@@ -97,7 +97,7 @@ export default function Team() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-surface px-4 py-20 sm:px-6 lg:px-8">
+    <section className="relative overflow-hidden bg-surface px-4 py-14 sm:px-6 md:py-20 lg:px-8">
       <div className="pointer-events-none absolute -left-24 top-16 h-64 w-64 rounded-full bg-brand-blue/10 blur-3xl" />
       <div className="pointer-events-none absolute -right-24 bottom-16 h-64 w-64 rounded-full bg-[#E38A19]/10 blur-3xl" />
 

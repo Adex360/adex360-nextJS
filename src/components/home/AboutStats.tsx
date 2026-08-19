@@ -3,10 +3,10 @@ import StatsShowcase from "./StatsShowcase";
 
 export default function AboutStats() {
   return (
-    <section className="px-4 py-20 sm:px-6 lg:px-8">
+    <section className="overflow-hidden px-4 py-14 sm:px-6 md:py-20 lg:px-8">
       <div
         data-reveal-group=""
-        className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-14 lg:grid-cols-2"
+        className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 md:gap-14 lg:grid-cols-2"
       >
         <StatsShowcase />
 

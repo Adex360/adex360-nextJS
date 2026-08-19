@@ -147,8 +147,8 @@ export default function SeoStrategies() {
   }, [active]);
 
   return (
-    <section className="bg-surface px-4 py-20 sm:px-6 lg:px-8">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-16">
+    <section className="overflow-hidden bg-surface px-4 py-14 md:py-20 sm:px-6 lg:px-8">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 md:gap-12 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-16">
         <div data-reveal="left" className="relative rounded-3xl bg-white p-3 shadow-xl shadow-brand-900/5">
           {tabs.map((t, i) => {
             const Icon = t.icon;
