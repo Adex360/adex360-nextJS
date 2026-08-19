@@ -237,7 +237,7 @@ export default function Workflow() {
                 className={`flex flex-col items-center text-center ${step.offset}`}
               >
                 <div data-wf-circle="" className="relative">
-                  <div className="group flex h-32 w-32 items-center justify-center rounded-full bg-white shadow-[0_18px_40px_rgba(20,15,69,0.12)] ring-1 ring-black/5">
+                  <div className="group flex h-32 w-32 items-center justify-center rounded-full bg-white shadow-[0_10px_20px_rgba(20,15,69,0.10),0_24px_55px_rgba(20,15,69,0.18)] ring-1 ring-black/[0.07]">
                     <span data-wf-icon="" className="text-[#E38A19]">
                       <step.icon className="h-12 w-12" strokeWidth={1.4} />
                     </span>
