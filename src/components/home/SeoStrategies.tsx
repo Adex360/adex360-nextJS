@@ -114,6 +114,21 @@ const tabs: ServiceTab[] = [
   },
 ];
 
+// Fixed shape for SSR/first paint; every tab click morphs to a fresh random one.
+const INITIAL_BLOB_SHAPE = "42% 58% 55% 45% / 50% 44% 56% 50%";
+
+// Complementary pairs (a / 100-a) keep the silhouette organic and balanced
+// no matter what the random roll produces.
+function randomBlobShape() {
+  const r = (min: number, max: number) =>
+    Math.round(min + Math.random() * (max - min));
+  const a = r(35, 65);
+  const b = r(35, 65);
+  const c = r(35, 65);
+  const d = r(35, 65);
+  return `${a}% ${100 - a}% ${b}% ${100 - b}% / ${c}% ${100 - c}% ${d}% ${100 - d}%`;
+}
+
 export default function SeoStrategies() {
   const [active, setActive] = useState(0);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -131,10 +146,16 @@ export default function SeoStrategies() {
     if (!panelRef.current) return;
 
     const ctx = gsap.context(() => {
+      // The blob morphs into a fresh random organic shape on every click.
+      gsap.to("[data-panel-blob]", {
+        borderRadius: randomBlobShape(),
+        duration: 0.9,
+        ease: "elastic.out(1, 0.65)",
+      });
       gsap.fromTo(
-        "[data-panel-illustration]",
-        { scale: 0.85, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.55, ease: "back.out(1.6)" }
+        "[data-panel-icon]",
+        { scale: 0, rotate: -35, opacity: 0 },
+        { scale: 1, rotate: 0, opacity: 1, duration: 0.6, ease: "back.out(1.8)" }
       );
       gsap.fromTo(
         "[data-panel-item]",
@@ -154,13 +175,13 @@ export default function SeoStrategies() {
             const Icon = t.icon;
             const isActive = i === active;
             return (
+              <div key={t.label}>
               <button
-                key={t.label}
                 onClick={() => setActive(i)}
                 aria-pressed={isActive}
-                className={`relative flex w-full items-center gap-4 rounded-2xl px-5 py-4 text-left transition-colors duration-200 ${
+                className={`relative flex w-full items-center gap-4 rounded-2xl px-5 py-4 text-left transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/40 ${
                   isActive ? "bg-surface" : "hover:bg-surface/60"
-                } ${i < tabs.length - 1 ? "mb-1" : ""}`}
+                }`}
               >
                 <span
                   className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-colors duration-200 ${
@@ -187,6 +208,14 @@ export default function SeoStrategies() {
                   <ChevronRight className="pointer-events-none absolute -right-9 hidden h-10 w-10 text-ink/10 lg:block" />
                 )}
               </button>
+              {i < tabs.length - 1 && (
+                <div
+                  className={`mx-5 my-1.5 h-px transition-colors duration-300 ${
+                    isActive ? "bg-brand-blue" : "bg-[#E3E8F5]"
+                  }`}
+                />
+              )}
+              </div>
             );
           })}
         </div>
@@ -197,8 +226,18 @@ export default function SeoStrategies() {
           className="grid grid-cols-1 items-center gap-10 md:grid-cols-2"
         >
           <div data-panel-illustration="" className="mx-auto w-full max-w-sm">
-            <div className="flex aspect-square items-center justify-center rounded-[42%_58%_55%_45%/50%_44%_56%_50%] bg-[#f3ede2]">
-              <TabIcon className="h-28 w-28 text-ink/70" strokeWidth={1.25} />
+            <div
+              data-panel-blob=""
+              className="flex aspect-square items-center justify-center"
+              style={{
+                background:
+                  "linear-gradient(135deg, #FAE3BE 0%, #F5D6A8 40%, #C7D6F7 100%)",
+                borderRadius: INITIAL_BLOB_SHAPE,
+              }}
+            >
+              <span data-panel-icon="" className="flex">
+                <TabIcon className="h-28 w-28 text-ink/70" strokeWidth={1.25} />
+              </span>
             </div>
           </div>
 
