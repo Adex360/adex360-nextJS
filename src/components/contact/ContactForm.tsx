@@ -24,7 +24,7 @@ type FormValues = {
 };
 
 const inputClasses =
-  "w-full rounded-lg border border-black/15 bg-white px-4 py-2.5 text-sm text-ink placeholder:text-muted/60 transition-colors focus:border-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-blue/20";
+  "w-full appearance-none rounded-xl border border-black/30 bg-white px-4 py-2.5 text-sm text-ink placeholder:text-muted/60 transition-colors focus:border-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-blue/20";
 
 export default function ContactForm() {
   const {
