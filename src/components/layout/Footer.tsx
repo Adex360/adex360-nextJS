@@ -1,5 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
+import { useState, type ReactNode } from "react";
+import { ChevronDown } from "lucide-react";
 import logoWhite from "../../../public/images/adex-360-white-Logo.png";
 
 const socialIcons = [
@@ -29,11 +33,79 @@ const services = [
   { label: "Shopify App Development", href: "/shopify-app-development" },
 ];
 
+/**
+ * Static heading on tablet/desktop (>=480px); collapsible accordion row on
+ * mobile (<480px).
+ */
+function FooterSection({ title, children }: { title: string; children: ReactNode }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="border-b border-white/10 pb-4 xs:border-none xs:pb-0">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className="flex w-full items-center justify-between py-2 text-left xs:pointer-events-none xs:py-0"
+      >
+        <h4 className="text-sm font-semibold uppercase tracking-wide text-white">
+          {title}
+        </h4>
+        <ChevronDown
+          className={`h-4 w-4 text-white/60 transition-transform duration-200 xs:hidden ${
+            open ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+      <div className={`${open ? "mt-3 block" : "hidden"} xs:mt-5 xs:block`}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function ContactBlock({
+  address,
+  phone,
+  phoneHref,
+}: {
+  address: ReactNode;
+  phone: string;
+  phoneHref: string;
+}) {
+  return (
+    <div className="space-y-4 text-sm text-white/60">
+      <div>
+        <p className="text-xs font-bold uppercase tracking-wide text-white">Address:</p>
+        <p className="mt-1 leading-relaxed">{address}</p>
+      </div>
+      <div>
+        <p className="text-xs font-bold uppercase tracking-wide text-white">Email:</p>
+        <a
+          href="mailto:info@adex360.com"
+          className="mt-1 inline-block transition-colors hover:text-[#E38A19]"
+        >
+          info@adex360.com
+        </a>
+      </div>
+      <div>
+        <p className="text-xs font-bold uppercase tracking-wide text-white">Phone:</p>
+        <a
+          href={`tel:${phoneHref}`}
+          className="mt-1 inline-block transition-colors hover:text-[#E38A19]"
+        >
+          {phone}
+        </a>
+      </div>
+    </div>
+  );
+}
+
 export default function Footer() {
   return (
     <footer className="bg-brand-950 text-white/80">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-4 py-16 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
-        <div>
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 py-14 xs:grid-cols-2 xs:gap-10 sm:px-6 md:grid-cols-4 md:py-16 lg:px-8">
+        <div className="xs:col-span-2 md:col-span-1">
           <Link href="/" className="relative flex h-10 w-40 items-center">
             <Image
               src={logoWhite}
@@ -68,74 +140,50 @@ export default function Footer() {
           </div>
         </div>
 
-        <div>
-          <h4 className="text-sm font-semibold uppercase tracking-wide text-white">
-            Our Services
-          </h4>
-          <ul className="mt-5 space-y-3 text-sm">
+        <FooterSection title="Our Services">
+          <ul className="space-y-3 text-sm">
             {services.map((service) => (
               <li key={service.href}>
-                <Link href={service.href} className="text-white/60 transition-colors hover:text-[#E38A19]">
+                <Link
+                  href={service.href}
+                  className="text-white/60 transition-colors hover:text-[#E38A19]"
+                >
                   {service.label}
                 </Link>
               </li>
             ))}
           </ul>
-        </div>
+        </FooterSection>
 
-        <div>
-          <h4 className="text-sm font-semibold uppercase tracking-wide text-white">USA</h4>
-          <div className="mt-5 space-y-4 text-sm text-white/60">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-wide text-white">Address:</p>
-              <p className="mt-1 leading-relaxed">
+        <FooterSection title="USA">
+          <ContactBlock
+            address={
+              <>
                 70-34 69th street Floor 1,
                 <br />
                 Glendale, NY, 11385
-              </p>
-            </div>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-wide text-white">Email:</p>
-              <a href="mailto:info@adex360.com" className="mt-1 inline-block transition-colors hover:text-[#E38A19]">
-                info@adex360.com
-              </a>
-            </div>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-wide text-white">Phone:</p>
-              <a href="tel:+447405127633" className="mt-1 inline-block transition-colors hover:text-[#E38A19]">
-                +447405127633
-              </a>
-            </div>
-          </div>
-        </div>
+              </>
+            }
+            phone="+447405127633"
+            phoneHref="+447405127633"
+          />
+        </FooterSection>
 
-        <div>
-          <h4 className="text-sm font-semibold uppercase tracking-wide text-white">Pakistan</h4>
-          <div className="mt-5 space-y-4 text-sm text-white/60">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-wide text-white">Address:</p>
-              <p className="mt-1 leading-relaxed">
+        <FooterSection title="Pakistan">
+          <ContactBlock
+            address={
+              <>
                 The Vertical - 8th floor, 94-B
                 <br />
                 Block, Khayaban-E-Amin,
                 <br />
                 Pine Avenue, Lahore
-              </p>
-            </div>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-wide text-white">Email:</p>
-              <a href="mailto:info@adex360.com" className="mt-1 inline-block transition-colors hover:text-[#E38A19]">
-                info@adex360.com
-              </a>
-            </div>
-            <div>
-              <p className="text-xs font-bold uppercase tracking-wide text-white">Phone:</p>
-              <a href="tel:+923018220878" className="mt-1 inline-block transition-colors hover:text-[#E38A19]">
-                +92 301 8220878
-              </a>
-            </div>
-          </div>
-        </div>
+              </>
+            }
+            phone="+92 301 8220878"
+            phoneHref="+923018220878"
+          />
+        </FooterSection>
       </div>
 
       <div className="border-t border-white/10">

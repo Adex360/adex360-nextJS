@@ -23,6 +23,11 @@
   --color-surface-alt: #eef1fb;
 }
 
+@theme {
+  /* Custom mobile breakpoint: 480px */
+  --breakpoint-xs: 30rem;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
