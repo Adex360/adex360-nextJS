@@ -74,7 +74,7 @@ export default function Testimonials() {
             </div>
           </div>
 
-          <div data-reveal="fade" className="flex items-center gap-3">
+          <div data-reveal="fade" className="hidden items-center gap-3 sm:flex">
             <button
               onClick={() => swiperRef.current?.slidePrev()}
               aria-label="Previous testimonials"
@@ -92,7 +92,25 @@ export default function Testimonials() {
           </div>
         </div>
 
-        <div data-reveal="up" data-reveal-delay="0.15" className="mt-8 md:mt-12">
+        <div
+          data-reveal="up"
+          data-reveal-delay="0.15"
+          className="relative mt-8 px-11 sm:px-0 md:mt-12"
+        >
+          <button
+            onClick={() => swiperRef.current?.slidePrev()}
+            aria-label="Previous testimonials"
+            className="absolute left-0 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white text-ink shadow-lg shadow-brand-900/10 sm:hidden"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+          <button
+            onClick={() => swiperRef.current?.slideNext()}
+            aria-label="Next testimonials"
+            className="absolute right-0 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white text-ink shadow-lg shadow-brand-900/10 sm:hidden"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
           <Swiper
             modules={[Autoplay]}
             onSwiper={(swiper) => {
@@ -110,7 +128,8 @@ export default function Testimonials() {
           >
             {testimonials.map((t) => (
               <SwiperSlide key={t.name} className="!h-auto">
-                <article className="flex h-full flex-col rounded-3xl border border-black/5 bg-white p-7 shadow-lg shadow-brand-900/5 transition-transform duration-300 hover:-translate-y-1.5">
+                <div className="h-full rounded-3xl bg-gradient-to-br from-[#F7B45C] via-brand-blue-light/60 to-brand-blue p-[1.5px] shadow-lg shadow-brand-900/5 transition-transform duration-300 hover:-translate-y-1.5">
+                  <article className="flex h-full flex-col rounded-[calc(1.5rem-1.5px)] bg-white p-7">
                   <div className="flex items-start justify-between gap-4">
                     <span className="rounded-full bg-brand-blue/10 px-3 py-1 text-xs font-semibold text-brand-blue">
                       {t.service}
@@ -139,7 +158,8 @@ export default function Testimonials() {
                       <p className="truncate text-xs text-muted">{t.role}</p>
                     </div>
                   </div>
-                </article>
+                  </article>
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>
