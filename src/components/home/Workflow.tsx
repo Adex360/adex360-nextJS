@@ -177,6 +177,22 @@ export default function Workflow() {
             className="pointer-events-none absolute inset-x-0 top-0 hidden h-[320px] w-full lg:block"
             aria-hidden="true"
           >
+            <defs>
+              <linearGradient
+                id="wfPathGrad"
+                gradientUnits="userSpaceOnUse"
+                x1="0"
+                y1="0"
+                x2="1200"
+                y2="0"
+              >
+                <stop offset="0%" stopColor="#E38A19" />
+                <stop offset="30%" stopColor="#F7B45C" />
+                <stop offset="55%" stopColor="#8FB0FF" />
+                <stop offset="78%" stopColor="#5B8BFF" />
+                <stop offset="100%" stopColor="#2F6BFF" />
+              </linearGradient>
+            </defs>
             <mask id="wfPathMask" maskUnits="userSpaceOnUse">
               <path
                 data-wf-mask-path=""
@@ -190,7 +206,7 @@ export default function Workflow() {
             <path
               d={PATH_D}
               fill="none"
-              stroke="#c3cbe4"
+              stroke="url(#wfPathGrad)"
               strokeWidth="2.5"
               strokeDasharray="7 9"
               strokeLinecap="round"
