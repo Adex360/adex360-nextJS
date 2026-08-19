@@ -68,7 +68,7 @@ export default function SeoHero() {
       });
       gsap.utils.toArray<HTMLElement>("[data-sh-chip]").forEach((chip, i) => {
         gsap.to(chip, {
-          y: i % 2 === 0 ? -8 : 8,
+          yPercent: i % 2 === 0 ? -12 : 12,
           duration: 2.4 + i * 0.5,
           repeat: -1,
           yoyo: true,
@@ -163,7 +163,7 @@ export default function SeoHero() {
           </div>
         </div>
 
-        <div data-parallax="6" className="relative mx-auto w-full max-w-md">
+        <div data-parallax="6" aria-hidden="true" className="relative mx-auto w-full max-w-md">
           <div
             data-sh-blob=""
             className="flex aspect-square items-center justify-center"

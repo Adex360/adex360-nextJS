@@ -1,0 +1,48 @@
+import Link from "next/link";
+import SocialUniqueStats from "@/components/social/SocialUniqueStats";
+
+export default function SocialUnique() {
+  return (
+    <section className="overflow-hidden bg-white px-4 py-14 sm:px-6 md:py-20 lg:px-8">
+      <div
+        data-reveal-group=""
+        className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 md:gap-14 lg:grid-cols-2"
+      >
+        <SocialUniqueStats />
+
+        <div className="text-center lg:text-left">
+          <p data-reveal="up" className="text-xs font-semibold uppercase tracking-widest text-brand-blue">
+            What Makes Us Unique
+          </p>
+          <h2 data-reveal="up" className="mt-3 text-2xl font-extrabold text-ink sm:text-3xl lg:text-4xl">
+            Unmatched Meta and Social Media Excellence
+          </h2>
+          <p data-reveal="up" className="mt-5 text-4xl font-extrabold text-ink sm:text-5xl">
+            <span data-counter="47" data-counter-suffix="%">47%</span>{" "}
+            <span className="align-middle text-2xl text-emerald-500">&uarr;</span>
+          </p>
+          <p data-reveal="up" className="mt-1 text-sm font-semibold text-muted">
+            Increase in Conversions
+          </p>
+          <p data-reveal="up" className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-muted sm:text-base lg:mx-0">
+            Our social media management services go beyond just regular
+            postings. We craft eye-catching designs, create highly optimized
+            content, analyze trends, and develop data-driven ad campaign
+            strategies. By integrating targeted keywords, we maximize organic
+            reach and engagement. Whether it&apos;s brand awareness, audience
+            growth, or conversions, we ensure your social presence thrives with
+            a tailored approach that drives real results.
+          </p>
+          <div data-reveal="up" className="mt-8">
+            <Link
+              href="/contact-us"
+              className="inline-flex items-center justify-center rounded-full bg-brand-blue px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-blue/30 transition-transform hover:-translate-y-0.5 hover:bg-brand-blue-light"
+            >
+              Start Your Social Success
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

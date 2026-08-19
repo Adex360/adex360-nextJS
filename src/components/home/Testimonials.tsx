@@ -96,6 +96,7 @@ export default function Testimonials() {
           data-reveal="up"
           data-reveal-delay="0.15"
           className="relative mt-8 px-11 sm:px-0 md:mt-12"
+          onFocusCapture={() => swiperRef.current?.autoplay?.stop()}
         >
           <button
             onClick={() => swiperRef.current?.slidePrev()}
@@ -115,6 +116,9 @@ export default function Testimonials() {
             modules={[Autoplay]}
             onSwiper={(swiper) => {
               swiperRef.current = swiper;
+              if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                swiper.autoplay?.stop();
+              }
             }}
             loop
             speed={700}
@@ -138,6 +142,7 @@ export default function Testimonials() {
                   </div>
 
                   <div className="mt-4 flex items-center gap-0.5 text-[#E38A19]">
+                    <span className="sr-only">Rated 5 out of 5</span>
                     {Array.from({ length: 5 }).map((_, i) => (
                       <Star key={i} className="h-3.5 w-3.5 fill-current" />
                     ))}

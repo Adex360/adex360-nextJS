@@ -127,7 +127,7 @@ export default function SeoScoreCta() {
         ))}
 
         {/* Rocket badge */}
-        <div className="pointer-events-none absolute right-6 top-6 hidden sm:block md:right-10 md:top-8">
+        <div aria-hidden="true" className="pointer-events-none absolute right-6 top-6 hidden sm:block md:right-10 md:top-8">
           <span
             data-sc-ring=""
             className="absolute inset-0 rounded-2xl border border-[#F7B45C]/60"
@@ -143,6 +143,7 @@ export default function SeoScoreCta() {
         {/* Floating score chip */}
         <div
           data-sc-score=""
+          aria-hidden="true"
           className="pointer-events-none absolute left-6 bottom-6 hidden items-center gap-3 rounded-2xl bg-white px-4 py-2.5 text-left shadow-xl shadow-black/30 md:flex lg:left-10"
         >
           <svg viewBox="0 0 40 40" className="h-10 w-10 -rotate-90" aria-hidden="true">

@@ -4,14 +4,13 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import {
+  BarChart3,
   ChartLine,
   Check,
   ChevronRight,
-  FileText,
-  KeyRound,
-  Lightbulb,
-  MapPin,
-  Network,
+  Megaphone,
+  PenTool,
+  UsersRound,
   type LucideIcon,
 } from "lucide-react";
 
@@ -28,91 +27,76 @@ type ServiceTab = {
 
 const tabs: ServiceTab[] = [
   {
-    eyebrow: "Local Visibilty",
-    label: "Local SEO",
-    icon: MapPin,
-    heading: "Boost Your Business with Local SEO",
+    eyebrow: "Content Strategy",
+    label: "Content Creation",
+    icon: PenTool,
+    heading: "Engaging Content That Captivates & Converts",
     description:
-      "Local SEO boosts visibility, connecting you with nearby customers through Google Business optimization and location-based strategies to beat competitors.",
+      "We create engaging posts, graphics, and captions to capture attention, spark conversations, boost engagement, and drive conversions for your brand.",
     checks: [
-      "Enhanced Local Visibility",
-      "Google Business Optimization",
-      "Competitive Edge",
+      "Tailored, brand-specific content",
+      "Engaging and trending posts",
+      "High-quality visuals and videos",
     ],
-    cta: "Dominate Locally",
+    cta: "Create Now",
     href: "/contact-us",
   },
   {
-    eyebrow: "Technical Excellence",
-    label: "Technical SEO",
-    icon: Network,
-    heading: "Enhance Performance with Technical SEO",
+    eyebrow: "Community Growth",
+    label: "Community Management",
+    icon: UsersRound,
+    heading: "Strong Connections with Engagement",
     description:
-      "Technical SEO optimizes your site's backend, enhancing speed, mobile-friendliness, crawlability, and structured data for better search rankings and performance.",
+      "We engage audiences by replying to comments, posting in groups, and fostering meaningful interactions to build a loyal, trusted community.",
     checks: [
-      "Improved Site Speed",
-      "Mobile Optimization",
-      "Optimized Crawlability",
+      "Active follower interaction",
+      "Prompt response to queries",
+      "Building brand loyalty",
     ],
-    cta: "Fix & Rank",
+    cta: "Engage Now",
     href: "/contact-us",
   },
   {
-    eyebrow: "Enterprise Growth",
-    label: "On-Page SEO",
-    icon: FileText,
-    heading: "Maximize Visibility with On-Page SEO",
+    eyebrow: "Influencer Power",
+    label: "Influencer Marketing",
+    icon: Megaphone,
+    heading: "Boost Your Brand with Influencers",
     description:
-      "On-page SEO optimizes content, keywords, and meta tags to attract search engines, engage visitors, and improve rankings for better site performance.",
+      "We connect you with top influencers, leveraging their audience to boost brand visibility, engagement, conversions, and revenue growth effectively.",
     checks: [
-      "Optimized SEO content strategy.",
-      "Strategic keyword placement.",
-      "Enhanced meta tags and structure.",
+      "Collaboration with influencers",
+      "Expanding reach and brand trust",
+      "Driving conversions through promotions",
     ],
-    cta: "Perfect My Pages",
+    cta: "Collaborate Now",
     href: "/contact-us",
   },
   {
-    eyebrow: "SEO Advantage",
-    label: "SEO Strategy",
-    icon: Lightbulb,
-    heading: "Stay Ahead with Advanced SEO",
-    description:
-      "Stay ahead with a powerful SEO strategy. From competitor analysis to a unique optimization framework, we ensure your website outperforms rivals effectively.",
-    checks: [
-      "Comprehensive competitor analysis",
-      "Unique SEO optimization frameworks",
-      "Ongoing strategic enhancements",
-    ],
-    cta: "Get Your Free Consultation",
-    href: "https://api.leadconnectorhq.com/widget/bookings/adex360-consultation",
-  },
-  {
-    eyebrow: "Keyword Mastery",
-    label: "Keyword Analysis",
-    icon: KeyRound,
-    heading: "Master Keywords with Precision",
-    description:
-      "We simplify keyword research with premium tools, finding low-competition, high-volume keywords to boost rankings and enhance search visibility.",
-    checks: [
-      "Advanced keyword research.",
-      "Focus on low-saturation keywords.",
-      "Higher search volume targeting.",
-    ],
-    cta: "Get Your Free Consultation",
-    href: "https://api.leadconnectorhq.com/widget/bookings/adex360-consultation",
-  },
-  {
-    eyebrow: "Deep Analysis",
-    label: "SEO Audit",
+    eyebrow: "Data-Driven Growth",
+    label: "Analytics and Reporting",
     icon: ChartLine,
-    heading: "Uncover Success with SEO Audits",
+    heading: "Track & Optimize with Real Insights",
     description:
-      "Struggling with results? Our SEO audit identifies missed details, providing a detailed report to optimize efforts and improve rankings.",
+      "Track performance with Adex360's real-time analytics, gaining insights to optimize strategies, boost engagement, and maximize your social media ROI.",
     checks: [
-      "Detailed SEO performance analysis.",
-      "Comprehensive audit report.",
-      "Identify and fix missed opportunities",
+      "In-depth performance tracking",
+      "Regular reports with actionable insights",
+      "Continuous optimization based on data",
+    ],
+    cta: "View Insights",
+    href: "/contact-us",
+  },
+  {
+    eyebrow: "Social Growth",
+    label: "Social Media Strategies",
+    icon: BarChart3,
+    heading: "Maximize Impact with Smart Strategies",
+    description:
+      "Boost your brand with data-driven strategies, optimizing content and campaigns to enhance reach, engagement, visibility, and convert followers into customers.",
+    checks: [
+      "Goal-focused strategy for your brand",
+      "Choosing the right platforms",
+      "Ongoing monitoring and optimization",
     ],
     cta: "Get Your Free Consultation",
     href: "https://api.leadconnectorhq.com/widget/bookings/adex360-consultation",
@@ -120,7 +104,7 @@ const tabs: ServiceTab[] = [
 ];
 
 // Fixed shape for SSR/first paint; every tab click morphs to a fresh random one.
-const INITIAL_BLOB_SHAPE = "56% 44% 48% 52% / 46% 56% 44% 54%";
+const INITIAL_BLOB_SHAPE = "48% 52% 56% 44% / 54% 46% 54% 46%";
 
 type PanelShape = {
   radius: string;
@@ -197,7 +181,7 @@ const SHAPE_MAKERS: (() => PanelShape)[] = [
   },
 ];
 
-export default function SeoLocal() {
+export default function SocialTabs() {
   const [active, setActive] = useState(0);
   const panelRef = useRef<HTMLDivElement>(null);
   const firstRender = useRef(true);
@@ -263,7 +247,7 @@ export default function SeoLocal() {
                 <button
                   onClick={() => setActive(i)}
                   aria-current={isActive ? "true" : undefined}
-                  aria-controls="seo-services-panel"
+                  aria-controls="social-services-panel"
                   className={`relative flex w-full items-center gap-4 rounded-2xl px-5 py-4 text-left transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/40 ${
                     isActive ? "bg-surface" : "hover:bg-surface/60"
                   }`}
@@ -307,7 +291,7 @@ export default function SeoLocal() {
 
         <div
           ref={panelRef}
-          id="seo-services-panel"
+          id="social-services-panel"
           data-reveal="right"
           className="grid grid-cols-1 items-center gap-10 md:grid-cols-2"
         >

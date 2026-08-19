@@ -109,7 +109,7 @@ export default function SeoUniqueStats() {
             <p className="text-sm font-bold leading-snug text-ink">
               Conversion Rate Achieved With Optimized SEO Funnels
             </p>
-            <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-[#E38A19]/10 px-3 py-1 text-xs font-semibold text-[#C26F0B]">
+            <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-[#E38A19]/10 px-3 py-1 text-xs font-semibold text-[#995607]">
               <TrendingUp className="h-3.5 w-3.5" />
               Consistent growth
             </span>

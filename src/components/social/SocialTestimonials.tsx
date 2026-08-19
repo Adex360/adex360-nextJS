@@ -9,36 +9,36 @@ import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
 
 const testimonials = [
   {
-    service: "SEO Performance",
-    name: "Sara Kahlo",
-    role: "Client Relations Manager, Magna Resources",
+    title: "Expert Social Media Management & Account Handling",
+    name: "Flora B.",
+    role: "Entrepreneur",
     quote:
-      "Our experience with Adex360 was overwhelmingly positive. They improved website traffic, and gave us higher search engine rankings.",
-    gradient: "from-brand-600 to-brand-900",
-  },
-  {
-    service: "Web Development",
-    name: "Maroof H Sabriel",
-    role: "Director, MAROOF HS CPA PROF CORP",
-    quote:
-      "Adex360 takes care of the client so well. Not to mention the good quality of work.",
-    gradient: "from-brand-blue-light to-brand-blue",
-  },
-  {
-    service: "Website Performance",
-    name: "Faulkner W.",
-    role: "Developer",
-    quote:
-      "The results speak for themselves. From fixing our technical SEO to creating killer content, they've completely transformed how our business shows up online.",
+      "Globally, there's probably no agency better than Adex360 that offers social media management. I tried to handle my business account myself but failed every time. But they managed it well.",
     gradient: "from-brand-blue to-brand-600",
   },
   {
-    service: "SEO Performance",
-    name: "Jade P.",
-    role: "Business Owner",
+    title: "Social Media Growth & Full-Service Management",
+    name: "Carlos S.",
+    role: "E-commerce Business Owner",
     quote:
-      "I've worked with a few SEO companies before, but this one stands out. They were transparent about what they were doing and kept me updated every step of the way. The results? Amazing!",
+      "Not going to lie, but I wasn't expecting such awesome results in the first couple of months. They actually take care of everything your social media profile needs. I'm growing every day.",
     gradient: "from-[#F7B45C] to-[#E38A19]",
+  },
+  {
+    title: "Revenue Growth & High-Impact Social Media Strategies",
+    name: "Mike T.",
+    role: "Digital Creator",
+    quote:
+      "I don't know how they do it, but whatever it is, it's pure magic. My profile is booming! What's interesting is that I haven't lost a single penny since starting working with Adex360.",
+    gradient: "from-brand-600 to-brand-900",
+  },
+  {
+    title: "Strategic Planning, Execution & Professionalism",
+    name: "Jason G.",
+    role: "Brand Strategist",
+    quote:
+      "It was a good experience working with these guys. They're professional and skilled, I can definitely see that. They know their work, they plan, execute, and deliver real results.",
+    gradient: "from-brand-blue-light to-brand-blue",
   },
 ];
 
@@ -50,7 +50,7 @@ function initials(name: string) {
     .join("");
 }
 
-export default function SeoTestimonials() {
+export default function SocialTestimonials() {
   const swiperRef = useRef<SwiperType | null>(null);
 
   return (
@@ -62,7 +62,7 @@ export default function SeoTestimonials() {
               Testimonials
             </p>
             <h2 data-reveal="up" className="mt-3 text-2xl font-extrabold text-ink sm:text-3xl">
-              What Our Clients Say About Us
+              Take Their Word Over Us
             </h2>
             <div data-reveal="up" className="mt-3 flex items-center gap-2 text-sm text-muted">
               <span className="flex items-center gap-0.5 text-[#E38A19]">
@@ -70,7 +70,7 @@ export default function SeoTestimonials() {
                   <Star key={i} className="h-4 w-4 fill-current" />
                 ))}
               </span>
-              (4.9/5) &middot; Based on 1000+ reviews
+              (4.8/5) &middot; Based on 1000+ reviews
             </div>
           </div>
 
@@ -135,20 +135,20 @@ export default function SeoTestimonials() {
                 <div className="h-full rounded-3xl bg-gradient-to-br from-[#F7B45C] via-brand-blue-light/60 to-brand-blue p-[1.5px] shadow-lg shadow-brand-900/5 transition-transform duration-300 hover:-translate-y-1.5">
                   <article className="flex h-full flex-col rounded-[calc(1.5rem-1.5px)] bg-white p-7">
                     <div className="flex items-start justify-between gap-4">
-                      <span className="rounded-full bg-brand-blue/10 px-3 py-1 text-xs font-semibold text-brand-blue">
-                        {t.service}
-                      </span>
+                      <div className="flex items-center gap-0.5 text-[#E38A19]">
+                        <span className="sr-only">Rated 5 out of 5</span>
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <Star key={i} className="h-3.5 w-3.5 fill-current" />
+                        ))}
+                      </div>
                       <Quote className="h-7 w-7 shrink-0 text-[#E38A19]/30" />
                     </div>
 
-                    <div className="mt-4 flex items-center gap-0.5 text-[#E38A19]">
-                      <span className="sr-only">Rated 5 out of 5</span>
-                      {Array.from({ length: 5 }).map((_, i) => (
-                        <Star key={i} className="h-3.5 w-3.5 fill-current" />
-                      ))}
-                    </div>
+                    <h3 className="mt-4 text-sm font-bold leading-snug text-ink">
+                      {t.title}
+                    </h3>
 
-                    <p className="mt-4 flex-1 text-sm leading-relaxed text-muted">
+                    <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">
                       &ldquo;{t.quote}&rdquo;
                     </p>
 

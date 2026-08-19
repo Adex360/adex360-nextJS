@@ -3,16 +3,16 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Star, TrendingUp, UsersRound } from "lucide-react";
+import { Rocket, Star, TrendingUp } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const BARS = [38, 52, 44, 63, 58, 78, 92];
+const BARS = [34, 48, 42, 60, 55, 74, 95];
 const RADIUS = 64;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
-const DONUT_TARGET = CIRCUMFERENCE * 0.25; // 75% filled
+const DONUT_TARGET = CIRCUMFERENCE * 0.4; // 60% filled
 
-export default function StatsShowcase() {
+export default function SocialUniqueStats() {
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export default function StatsShowcase() {
 
       <div className="absolute -top-4 right-2 z-20 flex items-center gap-1.5 rounded-full bg-white px-4 py-2 shadow-lg shadow-brand-900/10">
         <Star className="h-4 w-4 fill-[#E38A19] text-[#E38A19]" />
-        <span className="text-xs font-bold text-ink">4.9/5 Rated</span>
+        <span className="text-xs font-bold text-ink">4.8/5 Rated</span>
       </div>
 
       <div className="relative z-10 rounded-3xl border border-black/5 bg-white p-6 shadow-2xl shadow-brand-900/10">
@@ -81,14 +81,14 @@ export default function StatsShowcase() {
                 cy="80"
                 r={RADIUS}
                 fill="none"
-                stroke="url(#statsDonutGrad)"
+                stroke="url(#socialDonutGrad)"
                 strokeWidth="16"
                 strokeLinecap="round"
                 strokeDasharray={CIRCUMFERENCE}
                 strokeDashoffset={DONUT_TARGET}
               />
               <defs>
-                <linearGradient id="statsDonutGrad" x1="0" y1="0" x2="1" y2="1">
+                <linearGradient id="socialDonutGrad" x1="0" y1="0" x2="1" y2="1">
                   <stop offset="0%" stopColor="#F7B45C" />
                   <stop offset="100%" stopColor="#E38A19" />
                 </linearGradient>
@@ -96,18 +96,18 @@ export default function StatsShowcase() {
             </svg>
             <div className="absolute inset-0 flex items-center justify-center">
               <span
-                data-counter="75"
+                data-counter="60"
                 data-counter-suffix="%"
                 className="text-3xl font-extrabold text-ink"
               >
-                75%
+                60%
               </span>
             </div>
           </div>
 
           <div>
             <p className="text-sm font-bold leading-snug text-ink">
-              Of Brands Experienced Highest Monthly Sales
+              Increase In Per Day Sales For Our Social Clients
             </p>
             <span className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-[#E38A19]/10 px-3 py-1 text-xs font-semibold text-[#995607]">
               <TrendingUp className="h-3.5 w-3.5" />
@@ -121,16 +121,12 @@ export default function StatsShowcase() {
         <div className="flex items-end justify-between gap-6">
           <div>
             <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-[#F7B45C]">
-              <UsersRound className="h-5 w-5" />
+              <Rocket className="h-5 w-5" />
             </span>
-            <p
-              data-counter="2000"
-              data-counter-suffix="+"
-              className="mt-3 text-3xl font-extrabold"
-            >
-              2000+
+            <p className="mt-3 text-xl font-extrabold uppercase leading-tight tracking-wide">
+              Record Sales
             </p>
-            <p className="text-sm text-white/60">Happy Clients</p>
+            <p className="text-sm text-white/60">In one season</p>
           </div>
 
           <div className="flex h-24 items-end gap-1.5" aria-hidden="true">

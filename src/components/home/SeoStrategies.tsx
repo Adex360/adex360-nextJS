@@ -260,7 +260,8 @@ export default function SeoStrategies() {
               <div key={t.label}>
               <button
                 onClick={() => setActive(i)}
-                aria-pressed={isActive}
+                aria-current={isActive ? "true" : undefined}
+                aria-controls="home-services-panel"
                 className={`relative flex w-full items-center gap-4 rounded-2xl px-5 py-4 text-left transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue/40 ${
                   isActive ? "bg-surface" : "hover:bg-surface/60"
                 }`}
@@ -304,6 +305,7 @@ export default function SeoStrategies() {
 
         <div
           ref={panelRef}
+          id="home-services-panel"
           data-reveal="right"
           className="grid grid-cols-1 items-center gap-10 md:grid-cols-2"
         >

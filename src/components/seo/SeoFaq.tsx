@@ -92,10 +92,12 @@ export default function SeoFaq() {
                   isOpen ? "border-brand-blue/30 shadow-lg shadow-brand-900/5" : "border-[#E4E8F3]"
                 }`}
               >
+                <h3>
                 <button
                   type="button"
                   onClick={() => setOpen(isOpen ? -1 : i)}
                   aria-expanded={isOpen}
+                  aria-controls={`seo-faq-panel-${i}`}
                   className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left sm:px-6"
                 >
                   <span className={`text-sm font-bold sm:text-base ${isOpen ? "text-brand-blue" : "text-ink"}`}>
@@ -109,7 +111,10 @@ export default function SeoFaq() {
                     <ChevronDown className="h-4 w-4" />
                   </span>
                 </button>
+                </h3>
                 <div
+                  id={`seo-faq-panel-${i}`}
+                  aria-hidden={!isOpen}
                   className={`grid transition-[grid-template-rows] duration-300 ease-out ${
                     isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
                   }`}

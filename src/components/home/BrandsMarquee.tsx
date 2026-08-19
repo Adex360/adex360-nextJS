@@ -55,6 +55,11 @@ export default function BrandsMarquee() {
         <div data-reveal="fade" data-reveal-delay="0.15" className="mt-8">
           <Swiper
             modules={[Autoplay]}
+            onSwiper={(swiper) => {
+              if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                swiper.autoplay?.stop();
+              }
+            }}
             loop
             speed={1500}
             slidesPerGroup={1}
