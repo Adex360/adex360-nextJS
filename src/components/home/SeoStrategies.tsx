@@ -117,22 +117,88 @@ const tabs: ServiceTab[] = [
 // Fixed shape for SSR/first paint; every tab click morphs to a fresh random one.
 const INITIAL_BLOB_SHAPE = "42% 58% 55% 45% / 50% 44% 56% 50%";
 
-// Complementary pairs (a / 100-a) keep the silhouette organic and balanced
-// no matter what the random roll produces.
-function randomBlobShape() {
-  const r = (min: number, max: number) =>
-    Math.round(min + Math.random() * (max - min));
-  const a = r(35, 65);
-  const b = r(35, 65);
-  const c = r(35, 65);
-  const d = r(35, 65);
-  return `${a}% ${100 - a}% ${b}% ${100 - b}% / ${c}% ${100 - c}% ${d}% ${100 - d}%`;
-}
+type PanelShape = {
+  radius: string;
+  rotate: number;
+  skewX: number;
+  scale: number;
+};
+
+const rand = (min: number, max: number) =>
+  Math.round(min + Math.random() * (max - min));
+
+// All radii use the full 8-value form (TL TR BR BL / TL TR BR BL) so GSAP can
+// interpolate smoothly between any two shapes.
+const full = (...v: number[]) =>
+  `${v[0]}% ${v[1]}% ${v[2]}% ${v[3]}% / ${v[4]}% ${v[5]}% ${v[6]}% ${v[7]}%`;
+
+// Every CSS-achievable silhouette gets a maker; each roll adds its own random
+// variation so even repeats of the same family never look identical.
+const SHAPE_MAKERS: (() => PanelShape)[] = [
+  // Organic blob — complementary pairs keep it balanced
+  () => {
+    const a = rand(35, 65);
+    const b = rand(35, 65);
+    const c = rand(35, 65);
+    const d = rand(35, 65);
+    return {
+      radius: full(a, 100 - a, b, 100 - b, c, 100 - c, d, 100 - d),
+      rotate: 0,
+      skewX: 0,
+      scale: 1,
+    };
+  },
+  // Arch / dome — rounded top, flat feet
+  () => ({
+    radius: full(50, 50, rand(6, 14), rand(6, 14), rand(55, 64), rand(55, 64), rand(6, 12), rand(6, 12)),
+    rotate: 0,
+    skewX: 0,
+    scale: 1,
+  }),
+  // Diamond — softly-rounded square rotated 45°
+  () => {
+    const c = rand(14, 24);
+    return { radius: full(c, c, c, c, c, c, c, c), rotate: 45, skewX: 0, scale: 0.82 };
+  },
+  // Parallelogram — skewed rounded square
+  () => {
+    const c = rand(10, 18);
+    const skew = rand(9, 15) * (Math.random() < 0.5 ? -1 : 1);
+    return { radius: full(c, c, c, c, c, c, c, c), rotate: 0, skewX: skew, scale: 0.92 };
+  },
+  // Egg — circle with a heavier bottom
+  () => {
+    const top = rand(55, 64);
+    return {
+      radius: full(50, 50, 50, 50, top, top, 100 - top, 100 - top),
+      rotate: rand(-8, 8),
+      skewX: 0,
+      scale: 1,
+    };
+  },
+  // Leaf — opposite corners pinched
+  () => {
+    const big = rand(55, 70);
+    const small = rand(4, 12);
+    return {
+      radius: full(big, small, big, small, big, small, big, small),
+      rotate: rand(-12, 12),
+      skewX: 0,
+      scale: 0.96,
+    };
+  },
+  // Squircle — evenly-rounded soft square
+  () => {
+    const c = rand(28, 38);
+    return { radius: full(c, c, c, c, c, c, c, c), rotate: rand(-8, 8), skewX: 0, scale: 0.95 };
+  },
+];
 
 export default function SeoStrategies() {
   const [active, setActive] = useState(0);
   const panelRef = useRef<HTMLDivElement>(null);
   const firstRender = useRef(true);
+  const lastShapeIdx = useRef(-1);
 
   const tab = tabs[active];
   const TabIcon = tab.icon;
@@ -146,9 +212,25 @@ export default function SeoStrategies() {
     if (!panelRef.current) return;
 
     const ctx = gsap.context(() => {
-      // The blob morphs into a fresh random organic shape on every click.
+      // Morph the panel into a random shape family (blob, arch, diamond,
+      // parallelogram, egg, leaf, squircle) — never the same one twice in a row.
+      let idx = Math.floor(Math.random() * SHAPE_MAKERS.length);
+      if (idx === lastShapeIdx.current) idx = (idx + 1) % SHAPE_MAKERS.length;
+      lastShapeIdx.current = idx;
+      const shape = SHAPE_MAKERS[idx]();
+
       gsap.to("[data-panel-blob]", {
-        borderRadius: randomBlobShape(),
+        borderRadius: shape.radius,
+        rotate: shape.rotate,
+        skewX: shape.skewX,
+        scale: shape.scale,
+        duration: 0.9,
+        ease: "elastic.out(1, 0.65)",
+      });
+      // Counter-transform so the icon stays upright inside rotated/skewed shapes.
+      gsap.to("[data-panel-icon-wrap]", {
+        rotate: -shape.rotate,
+        skewX: -shape.skewX,
         duration: 0.9,
         ease: "elastic.out(1, 0.65)",
       });
@@ -235,8 +317,10 @@ export default function SeoStrategies() {
                 borderRadius: INITIAL_BLOB_SHAPE,
               }}
             >
-              <span data-panel-icon="" className="flex">
-                <TabIcon className="h-28 w-28 text-ink/70" strokeWidth={1.25} />
+              <span data-panel-icon-wrap="" className="flex">
+                <span data-panel-icon="" className="flex">
+                  <TabIcon className="h-28 w-28 text-ink/70" strokeWidth={1.25} />
+                </span>
               </span>
             </div>
           </div>
