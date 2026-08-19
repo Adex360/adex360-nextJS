@@ -34,7 +34,7 @@ export default function DrivingGrowth() {
     const ctx = gsap.context(() => {
       // --- Entrance choreography (left column) ---
       const tl = gsap.timeline({
-        scrollTrigger: { trigger: root, start: "top 72%", once: true },
+        scrollTrigger: { trigger: root, start: "top 72%", toggleActions: "play none none reverse" },
         defaults: { ease: "power3.out", duration: 0.7 },
       });
 
@@ -73,7 +73,7 @@ export default function DrivingGrowth() {
 
       // --- Entrance (right column) ---
       gsap.timeline({
-        scrollTrigger: { trigger: "[data-gg-visual]", start: "top 75%", once: true },
+        scrollTrigger: { trigger: "[data-gg-visual]", start: "top 75%", toggleActions: "play none none reverse" },
         defaults: { ease: "power3.out" },
       })
         .fromTo(

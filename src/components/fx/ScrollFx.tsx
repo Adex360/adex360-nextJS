@@ -18,6 +18,11 @@ gsap.registerPlugin(ScrollTrigger);
  * - data-counter="2000" data-counter-suffix="+"
  *     Text counts up from 0 to the value on scroll; existing text is the SSR
  *     fallback and gets overwritten while animating.
+ * - data-parallax="8"
+ *     Scroll-scrubbed drift: the element travels from +N% to -N% of its own
+ *     height while it crosses the viewport. Uses yPercent so it composes with
+ *     reveal tweens (which animate y in px). Avoid on elements with CSS hover
+ *     transforms — the inline GSAP transform would override them.
  */
 function hiddenVars(el: HTMLElement): gsap.TweenVars {
   switch (el.dataset.reveal) {
@@ -45,7 +50,13 @@ function captureElement(el: HTMLElement) {
 }
 
 function releaseElement(el: HTMLElement) {
-  gsap.set(el, { clearProps: "opacity,transform,transition" });
+  // Keep the transform GSAP-managed when a parallax scrub also drives it —
+  // clearing it would snap the element until the next scroll tick.
+  if (el.dataset.parallax !== undefined) {
+    gsap.set(el, { clearProps: "opacity,transition" });
+  } else {
+    gsap.set(el, { clearProps: "opacity,transform,transition" });
+  }
 }
 
 export default function ScrollFx() {
@@ -80,8 +91,16 @@ export default function ScrollFx() {
         ScrollTrigger.create({
           trigger: group,
           start: "top 85%",
-          once: true,
           onEnter: () => tl.play(),
+          // Scrolling back above the group reverses the reveal so it replays
+          // on the next scroll down. Re-suspend CSS transitions first — GSAP
+          // owns the styles again while the reverse runs.
+          onLeaveBack: () => {
+            items.forEach((el) => {
+              el.style.transition = "none";
+            });
+            tl.reverse();
+          },
         });
       });
 
@@ -100,9 +119,32 @@ export default function ScrollFx() {
         ScrollTrigger.create({
           trigger: el,
           start: "top 88%",
-          once: true,
           onEnter: () => tween.play(),
+          onLeaveBack: () => {
+            el.style.transition = "none";
+            tween.reverse();
+          },
         });
+      });
+
+      gsap.utils.toArray<HTMLElement>("[data-parallax]").forEach((el) => {
+        const amount = parseFloat(el.dataset.parallax ?? "8");
+        gsap.fromTo(
+          el,
+          { yPercent: amount },
+          {
+            yPercent: -amount,
+            ease: "none",
+            scrollTrigger: {
+              // Trigger on the parent so the element's own movement doesn't
+              // shift the measured trigger bounds.
+              trigger: el.parentElement ?? el,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 0.6,
+            },
+          }
+        );
       });
 
       gsap.utils.toArray<HTMLElement>("[data-counter]").forEach((el) => {

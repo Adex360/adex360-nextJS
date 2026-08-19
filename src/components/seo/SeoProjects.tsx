@@ -20,7 +20,7 @@ export default function SeoProjects() {
           </h2>
         </div>
 
-        <div data-reveal-group="" data-stagger="0.12" className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3">
+        <div data-reveal-group="" data-stagger="0.12" data-parallax="4" className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3">
           {projects.map((project) => (
             <div
               key={project.name}

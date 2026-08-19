@@ -41,7 +41,7 @@ function FooterSection({ title, children }: { title: string; children: ReactNode
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="border-b border-white/10 pb-4 xs:border-none xs:pb-0">
+    <div data-reveal="up" className="border-b border-white/10 pb-4 xs:border-none xs:pb-0">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -104,8 +104,12 @@ function ContactBlock({
 export default function Footer() {
   return (
     <footer className="bg-brand-950 text-white/80">
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 py-14 xs:grid-cols-2 xs:gap-10 sm:px-6 md:grid-cols-4 md:py-16 lg:px-8">
-        <div className="xs:col-span-2 md:col-span-1">
+      <div
+        data-reveal-group=""
+        data-stagger="0.12"
+        className="mx-auto grid max-w-7xl grid-cols-1 gap-6 px-4 py-14 xs:grid-cols-2 xs:gap-10 sm:px-6 md:grid-cols-4 md:py-16 lg:px-8"
+      >
+        <div data-reveal="up" className="xs:col-span-2 md:col-span-1">
           <Link href="/" className="relative flex h-10 w-40 items-center">
             <Image
               src={logoWhite}

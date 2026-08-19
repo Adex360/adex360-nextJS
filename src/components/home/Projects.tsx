@@ -48,7 +48,7 @@ export default function Projects() {
           ))}
         </div>
 
-        <div data-reveal-group="" data-stagger="0.1" className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <div data-reveal-group="" data-stagger="0.1" data-parallax="4" className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
           {filtered.map((project) => (
             <div
               key={project.name}

@@ -58,7 +58,7 @@ export default function Team() {
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
-        scrollTrigger: { trigger: root, start: "top 72%", once: true },
+        paused: true,
         defaults: { ease: "power3.out" },
       });
 
@@ -90,6 +90,20 @@ export default function Team() {
           { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.8)" },
           "<+0.15"
         );
+      });
+
+      ScrollTrigger.create({
+        trigger: root,
+        start: "top 72%",
+        onEnter: () => tl.play(),
+        // Reverse the entrance when scrolling back above the section; CSS
+        // transitions go back to "none" so GSAP owns the cards while reversing.
+        onLeaveBack: () => {
+          gsap.utils.toArray<HTMLElement>("[data-team-card]", root).forEach((card) => {
+            card.style.transition = "none";
+          });
+          tl.reverse();
+        },
       });
     }, root);
 

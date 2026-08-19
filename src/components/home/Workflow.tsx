@@ -67,7 +67,7 @@ export default function Workflow() {
       });
 
       const tl = gsap.timeline({
-        scrollTrigger: { trigger: root, start: "top 70%", once: true },
+        scrollTrigger: { trigger: root, start: "top 70%", toggleActions: "play none none reverse" },
         defaults: { ease: "power3.out" },
       });
 

@@ -33,7 +33,7 @@ export default function StatsShowcase() {
             strokeDashoffset: DONUT_TARGET,
             duration: 1.8,
             ease: "power2.out",
-            scrollTrigger: { trigger: root, start: "top 80%", once: true },
+            scrollTrigger: { trigger: root, start: "top 80%", toggleActions: "play none none reverse" },
           }
         );
       }
@@ -46,7 +46,7 @@ export default function StatsShowcase() {
           duration: 0.7,
           ease: "back.out(1.4)",
           stagger: 0.08,
-          scrollTrigger: { trigger: root, start: "top 80%", once: true },
+          scrollTrigger: { trigger: root, start: "top 80%", toggleActions: "play none none reverse" },
         }
       );
     }, root);
@@ -56,7 +56,7 @@ export default function StatsShowcase() {
 
   return (
     <div ref={rootRef} data-reveal="left" className="relative mx-auto w-full max-w-md">
-      <div className="pointer-events-none absolute -inset-3 rounded-[3rem] bg-gradient-to-br from-[#E38A19]/15 via-transparent to-brand-blue/15 blur-2xl xs:-inset-6" />
+      <div data-parallax="14" className="pointer-events-none absolute -inset-3 rounded-[3rem] bg-gradient-to-br from-[#E38A19]/15 via-transparent to-brand-blue/15 blur-2xl xs:-inset-6" />
 
       <div className="absolute -top-4 right-2 z-20 flex items-center gap-1.5 rounded-full bg-white px-4 py-2 shadow-lg shadow-brand-900/10">
         <Star className="h-4 w-4 fill-[#E38A19] text-[#E38A19]" />

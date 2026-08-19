@@ -21,7 +21,7 @@ Rebuild the current Adex360 WordPress (Elementor-based) website in Next.js while
 
 - **Framework:** Next.js 14+ (App Router) with React and TypeScript.
 - **Styling:** Tailwind CSS, to efficiently match and maintain the existing design system.
-- **Animations:** Framer Motion, to replicate current Elementor animation effects where needed.
+- **Animations:** GSAP + ScrollTrigger (decision updated during Phase 3 — originally Framer Motion). GSAP powers the shared ScrollFx reveal engine, hero timelines, SVG path drawing, counters, and shape morphs; a second animation library is unnecessary.
 - **Forms:** React Hook Form paired with a Next.js API route for the contact form.
 - **Blog backend:** a custom admin panel and database, or a headless CMS (both options detailed in Section 5).
 - **Hosting:** Vercel, which offers native Next.js support, a fast global CDN, and automatic image optimization.

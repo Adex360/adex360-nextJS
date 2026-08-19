@@ -81,12 +81,13 @@ export default function SeoFaq() {
           </h2>
         </div>
 
-        <div data-reveal="up" className="mt-10 space-y-3 md:mt-12">
+        <div data-reveal-group="" data-stagger="0.06" className="mt-10 space-y-3 md:mt-12">
           {faqs.map((faq, i) => {
             const isOpen = open === i;
             return (
               <div
                 key={faq.q}
+                data-reveal="up"
                 className={`rounded-2xl border bg-white transition-colors duration-200 ${
                   isOpen ? "border-brand-blue/30 shadow-lg shadow-brand-900/5" : "border-[#E4E8F3]"
                 }`}

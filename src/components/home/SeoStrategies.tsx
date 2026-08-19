@@ -307,7 +307,7 @@ export default function SeoStrategies() {
           data-reveal="right"
           className="grid grid-cols-1 items-center gap-10 md:grid-cols-2"
         >
-          <div data-panel-illustration="" className="mx-auto w-full max-w-sm">
+          <div data-panel-illustration="" data-parallax="7" className="mx-auto w-full max-w-sm">
             <div
               data-panel-blob=""
               className="flex aspect-square items-center justify-center"

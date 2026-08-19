@@ -2,7 +2,7 @@
 
 This file tracks progress through the phases defined in [migration-plan.md](./migration-plan.md). It is updated after every work session/prompt.
 
-**Last updated:** August 19, 2026 (Home page polish: real assets, section redesigns, responsive footer)
+**Last updated:** August 19, 2026 (SEO Services page complete + premium section redesigns; site-wide GSAP pass: parallax + reversible scroll reveals)
 
 ## Status Legend
 - **Done** — phase fully complete
@@ -11,9 +11,9 @@ This file tracks progress through the phases defined in [migration-plan.md](./mi
 
 ## Current State (TL;DR)
 
-The Home page is functionally complete: real brand assets (logos, hero illustration, team photos, brand-logo carousel, favicon), all sections rebuilt from the WordPress originals with premium redesigns, a site-wide GSAP animation system, and a fully responsive Header/Footer. The repo is on GitHub (`Munib47/adex360-nextJS`, branch `main`) — connect it to Vercel for auto-deploy on push.
+**Three pages are complete and shipping static:** Home (`/`), Contact Us (`/contact-us`), and SEO Services (`/seo-services`). All use real brand assets, real WordPress content, and the site-wide GSAP animation system — which now includes scroll-scrubbed parallax (`data-parallax`) and reversible reveals (sections animate in scrolling down and reverse out scrolling up, replaying on re-entry). GSAP is the officially recorded animation library (migration plan updated; Framer Motion dropped). The repo is on GitHub (`Munib47/adex360-nextJS`, branch `main`) — connect it to Vercel for auto-deploy on push.
 
-**Next phase: Phase 3 continuation — build the inner static pages** (service pages, About Us, FAQ's, Case Studies, and especially Contact Us, which the Home page CTAs all link to). The remaining Phase 1 asset items (service-tab illustrations, project thumbnails, blog images) can be dropped in as they're exported.
+**In process / next: Phase 3 continuation — remaining inner pages** (5 service pages, About Us, FAQ's, and the Portfolio page — the SEO page's "View All Projects" banner already links to `/portfolio`; user will supply its content). Remaining Phase 1 asset items (service-tab illustrations, project thumbnails, blog images, Clutch embed code) can be dropped in as they're exported.
 
 ## Phases
 
@@ -34,7 +34,7 @@ Tailwind theme, shared components such as header, footer, buttons, cards.
 - [x] Tailwind theme (`src/app/globals.css`) — brand color tokens, Poppins font, hero gradient/grid, custom `xs` (480px) breakpoint. Accent orange in use across the site: `#E38A19`
 - [x] Header (`src/components/layout/Header.tsx`) — fixed; transparent-over-hero with white logo, solid white + dark logo after 32px scroll; mega-menu dropdowns (orange `#E38A19` hover), mobile accordion menu, Contact Us CTA
 - [x] Footer (`src/components/layout/Footer.tsx`) — real content (company description, 6 services, USA/Pakistan addresses/emails/phones, social links to real FB/IG/LinkedIn profiles). Responsive: 4 equal columns desktop, 2 columns tablet (480–768px), mobile (<480px) collapsible accordion rows with static logo/description
-- [x] GSAP animation system (`src/components/fx/`): `ScrollFx.tsx` (data-attribute reveal engine + count-up counters; suspends CSS transitions during tweens — hard-learned fix, see Engineering Notes), `ScrollProgress.tsx` (gradient top progress bar), `BackToTop.tsx`
+- [x] GSAP animation system (`src/components/fx/`): `ScrollFx.tsx` (data-attribute engine — staggered reveals, count-up counters, scroll-scrubbed `data-parallax` drift; reveals reverse on scroll-up and replay on re-entry; suspends CSS transitions during tweens — hard-learned fix, see Engineering Notes), `ScrollProgress.tsx` (gradient top progress bar), `BackToTop.tsx`. GSAP + ScrollTrigger is the recorded animation stack (migration plan §3 updated; no Framer Motion). Footer columns have a staggered reveal on every page
 - [x] Libraries installed: `gsap` 3.15, `swiper` 14, `lucide-react` 1.31
 - [ ] Extract shared UI primitives (buttons, section headers, cards) into `src/components/ui/` — still styled ad hoc per section
 
@@ -55,11 +55,23 @@ Home, service pages, About, FAQ, Case Studies, Contact.
   - **ClutchStrip** — placeholder "As Featured On" badges (pending real Clutch widget)
   - Site title set: "Adex360: E-Commerce Digital Marketing Agency"; favicon live via `src/app/icon.jpeg`
 - [ ] Growth Marketing pages (`/social-media-management`, `/performance-marketing`)
-- [x] **SEO Services page (`/seo-services`) — done (2026-08-19)** (`src/app/seo-services/page.tsx` + `src/components/seo/*`): hero ("Elevate rankings with Adex360 SEO", 75% donut + rank chips), Not-The-Only-SEO-Company section (70% count-up, conversion/traffic placeholder charts), 6-service list + Local SEO block ("Dominate Locally"), Brands carousel (reused), Drive-Traffic/Leads/Growth (Engine 6.81x, Chief Apparel 200X), free SEO score CTA band (form UI, API pending Phase 5), Typical-Agency-vs-Adex360 comparison (gradient-outlined Top Rated card), 3-step gradient-path process (Strategizing/Implementation/Refinement), 3 featured project cards + View All Projects banner, 2 SEO testimonials, 15-question FAQ accordion, Clutch strip. Own metadata. Mobile-first; scroll reveals via ScrollFx. Pending: real illustrations (blob+icon placeholders), project thumbnails, FAQPage JSON-LD (Phase 5).
+- [x] **SEO Services page (`/seo-services`) — done (2026-08-19)** (`src/app/seo-services/page.tsx` + `src/components/seo/*`), built from WP screenshots then refined section-by-section:
+  - **SeoHero** — "Elevate rankings with Adex360 SEO", GSAP entrance timeline (blob morph loop, 75% donut draw, floating Rank-#1/Organic-Growth chips, rocket badge)
+  - **SeoUnique** ("Not The Only SEO Company, Just The Best!") — 70% count-up + `SeoUniqueStats` (clone of the home stats showcase: 45% orange donut, dark NEW TRAFFIC bar-chart card, 4.9/5 badge)
+  - **SeoLocal** — interactive 6-tab section (Local/Technical/On-Page SEO, SEO Strategy, Keyword Analysis, SEO Audit) matching the home SeoStrategies design: per-tab WP content + CTAs, random shape-morph blob, blue active chevron. "Get Your Free Consultation" CTAs open the LeadConnector booking widget (new tab)
+  - **SeoGrowth** — premium animated dashboard (self-drawing gradient growth chart, 12.5% CVR pill, 200X/6.81x stat footer, bobbing Engine/Chief Apparel chips, rotating orbit)
+  - **SeoScoreCta** — dark gradient band with drifting aurora glows, masked dot grid, pulsing rocket badge, floating 92/100 score chip, split URL/email inputs + gold Check button, trust microcopy, animated success state (API pending Phase 5)
+  - **SeoAdvantage** — Typical Agency vs Adex360 comparison, gradient-outlined Top Rated card, list rows cascade in
+  - **SeoProcess** — 3-step gradient-path draw (Strategizing/Implementation/Refinement)
+  - **SeoProjects** — 3 featured cards + banner linking to **`/portfolio`** (page pending — user will provide details)
+  - **SeoTestimonials** — Swiper carousel identical to home (3/2/1 slides, gradient outlines, gutter arrows on mobile) with the 4 real WP quotes: Sara Kahlo, Maroof H Sabriel, Faulkner W., Jade P.
+  - **SeoFaq** — 15-question accordion with the exact WP answers (multi-line answers preserved), staggered item reveals
+  - Own metadata; mobile-first; Brands carousel + Clutch strip reused. Pending: real illustrations (blob+icon placeholders), project thumbnails, FAQPage JSON-LD (Phase 5)
 - [ ] Web & App Development pages (`/web-development`, `/shopify-app-development`)
 - [ ] Custom Solutions page (`/crm-integration`)
 - [ ] Company pages (`/about-us`, `/faqs`, `/case-studies`)
-- [x] Contact Us page (`/contact-us`) — form UI complete (`src/app/contact-us/page.tsx` + `src/components/contact/ContactForm.tsx`): React Hook Form with validation (Full Name*, Email*, Phone, 6 service checkboxes, Website/Social URL*, message), honeypot spam field, success state, contact info column (hotline/location/email), Clutch strip, scroll reveals, mobile-first. **API route + email delivery still pending (Phase 5)** — submissions currently show the thank-you state without sending.
+- [x] Contact Us page (`/contact-us`) — form UI complete (`src/app/contact-us/page.tsx` + `src/components/contact/ContactForm.tsx`): React Hook Form with validation (Full Name*, Email*, Phone, 6 service checkboxes, Website/Social URL*, message), honeypot spam field, contact info column (hotline/location/email), Clutch strip, mobile-first. GSAP: field groups stagger in on scroll, success card springs in on submit, form card parallax. **API route + email delivery still pending (Phase 5)** — submissions currently show the thank-you state without sending.
+- [ ] **Portfolio page (`/portfolio`) — pending user content.** The SEO page's "View All Projects" banner already points here; nav/footer still link to `/case-studies` until the user confirms the portfolio page replaces it.
 
 ### Phase 4 — Blog Backend & Admin
 Blog backend, admin dashboard, and blog frontend pages.
@@ -102,15 +114,17 @@ Launch and post-launch monitoring.
 - [ ] Monitor GSC and analytics for 2–4 weeks post-launch
 
 ## What's Next (recommended order)
-1. **Contact Us page** — form UI (Full Name, Email, Phone, service checkboxes, Website/Social URL, message) per the WP original; API route + email delivery can follow in Phase 5. Unblocks every CTA on the Home page.
-2. **Service pages** — the 6 pages already linked from the header mega-menu, footer, and SeoStrategies tabs. Reuse the Home page's design language (hero band, feature grids, results, CTA).
-3. **Company pages** — About Us, FAQ's, Case Studies.
-4. **Remaining assets** — service-tab illustrations, project thumbnails, blog covers; drop into `public/images/` and swap in.
+1. **Remaining service pages** — `/social-media-management`, `/performance-marketing`, `/web-development`, `/shopify-app-development`, `/crm-integration`. Reuse the SEO Services page as the template (hero, tabs/feature sections, process path, testimonials, FAQ).
+2. **Portfolio page (`/portfolio`)** — waiting on content/details from the user; then decide whether it replaces `/case-studies` in nav + footer.
+3. **Company pages** — About Us, FAQ's.
+4. **Remaining assets** — service-tab illustrations, project thumbnails, blog covers, Clutch embed code; drop into `public/images/` and swap in.
 5. **Phase 4 blog backend** — after static pages are done; needs the DB/CMS decision from Phase 1.
+6. **Phase 5 wiring** — contact form + SEO-score API routes with email delivery, per-page JSON-LD, sitemap/robots.
 
 ## Engineering Notes (read before touching animations)
 - **Never put CSS `transition-all` (or any transition covering `opacity`/`transform`) on an element GSAP animates** — the transition fights GSAP's per-frame writes and elements get stuck invisible. `ScrollFx.tsx` suspends transitions during tweens and restores them via `clearProps`; custom-animated sections (Workflow, Team, DrivingGrowth) follow the same suspend/clearProps pattern manually.
-- `ScrollFx` API: `data-reveal="up|left|right|scale|fade"`, `data-reveal-group` (+ `data-stagger`), `data-reveal-delay`, `data-counter` + `data-counter-suffix`. Sections with bespoke GSAP timelines (Hero, DrivingGrowth, Workflow, Team, SeoStrategies tab-switches, StatsShowcase charts) manage their own animation and mostly bypass `data-reveal`.
+- `ScrollFx` API: `data-reveal="up|left|right|scale|fade"`, `data-reveal-group` (+ `data-stagger`), `data-reveal-delay`, `data-counter` + `data-counter-suffix`, `data-parallax="N"` (scroll-scrubbed ±N% yPercent drift; avoid on elements with CSS hover transforms). Sections with bespoke GSAP timelines (Hero, DrivingGrowth, Workflow, Team, SeoStrategies tab-switches, StatsShowcase charts, SeoHero, SeoGrowth, SeoScoreCta) manage their own animation and mostly bypass `data-reveal`.
+- **Reveals are reversible:** ScrollFx reveals and the bespoke section timelines use play-on-enter / reverse-on-leave-back (`toggleActions: "play none none reverse"` or explicit `onLeaveBack`), so sections replay when scrolled back into view. CSS transitions are re-suspended before reversing. Counters intentionally stay one-shot; parallax is inherently bidirectional.
 - All animation respects `prefers-reduced-motion`; SSR markup always renders the finished state for SEO.
 - Custom breakpoints: `xs` = 480px (defined in `globals.css` `@theme`); Tailwind defaults otherwise (md 768px = tablet/desktop boundary per client).
 - Dev: `npm run dev` (hot reload). Prod check: `npm run build` + `npm run start` — never both on port 3000 at once.
@@ -124,3 +138,6 @@ Launch and post-launch monitoring.
 - **2026-08-18:** SeoStrategies rebuilt as interactive 6-tab services component with real WP copy/results and GSAP tab-switch animations. AboutStats rebuilt as `StatsShowcase` (animated donut + bar charts).
 - **2026-08-19:** DrivingGrowth rebuilt with real illustration, WP copy, animated 350% ring, floating chips, parallax. Workflow rebuilt with gradient curved-path draw animation, synced step pops, self-drawing icons, paper plane (dark variant built then reverted by request). Testimonials rebuilt as Swiper carousel with the 4 real WP testimonials. Team rebuilt with real photos, corrected names, LinkedIn hover overlays, 3D entrance.
 - **2026-08-19:** Footer: real content (description, services, USA/Pakistan contacts, social URLs) + responsive rework (4 equal cols desktop / 2 cols tablet / mobile accordion, custom 480px breakpoint). Favicon set from `adex360_favicon.jpeg` via `src/app/icon.jpeg`. Site title set to "Adex360: E-Commerce Digital Marketing Agency". Header/nav hover + footer hovers standardized on `#E38A19`.
+- **2026-08-19:** Contact Us page built (form UI + info column). SEO Services page built from WP screenshots (12 sections, own metadata, static prerender).
+- **2026-08-19:** SEO Services refinement pass: services block rebuilt as interactive 6-tab component (WP per-tab content, shape-morph blob, booking-widget CTAs); Unique stats rebuilt to match the home stats showcase (45% donut + NEW TRAFFIC dark card); Growth section rebuilt as animated dashboard (self-drawing gradient chart, floating client chips); Score CTA band redesigned (aurora glows, masked dot grid, score chip, split inputs); testimonials rebuilt as the home Swiper carousel with the 4 real WP quotes (names corrected: Faulkner W., Jade P.); FAQ answers replaced with exact WP content; projects banner slug changed to `/portfolio`. Carousel arrow borders fixed site-wide (`border-black/10` → visible `#B6BEDB`).
+- **2026-08-19:** Site-wide GSAP pass. Migration plan §3 updated: GSAP + ScrollTrigger is the official animation stack (Framer Motion dropped). Gaps filled: contact-form field stagger + success spring, FAQ item stagger, SeoHero entrance timeline, SeoAdvantage list cascades, footer column reveals. New `data-parallax` scrub attribute in ScrollFx, applied across all 3 pages (glows, illustrations, card grids, comparison cards at different depths). All scroll reveals + bespoke timelines made reversible: play on scroll-down, reverse on scroll-up, replay on re-entry (counters stay one-shot).

@@ -1,8 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CheckCircle2, Mail } from "lucide-react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const SERVICES = [
   "SEO",
@@ -33,6 +37,44 @@ export default function ContactForm() {
     formState: { errors, isSubmitting },
   } = useForm<FormValues>();
   const [submitted, setSubmitted] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+  const successRef = useRef<HTMLDivElement>(null);
+
+  // Stagger the field groups in as the form scrolls into view.
+  useEffect(() => {
+    const el = formRef.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        "[data-cf-field]",
+        { y: 22, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.55,
+          stagger: 0.08,
+          ease: "power3.out",
+          clearProps: "opacity,transform",
+          scrollTrigger: { trigger: el, start: "top 82%", toggleActions: "play none none reverse" },
+        }
+      );
+    }, el);
+
+    return () => ctx.revert();
+  }, []);
+
+  // Spring the confirmation card in after submit.
+  useEffect(() => {
+    if (!submitted || !successRef.current) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    gsap.fromTo(
+      successRef.current,
+      { scale: 0.9, opacity: 0, y: 16 },
+      { scale: 1, opacity: 1, y: 0, duration: 0.55, ease: "back.out(1.7)" }
+    );
+  }, [submitted]);
 
   const onSubmit = (values: FormValues) => {
     if (values.company) return; // honeypot tripped — silently drop
@@ -42,7 +84,10 @@ export default function ContactForm() {
 
   if (submitted) {
     return (
-      <div className="flex flex-col items-center gap-4 rounded-2xl border border-black/5 bg-white p-8 text-center shadow-xl shadow-brand-900/5 sm:p-12">
+      <div
+        ref={successRef}
+        className="flex flex-col items-center gap-4 rounded-2xl border border-black/5 bg-white p-8 text-center shadow-xl shadow-brand-900/5 sm:p-12"
+      >
         <span className="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
           <CheckCircle2 className="h-7 w-7" />
         </span>
@@ -57,12 +102,13 @@ export default function ContactForm() {
 
   return (
     <form
+      ref={formRef}
       onSubmit={handleSubmit(onSubmit)}
       noValidate
       className="rounded-2xl border border-black/5 bg-white p-5 shadow-xl shadow-brand-900/5 sm:p-8 lg:p-10"
     >
       <div className="space-y-5">
-        <div>
+        <div data-cf-field="">
           <label htmlFor="fullName" className="mb-1.5 block text-sm font-semibold text-ink">
             Full Name <span className="text-red-500">*</span>
           </label>
@@ -80,7 +126,7 @@ export default function ContactForm() {
           )}
         </div>
 
-        <div>
+        <div data-cf-field="">
           <label htmlFor="email" className="mb-1.5 block text-sm font-semibold text-ink">
             Email <span className="text-red-500">*</span>
           </label>
@@ -107,7 +153,7 @@ export default function ContactForm() {
           )}
         </div>
 
-        <div>
+        <div data-cf-field="">
           <label htmlFor="phone" className="mb-1.5 block text-sm font-semibold text-ink">
             Phone
           </label>
@@ -121,7 +167,7 @@ export default function ContactForm() {
           />
         </div>
 
-        <fieldset>
+        <fieldset data-cf-field="">
           <legend className="mb-2.5 text-sm font-semibold text-ink">
             Please select the service(s) you&apos;d like to book:
           </legend>
@@ -143,7 +189,7 @@ export default function ContactForm() {
           </div>
         </fieldset>
 
-        <div>
+        <div data-cf-field="">
           <label htmlFor="website" className="mb-1.5 block text-sm font-semibold text-ink">
             Website/Social URL <span className="text-red-500">*</span>
           </label>
@@ -162,7 +208,7 @@ export default function ContactForm() {
           )}
         </div>
 
-        <div>
+        <div data-cf-field="">
           <label htmlFor="message" className="mb-1.5 block text-sm font-semibold text-ink">
             Questions or Comments
           </label>
@@ -185,7 +231,7 @@ export default function ContactForm() {
           {...register("company")}
         />
 
-        <div className="flex justify-center pt-2">
+        <div data-cf-field="" className="flex justify-center pt-2">
           <button
             type="submit"
             disabled={isSubmitting}

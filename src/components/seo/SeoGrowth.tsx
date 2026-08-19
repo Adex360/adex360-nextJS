@@ -47,7 +47,7 @@ export default function SeoGrowth() {
 
       const tl = gsap.timeline({
         defaults: { ease: "power3.out" },
-        scrollTrigger: { trigger: root, start: "top 72%", once: true },
+        scrollTrigger: { trigger: root, start: "top 72%", toggleActions: "play none none reverse" },
       });
 
       if (line && lineLength) {
@@ -150,7 +150,7 @@ export default function SeoGrowth() {
           </div>
         </div>
 
-        <div data-reveal="right" className="relative mx-auto w-full max-w-md">
+        <div data-reveal="right" data-parallax="6" className="relative mx-auto w-full max-w-md">
           {/* Ambient glow */}
           <div className="pointer-events-none absolute -inset-4 rounded-[3rem] bg-gradient-to-br from-brand-blue/15 via-transparent to-[#E38A19]/15 blur-2xl xs:-inset-8" />
 
