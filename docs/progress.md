@@ -54,7 +54,8 @@ Home, service pages, About, FAQ, Case Studies, Contact.
   - **Blog** — 3 placeholder post cards (will become dynamic in Phase 4)
   - **ClutchStrip** — placeholder "As Featured On" badges (pending real Clutch widget)
   - Site title set: "Adex360: E-Commerce Digital Marketing Agency"; favicon live via `src/app/icon.jpeg`
-- [ ] Growth Marketing pages (`/seo-services`, `/social-media-management`, `/performance-marketing`)
+- [ ] Growth Marketing pages (`/social-media-management`, `/performance-marketing`)
+- [x] **SEO Services page (`/seo-services`) — done (2026-08-19)** (`src/app/seo-services/page.tsx` + `src/components/seo/*`): hero ("Elevate rankings with Adex360 SEO", 75% donut + rank chips), Not-The-Only-SEO-Company section (70% count-up, conversion/traffic placeholder charts), 6-service list + Local SEO block ("Dominate Locally"), Brands carousel (reused), Drive-Traffic/Leads/Growth (Engine 6.81x, Chief Apparel 200X), free SEO score CTA band (form UI, API pending Phase 5), Typical-Agency-vs-Adex360 comparison (gradient-outlined Top Rated card), 3-step gradient-path process (Strategizing/Implementation/Refinement), 3 featured project cards + View All Projects banner, 2 SEO testimonials, 15-question FAQ accordion, Clutch strip. Own metadata. Mobile-first; scroll reveals via ScrollFx. Pending: real illustrations (blob+icon placeholders), project thumbnails, FAQPage JSON-LD (Phase 5).
 - [ ] Web & App Development pages (`/web-development`, `/shopify-app-development`)
 - [ ] Custom Solutions page (`/crm-integration`)
 - [ ] Company pages (`/about-us`, `/faqs`, `/case-studies`)
