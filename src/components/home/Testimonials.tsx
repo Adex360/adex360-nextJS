@@ -78,14 +78,14 @@ export default function Testimonials() {
             <button
               onClick={() => swiperRef.current?.slidePrev()}
               aria-label="Previous testimonials"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white text-ink transition-colors duration-200 hover:border-transparent hover:bg-brand-blue hover:text-white"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#B6BEDB] bg-white text-ink transition-colors duration-200 hover:border-transparent hover:bg-brand-blue hover:text-white"
             >
               <ChevronLeft className="h-5 w-5" />
             </button>
             <button
               onClick={() => swiperRef.current?.slideNext()}
               aria-label="Next testimonials"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-black/10 bg-white text-ink transition-colors duration-200 hover:border-transparent hover:bg-brand-blue hover:text-white"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-[#B6BEDB] bg-white text-ink transition-colors duration-200 hover:border-transparent hover:bg-brand-blue hover:text-white"
             >
               <ChevronRight className="h-5 w-5" />
             </button>
@@ -100,14 +100,14 @@ export default function Testimonials() {
           <button
             onClick={() => swiperRef.current?.slidePrev()}
             aria-label="Previous testimonials"
-            className="absolute left-0 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white text-ink shadow-lg shadow-brand-900/10 sm:hidden"
+            className="absolute left-0 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#B6BEDB] bg-white text-ink shadow-lg shadow-brand-900/10 sm:hidden"
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
           <button
             onClick={() => swiperRef.current?.slideNext()}
             aria-label="Next testimonials"
-            className="absolute right-0 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white text-ink shadow-lg shadow-brand-900/10 sm:hidden"
+            className="absolute right-0 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[#B6BEDB] bg-white text-ink shadow-lg shadow-brand-900/10 sm:hidden"
           >
             <ChevronRight className="h-4 w-4" />
           </button>

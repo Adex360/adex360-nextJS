@@ -10,59 +10,59 @@ const faqs = [
   },
   {
     q: "How long does SEO take to show results?",
-    a: "SEO is a long-term investment. Most websites start seeing meaningful movement within 3–6 months, with compounding results over time depending on competition, site health, and content quality.",
+    a: "SEO is a long-term strategy, and results can take anywhere from 3 to 6 months depending on competition, industry, and website optimization. The more consistent your SEO efforts, the better and more sustainable the results.",
   },
   {
     q: "What are the key elements of SEO?",
-    a: "The core pillars are on-page SEO (content and keyword optimization), off-page SEO (backlinks and authority building), technical SEO (site speed, crawlability, structure), and user experience.",
+    a: "SEO consists of three main elements:\n\nOn-Page SEO: Optimizing content, keywords, and meta tags.\nOff-Page SEO: Link-building and social signals.\nTechnical SEO: Site speed, mobile optimization, and crawlability.",
   },
   {
     q: "What is the difference between On-Page and Off-Page SEO?",
-    a: "On-page SEO covers everything on your website — content, keywords, meta tags, and internal links. Off-page SEO covers signals from outside your site, primarily backlinks, brand mentions, and social proof.",
+    a: "On-Page SEO refers to optimizing content, keywords, meta descriptions, and site structure.\nOff-Page SEO includes strategies like backlinking, social media marketing, and influencer outreach to boost website authority.",
   },
   {
     q: "Why is keyword research important in SEO?",
-    a: "Keyword research reveals what your potential customers actually search for, so your content targets real demand. It aligns your pages with search intent and uncovers opportunities competitors miss.",
+    a: "Keyword research helps identify what users are searching for and allows businesses to target high-search-volume, low-competition keywords. This increases the chances of ranking higher and attracting relevant traffic.",
   },
   {
     q: "How does technical SEO impact rankings?",
-    a: "Search engines must crawl, render, and index your site efficiently. Technical SEO — site speed, mobile-friendliness, clean architecture, structured data — removes barriers that can suppress rankings no matter how good your content is.",
+    a: "Technical SEO ensures that search engines can crawl, index, and understand your site effectively. Factors like site speed, mobile-friendliness, structured data, and security (HTTPS) play a crucial role in ranking.",
   },
   {
     q: "How do backlinks improve SEO?",
-    a: "Backlinks from reputable sites act as votes of confidence. They build your domain authority, helping search engines trust your site and rank it higher for competitive keywords.",
+    a: "Backlinks from authoritative websites signal trust and credibility to search engines. The more quality backlinks your site earns, the higher it ranks in search results.",
   },
   {
     q: "Can SEO help local businesses?",
-    a: "Absolutely. Local SEO — Google Business Profile optimization, local citations, reviews, and location-based keywords — connects you with nearby customers exactly when they're searching for your services.",
+    a: "Yes! Local SEO optimizes your business for location-based searches, helping you appear in Google Maps, Google My Business, and local search results, ensuring more foot traffic and online inquiries.",
   },
   {
     q: "What is the role of content in SEO?",
-    a: "Content is how you answer searchers' questions. High-quality, well-structured content targeting the right keywords earns rankings, backlinks, and conversions — it's the fuel of every successful SEO strategy.",
+    a: "Content is the foundation of SEO. High-quality, engaging, and optimized content helps search engines understand your website while keeping users engaged, reducing bounce rates, and improving rankings.",
   },
   {
     q: "Do I need to update my website regularly for SEO?",
-    a: "Yes. Fresh, updated content signals relevance to search engines, keeps information accurate for users, and gives you ongoing opportunities to target new keywords and maintain rankings.",
+    a: "Yes, search engines favor fresh and updated content. Regularly publishing blogs, updating existing pages, and optimizing content helps maintain and improve rankings.",
   },
   {
     q: "What are Core Web Vitals, and why do they matter?",
-    a: "Core Web Vitals are Google's user-experience metrics — loading speed (LCP), interactivity (INP), and visual stability (CLS). They're a ranking factor, and poor scores can hold back otherwise strong pages.",
+    a: "Core Web Vitals are a set of metrics related to page speed, user interaction, and visual stability. Google considers them as ranking factors, so improving load time, responsiveness, and stability enhances SEO performance.",
   },
   {
     q: "Is SEO better than paid ads?",
-    a: "They serve different goals. Paid ads deliver instant but rented visibility; SEO builds a durable asset that keeps driving traffic without per-click costs. The strongest strategies combine both.",
+    a: "SEO offers long-term, sustainable growth, whereas paid ads provide immediate but temporary results. A balanced strategy combining both yields the best ROI.",
   },
   {
     q: "Can I do SEO myself, or do I need an expert?",
-    a: "Basic SEO is learnable, but competitive niches demand expertise, tooling, and constant algorithm awareness. An experienced team like Adex360 delivers results faster and avoids costly mistakes.",
+    a: "While basic SEO can be done by learning best practices, SEO experts use advanced strategies, tools, and insights to maximize results, fix technical issues, and implement data-driven optimization.",
   },
   {
     q: "How do I measure SEO success?",
-    a: "Track organic traffic, keyword rankings, conversions and leads from organic search, and revenue impact — not just positions. We report all of these so you always see the ROI of your investment.",
+    a: "SEO success is measured by organic traffic, search rankings, conversion rates, backlinks, domain authority, and engagement metrics. Tools like Google Analytics, Google Search Console, and Ahrefs help track performance.",
   },
   {
     q: "Why choose Adex360 for SEO services?",
-    a: "A dedicated in-house team, transparent reporting, strategies built from your business objectives, and a track record of results — 200X traffic growth for Chief Apparel and 6.81x sales for Engine. We deliver as committed.",
+    a: "Adex360 offers customized SEO solutions, expert keyword research, technical SEO audits, content optimization, and backlink strategies that increase rankings, drive traffic, and boost conversions.",
   },
 ];
 
@@ -114,7 +114,7 @@ export default function SeoFaq() {
                   }`}
                 >
                   <div className="overflow-hidden">
-                    <p className="px-5 pb-5 text-sm leading-relaxed text-muted sm:px-6">
+                    <p className="whitespace-pre-line px-5 pb-5 text-sm leading-relaxed text-muted sm:px-6">
                       {faq.a}
                     </p>
                   </div>

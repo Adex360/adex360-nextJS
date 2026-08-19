@@ -287,7 +287,7 @@ export default function SeoStrategies() {
                   </span>
                 </span>
                 {isActive && (
-                  <ChevronRight className="pointer-events-none absolute -right-9 hidden h-10 w-10 text-ink/10 lg:block" />
+                  <ChevronRight className="pointer-events-none absolute -right-9 hidden h-10 w-10 text-brand-blue lg:block" />
                 )}
               </button>
               {i < tabs.length - 1 && (

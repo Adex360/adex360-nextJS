@@ -55,7 +55,7 @@ export default function SeoProjects() {
             </p>
           </div>
           <Link
-            href="/case-studies"
+            href="/portfolio"
             className="inline-flex shrink-0 items-center gap-2 rounded-full bg-gradient-to-r from-brand-600 to-brand-blue px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-blue/30 hover:opacity-90"
           >
             View All Projects
