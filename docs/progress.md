@@ -58,7 +58,7 @@ Home, service pages, About, FAQ, Case Studies, Contact.
 - [ ] Web & App Development pages (`/web-development`, `/shopify-app-development`)
 - [ ] Custom Solutions page (`/crm-integration`)
 - [ ] Company pages (`/about-us`, `/faqs`, `/case-studies`)
-- [ ] Contact Us page (`/contact-us`) — **highest priority: every CTA on the Home page links here and it currently 404s**
+- [x] Contact Us page (`/contact-us`) — form UI complete (`src/app/contact-us/page.tsx` + `src/components/contact/ContactForm.tsx`): React Hook Form with validation (Full Name*, Email*, Phone, 6 service checkboxes, Website/Social URL*, message), honeypot spam field, success state, contact info column (hotline/location/email), Clutch strip, scroll reveals, mobile-first. **API route + email delivery still pending (Phase 5)** — submissions currently show the thank-you state without sending.
 
 ### Phase 4 — Blog Backend & Admin
 Blog backend, admin dashboard, and blog frontend pages.
