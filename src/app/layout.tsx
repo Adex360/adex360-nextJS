@@ -13,7 +13,7 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Adex360 - Best Digital Marketing Agency in Pakistan",
+  title: "Adex360: E-Commerce Digital Marketing Agency",
   description:
     "Adex360 is your growth marketing wingman, driving brands to their full potential with performance marketing, SEO, web development and more.",
 };
