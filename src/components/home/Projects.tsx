@@ -1,14 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
+import imgButterfly from "../../../public/images/projects/butterfly.png";
+import imgNishatUae from "../../../public/images/projects/nishat-uae.png";
+import imgLogoOfficial from "../../../public/images/projects/logo-official.png";
+import imgWeltewHome from "../../../public/images/projects/weltew-home.png";
 
 const categories = ["All", "FMCG", "D2C", "Apparel", "Footwear", "Home Decor"];
 
 const projects = [
-  { name: "Butterfly", category: "FMCG", service: "SEO Services", gradient: "from-brand-orange to-brand-600" },
-  { name: "Nishat UAE", category: "Apparel", service: "SEO Services", gradient: "from-brand-blue to-brand-900" },
-  { name: "Logo Official", category: "D2C", service: "Web Development", gradient: "from-brand-600 to-brand-orange" },
-  { name: "Wellew Home", category: "Home Decor", service: "Web Development", gradient: "from-brand-900 to-brand-blue" },
+  { name: "Butterfly", category: "FMCG", service: "SEO Services", image: imgButterfly },
+  { name: "Nishat UAE", category: "Apparel", service: "SEO Services", image: imgNishatUae },
+  { name: "Logo Official", category: "D2C", service: "Web Development", image: imgLogoOfficial },
+  { name: "Weltew Home", category: "Home Decor", service: "Web Development", image: imgWeltewHome },
 ];
 
 export default function Projects() {
@@ -55,10 +60,14 @@ export default function Projects() {
               data-reveal="up"
               className="group overflow-hidden rounded-3xl border border-black/5 bg-white shadow-lg shadow-brand-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
             >
-              <div
-                className={`flex aspect-video items-center justify-center bg-gradient-to-br ${project.gradient} text-2xl font-extrabold text-white transition-transform duration-500 group-hover:scale-105`}
-              >
-                {project.name}
+              <div className="relative aspect-video overflow-hidden">
+                <Image
+                  src={project.image}
+                  alt={`${project.name} — ${project.service} project screenshot`}
+                  fill
+                  sizes="(min-width: 640px) 50vw, 100vw"
+                  className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                />
               </div>
               <div className="flex items-center justify-between px-6 py-5">
                 <div>

@@ -54,3 +54,18 @@ memory entry for the standing instruction to keep updating this file going forwa
 Stacked the UK/PK hotline cards + email card into a single vertical column (was a 2-up grid on
 `sm:` and up). Left-aligned the "Our Offices" divider heading on desktop by hiding its leading
 line at `sm:` and up, while keeping the centered flanked-line look on mobile.
+
+### 2026-08-20 — "Wellew Home" typo fixed + projects asset folder created
+Corrected the Home page's project card name from "Wellew Home" to "Weltew Home"
+(`src/components/home/Projects.tsx`). Created `public/images/projects/` for the user to drop
+real project thumbnails into — Home/SEO/Social/Performance project grids all still use solid
+gradient-with-name-text placeholders pending real screenshots.
+
+### 2026-08-20 — Real project screenshots wired into the Home page project cards
+User dropped 4 screenshots into `public/images/projects/` (renamed to kebab-case for URL
+safety: `butterfly.png`, `nishat-uae.png`, `logo-official.png`, `weltew-home.png`, all
+1920x911). `src/components/home/Projects.tsx` now renders them via `next/image` (`fill`,
+`object-cover object-top`) instead of the solid-gradient-with-name-text placeholder; the
+gradient/text overlay was removed as requested, the info footer (name/service/category pill)
+below each image stays. **Only the Home page grid was updated** — SEO/Social/Performance project
+grids still use the placeholder pattern pending their own screenshots.
