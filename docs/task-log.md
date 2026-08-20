@@ -86,3 +86,29 @@ established sitewide pattern); "Our Web Success Stories" banner → `/portfolio`
 tsc/eslint/`next build` (new static route alongside the other 4) + a rendered-HTML content
 smoke test covering all 6 tab labels, every section heading, and both the first and last FAQ
 question.
+
+### 2026-08-20 — Shopify App Development page built (`/shopify-app-development`)
+Built the 5th service page from full-page screenshots (mobile+desktop), 6 zoomed tab-panel
+screenshots, testimonial swiper HTML (6 unique quotes after dedup), and FAQ accordion HTML (15
+Q&As). New `src/components/shopify/*` (10 components: Hero, Unique + UniqueStats, Tabs, Growth,
+Advantage, Process, Projects, Testimonials, Faq) + `src/app/shopify-app-development/page.tsx`.
+Notable: the user gave explicit slugs for the "Apps We Developed" project cards — Universal
+Product Feed → `/universal-product-feed`, PushBot → `/pushbot`, Mailbot → `/mailbot` — so those
+3 cards are real `Link`s to those routes even though the pages don't exist yet; visiting them
+now resolves to the site's branded under-construction page automatically until they're built.
+Testimonial source HTML had no separate "role" field this time (just a company/person name), so
+the card layout was simplified — name as the heading, no avatar/role footer, unlike the other
+4 testimonial components. Growth section ("Why Our Shopify Apps Stand Out") reused the
+WebDevGrowth icon-composition pattern but in blue/violet instead of teal, matching this page's
+source color scheme. All tab/section CTAs default to `/contact-us` (no explicit targets given).
+Verified via tsc/eslint/`next build` (6th static route) + a rendered-HTML smoke test covering
+all 6 tab labels, all 3 app names + their slugs, and first/last FAQ questions.
+
+### 2026-08-20 — Real app icons wired into the Shopify Projects cards
+User dropped 3 icon images into `public/images/apps/` (renamed from Canva export names to
+`universal-product-feed.png`, `pushbot.png`, `mailbot.png`, all 800x600). `ShopifyProjects.tsx`
+now renders them via `next/image` instead of the lucide-icon/letter placeholders. Universal
+Product Feed and PushBot are icon-on-white-background exports, so they render `object-contain`
+with padding inside their existing colored gradient tile; Mailbot's export already has its own
+full-bleed purple background baked in, so it renders `object-cover` with no extra tile behind
+it (avoiding a double-background look).
