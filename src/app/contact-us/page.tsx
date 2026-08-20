@@ -81,7 +81,7 @@ export default function ContactUsPage() {
             </div>
           </div>
 
-          <div data-reveal="up" data-reveal-delay="0.15" data-parallax="4">
+          <div data-parallax="4">
             <ContactForm />
           </div>
         </div>
