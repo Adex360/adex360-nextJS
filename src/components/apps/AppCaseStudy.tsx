@@ -12,9 +12,10 @@ import {
   Rss,
   Bot,
   Mail,
+  Bell,
 } from "lucide-react";
 
-const APP_ICONS = { Rss, Bot, Mail } as const;
+const APP_ICONS = { Rss, Bot, Mail, Bell } as const;
 
 export type AppIconKey = keyof typeof APP_ICONS;
 

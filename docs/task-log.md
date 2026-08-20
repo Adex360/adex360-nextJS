@@ -153,3 +153,14 @@ the icon as a string key (`"Rss"`) and resolving it to a component inside the cl
 a local icon map. Verified via tsc/eslint/`next build` (new static route, 9th total) + a rendered-
 HTML content smoke test (title, first challenge heading, Final Thoughts, CTA label all confirmed
 present). `/pushbot` and `/mailbot` still block on the user's content for those two apps.
+
+### 2026-08-20 — Pushbot page built (`/pushbot`)
+Built the 2nd of the 3 individual Shopify app pages from a full-page screenshot + the raw WP
+article HTML — same Overview/Goals/Features/Challenges/Results/Final Thoughts shape as Universal
+Product Feed. Reused the `AppCaseStudy` template as-is with a new content file
+(`pushbot.content.ts`); the only template change needed was adding a `Bell` icon to
+`AppCaseStudy.tsx`'s icon-key map (Universal Product Feed used `Rss`, Pushbot uses `Bell` for its
+notification theme, hero gradient shifted to violet/blue to visually differentiate the two app
+pages). Verified via tsc/eslint/`next build` (new static route, 10th total) + a rendered-HTML
+content smoke test (title, first challenge heading, Final Thoughts, CTA label all confirmed
+present). `/mailbot` is the only individual Shopify app page still pending user content.
