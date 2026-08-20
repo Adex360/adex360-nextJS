@@ -217,3 +217,13 @@ nothing needed to be excluded. Verified via tsc/eslint/`next build` (new static 
 total) + a rendered-HTML content smoke test (all 10 questions, the CTA, and all 4 internal
 FAQ-answer links confirmed present). **Portfolio (`/portfolio`) is now the only page left to
 close out Phase 3**, blocked on the user's content.
+
+### 2026-08-20 — "Case Studies" nav links repointed to Portfolio
+User confirmed (via a screenshot of the header's "Company" dropdown, showing "Case Studies")
+that `/portfolio` is meant to fully replace the never-built Case Studies page — not exist
+alongside it. Updated the 2 hardcoded references: the "Company" dropdown item in `src/lib/nav.ts`
+and the footer's "Case Studies" link in `Footer.tsx`, both now pointing to `/portfolio` instead
+of `/case-studies`. Confirmed no `/case-studies` string remains anywhere in `src/`. Every "View
+All Projects" banner across the service pages already pointed to `/portfolio`, so the site is now
+fully consistent — all Case-Studies-labeled links resolve to the same future Portfolio page,
+currently showing the under-construction fallback until it's built.

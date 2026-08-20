@@ -197,7 +197,7 @@ export default function Footer() {
             <Link href="/about-us" className="hover:text-white">
               About Us
             </Link>
-            <Link href="/case-studies" className="hover:text-white">
+            <Link href="/portfolio" className="hover:text-white">
               Case Studies
             </Link>
             <Link href="/faqs" className="hover:text-white">
