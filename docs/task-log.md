@@ -197,3 +197,23 @@ re-derived), `AboutProjects` (3 icon-illustration project cards + "Adex Proud Pr
 → `/portfolio`). Verified via tsc/eslint/`next build` (new static route, 13th total) + a
 rendered-HTML content smoke test covering every section heading and the team member name — and
 confirmed the string "Clutch" does not appear anywhere in the rendered page.
+
+### 2026-08-20 — FAQ's page built (`/faqs`)
+Built from full-page screenshots (mobile+desktop) + the raw WP page HTML — the second and last
+company page. The source HTML contained two separate accordion widgets: a legacy one marked
+`elementor-hidden-desktop/tablet/mobile` (hidden at every breakpoint, holding leftover
+Lorem-ipsum/theme-demo Q&As like "How much does data analytics costs?") and the real visible
+`n-accordion` widget with 10 genuine Adex360 Q&As matching the screenshots. Correctly identified
+the hidden one as dead markup and built only from the real 10 questions — building from the
+wrong accordion would have shipped nonsense placeholder content. `FaqHero` (simple centered
+"FAQ's" heading, kept close to the source's minimal design), `FaqAccordion` (single-open
+accordion, same interaction pattern as the service pages' FAQs; several answers link to real
+internal routes the WP source referenced — `/seo-services`, `/performance-marketing`,
+`/social-media-management`, `/web-development` — wired as real `next/link`s), `FaqHelp`
+("Still need help?" gradient CTA band → `/contact-us`; the source's filler paragraph was
+WP theme-demo boilerplate text, not real brand copy, so it was rewritten with a genuine sentence
+instead of carried over verbatim). No Clutch content was present in this page's source, so
+nothing needed to be excluded. Verified via tsc/eslint/`next build` (new static route, 14th
+total) + a rendered-HTML content smoke test (all 10 questions, the CTA, and all 4 internal
+FAQ-answer links confirmed present). **Portfolio (`/portfolio`) is now the only page left to
+close out Phase 3**, blocked on the user's content.
