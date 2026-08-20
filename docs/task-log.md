@@ -69,3 +69,20 @@ safety: `butterfly.png`, `nishat-uae.png`, `logo-official.png`, `weltew-home.png
 gradient/text overlay was removed as requested, the info footer (name/service/category pill)
 below each image stays. **Only the Home page grid was updated** — SEO/Social/Performance project
 grids still use the placeholder pattern pending their own screenshots.
+
+### 2026-08-20 — Web Development page built (`/web-development`)
+Built the 4th service page from full-page screenshots (mobile+desktop), 6 zoomed tab-panel
+screenshots, testimonial swiper HTML (4 unique quotes after dedup), and FAQ accordion HTML (13
+Q&As) — same recipe as SEO/Social/Performance. New `src/components/webdev/*` (10 components:
+Hero, Unique + UniqueStats, Tabs, Growth, Advantage, Process, Projects, Testimonials, Faq) +
+`src/app/web-development/page.tsx`. Notable calls: kept the site's established dark-gradient
+hero-blob-cycling design (not the WP source's literal light hero) for cross-page consistency,
+per the same "design freedom, stay consistent with what's already shipped" precedent as the
+Performance page; "Why Our Code Wins" section (`WebDevGrowth.tsx`) uses an icon composition
+instead of a raster illustration since no image asset was provided, in a teal accent (matching
+the source screenshot's color) rather than the usual brand orange/blue; all service-tab and
+section CTAs point to `/contact-us` (no explicit CTA targets were given, so defaulted to the
+established sitewide pattern); "Our Web Success Stories" banner → `/portfolio`. Verified via
+tsc/eslint/`next build` (new static route alongside the other 4) + a rendered-HTML content
+smoke test covering all 6 tab labels, every section heading, and both the first and last FAQ
+question.
