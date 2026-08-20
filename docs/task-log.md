@@ -133,3 +133,23 @@ tsc/eslint/`next build` (7th static route) + a rendered-HTML smoke test covering
 labels, every section heading (including both halves of the gradient-split "Smarter CRM
 Solutions" heading, which straddles a nested `<span>` and had to be checked as two separate
 substrings), and first/last FAQ questions.
+
+### 2026-08-20 — Universal Product Feed page built (`/universal-product-feed`)
+Built the 1st of the 3 individual Shopify app pages from a full-page screenshot + the raw WP
+article HTML (Elementor text-editor widget: Overview, Development Goals & Objectives, Key
+Features & Technologies Used, Challenges & Solutions with 3 problem/solution pairs, Results &
+Impact, Final Thoughts). Unlike every service page built so far, the source has no hero stat
+chip, tabs, testimonials, or FAQ — it's a plain content article, not a designed marketing page —
+so instead of the usual 8-10-component-per-page pattern, built one reusable template:
+`src/components/apps/AppCaseStudy.tsx` (dark gradient hero with an app icon + eyebrow + CTA,
+bulleted Goals/Features/Results sections with check-icon list items and bold lead-in labels,
+a "Challenges & Solutions" card list, closing dark CTA band), driven by a typed
+`AppCaseStudyContent` object. Content lives in its own `universalProductFeed.content.ts` file so
+`/pushbot` and `/mailbot` can reuse the same template with their own content files. Hit and fixed
+a real Next.js constraint: the content file originally imported the lucide icon component
+directly and passed it as a prop from the (Server Component) page into the ("use client")
+template — Next.js rejects passing functions/components across that boundary. Fixed by passing
+the icon as a string key (`"Rss"`) and resolving it to a component inside the client template via
+a local icon map. Verified via tsc/eslint/`next build` (new static route, 9th total) + a rendered-
+HTML content smoke test (title, first challenge heading, Final Thoughts, CTA label all confirmed
+present). `/pushbot` and `/mailbot` still block on the user's content for those two apps.
