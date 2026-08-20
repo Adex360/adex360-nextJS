@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { Rocket, Search, TrendingUp } from "lucide-react";
+import { pickShape } from "@/lib/blobShapes";
 
 const DONUT_R = 24;
 const DONUT_CIRC = 2 * Math.PI * DONUT_R;
@@ -51,14 +52,30 @@ export default function SeoHero() {
       );
 
       // Ambient loops
-      gsap.to("[data-sh-blob]", {
-        borderRadius: "52% 48% 44% 56% / 46% 54% 46% 54%",
-        duration: 6,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        delay: 1.2,
-      });
+      // Cycle the blob through a fresh random CSS shape family (blob, arch,
+      // diamond, parallelogram, egg, leaf, squircle) every 3 seconds. The
+      // icon wrap counter-transforms so the icon stays upright.
+      let lastShapeIdx = -1;
+      const morph = () => {
+        const picked = pickShape(lastShapeIdx);
+        lastShapeIdx = picked.idx;
+        gsap.to("[data-sh-blob]", {
+          borderRadius: picked.shape.radius,
+          rotate: picked.shape.rotate,
+          skewX: picked.shape.skewX,
+          scale: picked.shape.scale,
+          duration: 1.1,
+          ease: "elastic.out(1, 0.7)",
+        });
+        gsap.to("[data-sh-icon-wrap]", {
+          rotate: -picked.shape.rotate,
+          skewX: -picked.shape.skewX,
+          duration: 1.1,
+          ease: "elastic.out(1, 0.7)",
+        });
+        gsap.delayedCall(3, morph);
+      };
+      gsap.delayedCall(3, morph);
       gsap.to("[data-sh-icon]", {
         y: -10,
         duration: 2.8,
@@ -173,8 +190,10 @@ export default function SeoHero() {
               borderRadius: "44% 56% 52% 48% / 52% 46% 54% 48%",
             }}
           >
-            <span data-sh-icon="" className="flex">
-              <Search className="h-28 w-28 text-ink/70" strokeWidth={1.2} />
+            <span data-sh-icon-wrap="" className="flex">
+              <span data-sh-icon="" className="flex">
+                <Search className="h-28 w-28 text-ink/70" strokeWidth={1.2} />
+              </span>
             </span>
           </div>
 
