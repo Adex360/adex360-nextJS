@@ -39,6 +39,8 @@ All pages below will be rebuilt as fully static pages using Static Site Generati
 - Contact: `/contact-us`
 - Blog / Marketing Insights: `/resources` (listing page) and `/resources/[slug]` (individual posts) — these two are the only dynamic, database-driven pages.
 
+**Added during Phase 3 (not in the original WP sitemap above):** three individual Shopify app landing pages, linked from `/shopify-app-development`'s "Apps We Developed" project cards per the client's explicit slugs — `/universal-product-feed`, `/pushbot`, `/mailbot`. These are net-new pages (no equivalent existed on the old WordPress site), not part of the original 1:1 URL migration; content/screenshots for each are still pending from the client. See `docs/progress.md` for live status.
+
 Wherever a slug must change for technical reasons, a 301 redirect will be put in place (see Section 8) so no SEO value is lost.
 
 ## 5. Blog Backend Plan (the only dynamic part)
