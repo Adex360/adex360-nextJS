@@ -176,3 +176,24 @@ route, 12th total) + a rendered-HTML content smoke test (title, first challenge 
 Thoughts, CTA label all confirmed present). **All 3 individual Shopify app pages are now built**
 — the "Apps We Developed" cards on `/shopify-app-development` all link to real, finished pages
 instead of the under-construction fallback.
+
+### 2026-08-20 — About Us page built (`/about-us`)
+Built from full-page screenshots (mobile+desktop) + the raw WP Elementor HTML, with an explicit
+instruction to leave out the Clutch review-widget row at the bottom of the source page (consistent
+with the sitewide Clutch cleanup done earlier this phase). Recognized that two sections were
+byte-for-byte identical in content to existing Home page components and reused them directly
+instead of rebuilding: `Team` (same 4 real team members — Zain Hameed, Umer Shoukat, Ali Lakhani,
+Sheharyar Ahmed — same photos, same LinkedIn links) and `BrandsMarquee` (same "Brands Impacted /
+2000+ Satisfied Worldwide Clients" copy; the 4 logos this page's own carousel highlighted — Kiko,
+Rang-Ja, Bata, Generation — are already part of the existing 16-logo `public/brands/` set used by
+the shared component, so no new logo assets were needed). Built 5 new components for the
+page-specific sections: `AboutHero` (dark "Adex Story" card + 2000+/150+ count-up chips —
+the source's real office photo had no uploaded asset, so an icon composition was used instead,
+same fallback approach as WebDevGrowth/ShopifyGrowth when no raster illustration is provided),
+`AboutWhatWeDo` (75% count-up stat, "Grow With Us" CTA → `/contact-us`), `AboutPerfectFit`
+(Growth Rate/Active Clients list + 90% circular progress chip), `AboutTestimonials` (same 4 WP
+quotes as Web Development/CRM — identical source markup, so content was copied rather than
+re-derived), `AboutProjects` (3 icon-illustration project cards + "Adex Proud Projects!" banner
+→ `/portfolio`). Verified via tsc/eslint/`next build` (new static route, 13th total) + a
+rendered-HTML content smoke test covering every section heading and the team member name — and
+confirmed the string "Clutch" does not appear anywhere in the rendered page.
