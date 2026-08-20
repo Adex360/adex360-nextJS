@@ -164,3 +164,15 @@ notification theme, hero gradient shifted to violet/blue to visually differentia
 pages). Verified via tsc/eslint/`next build` (new static route, 10th total) + a rendered-HTML
 content smoke test (title, first challenge heading, Final Thoughts, CTA label all confirmed
 present). `/mailbot` is the only individual Shopify app page still pending user content.
+
+### 2026-08-20 — Mailbot page built (`/mailbot`)
+Built the 3rd and last of the individual Shopify app pages from a full-page screenshot + the raw
+WP article HTML — same Overview/Goals/Features/Challenges/Results/Final Thoughts shape as
+Universal Product Feed and Pushbot. Reused the `AppCaseStudy` template as-is with a new content
+file (`mailbot.content.ts`); no template changes needed this time since the existing `Mail` icon
+key already fit — gave it a pink-to-violet gradient to visually distinguish it from Pushbot's
+violet-blue and Universal Product Feed's blue. Verified via tsc/eslint/`next build` (new static
+route, 12th total) + a rendered-HTML content smoke test (title, first challenge heading, Final
+Thoughts, CTA label all confirmed present). **All 3 individual Shopify app pages are now built**
+— the "Apps We Developed" cards on `/shopify-app-development` all link to real, finished pages
+instead of the under-construction fallback.
