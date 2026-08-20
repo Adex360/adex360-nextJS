@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Mail, MapPin, Phone } from "lucide-react";
 import ScrollFx from "@/components/fx/ScrollFx";
-import ClutchStrip from "@/components/home/ClutchStrip";
 import ContactForm from "@/components/contact/ContactForm";
 
 export const metadata: Metadata = {
@@ -86,8 +85,6 @@ export default function ContactUsPage() {
           </div>
         </div>
       </section>
-
-      <ClutchStrip />
     </>
   );
 }

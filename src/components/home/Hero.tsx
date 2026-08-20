@@ -3,12 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-import { Star } from "lucide-react";
 import gsap from "gsap";
 import heroIllustration from "../../../public/images/hero-section.png";
-
-const CLUTCH_URL =
-  "https://clutch.co/profile/adex360?utm_source=widget&utm_medium=2&utm_campaign=widget&utm_content=logo";
 
 const PARTICLES = Array.from({ length: 26 }, (_, i) => ({
   left: `${(i * 37) % 100}%`,
@@ -28,7 +24,6 @@ export default function Hero() {
 
       tl.from(".hero-orb", { scale: 0, opacity: 0, duration: 1, stagger: 0.15 })
         .from(".hero-particle", { opacity: 0, duration: 0.6, stagger: 0.02 }, "-=0.6")
-        .from(".hero-badge", { y: -24, opacity: 0, duration: 0.6 }, "-=0.4")
         .from(".hero-eyebrow", { y: 16, opacity: 0, duration: 0.5 }, "-=0.25")
         .from(
           ".hero-heading-line",
@@ -162,47 +157,7 @@ export default function Hero() {
 
       <div className="relative mx-auto grid max-w-7xl grid-cols-1 items-center gap-10 px-4 pt-32 pb-16 sm:px-6 sm:pt-40 sm:pb-20 lg:grid-cols-2 lg:gap-12 lg:pt-44 lg:pb-28 lg:px-8">
         <div>
-          <a
-            href={CLUTCH_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hero-badge inline-flex w-60 flex-col gap-2.5 rounded-2xl bg-white px-5 py-4 shadow-xl"
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-[11px] font-bold uppercase tracking-wide text-muted">
-                Reviewed On
-              </span>
-              <span className="flex items-center gap-0.5 text-brand-orange">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-current" />
-                ))}
-              </span>
-            </div>
-            <div className="flex items-center justify-between">
-              <span className="flex items-center gap-1.5">
-                <svg viewBox="0 0 32 32" className="h-5 w-5">
-                  <path fill="#17313b" d="M14.5 3h4v11h-4z" />
-                  <path fill="#ef4335" d="M3 14.5h11v4H3z" />
-                  <path
-                    fill="#ef4335"
-                    d="M23 14a5 5 0 1 1-4.9 6h4a1.5 1.5 0 1 0 0-2h-4.4A5 5 0 0 1 23 14"
-                  />
-                  <path
-                    fill="#17313b"
-                    d="M9 20.5A5.5 5.5 0 1 1 9 11a5.47 5.47 0 0 1 4.33 2.12l-2.9 2.2A2 2 0 1 0 9 18.5a2 2 0 0 0 1.43-.6l2.9 2.2A5.47 5.47 0 0 1 9 20.5"
-                  />
-                </svg>
-                <span className="text-xl font-extrabold leading-none tracking-tight text-ink">
-                  Clutch
-                </span>
-              </span>
-              <span className="text-[11px] font-bold uppercase tracking-wide text-muted">
-                12 Reviews
-              </span>
-            </div>
-          </a>
-
-          <p className="hero-eyebrow mt-6 text-xs font-semibold uppercase tracking-widest text-white/80">
+          <p className="hero-eyebrow text-xs font-semibold uppercase tracking-widest text-white/80">
             Your Trusted Digital Marketing Wingman
           </p>
 

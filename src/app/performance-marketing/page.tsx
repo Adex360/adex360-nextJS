@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import ScrollFx from "@/components/fx/ScrollFx";
 import BrandsMarquee from "@/components/home/BrandsMarquee";
-import ClutchStrip from "@/components/home/ClutchStrip";
 import PerformanceHero from "@/components/performance/PerformanceHero";
 import PerformanceUnique from "@/components/performance/PerformanceUnique";
 import PerformanceTabs from "@/components/performance/PerformanceTabs";
@@ -32,7 +31,6 @@ export default function PerformanceMarketingPage() {
       <PerformanceProjects />
       <PerformanceTestimonials />
       <PerformanceFaq />
-      <ClutchStrip />
     </>
   );
 }

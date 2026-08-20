@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import ScrollFx from "@/components/fx/ScrollFx";
 import BrandsMarquee from "@/components/home/BrandsMarquee";
-import ClutchStrip from "@/components/home/ClutchStrip";
 import SeoHero from "@/components/seo/SeoHero";
 import SeoUnique from "@/components/seo/SeoUnique";
 import SeoLocal from "@/components/seo/SeoLocal";
@@ -34,7 +33,6 @@ export default function SeoServicesPage() {
       <SeoProjects />
       <SeoTestimonials />
       <SeoFaq />
-      <ClutchStrip />
     </>
   );
 }

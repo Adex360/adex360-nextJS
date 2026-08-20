@@ -9,8 +9,6 @@ import Workflow from "@/components/home/Workflow";
 import Testimonials from "@/components/home/Testimonials";
 import Projects from "@/components/home/Projects";
 import Team from "@/components/home/Team";
-import Blog from "@/components/home/Blog";
-import ClutchStrip from "@/components/home/ClutchStrip";
 
 export default function Home() {
   return (
@@ -26,8 +24,6 @@ export default function Home() {
       <Testimonials />
       <Projects />
       <Team />
-      <Blog />
-      <ClutchStrip />
     </>
   );
 }

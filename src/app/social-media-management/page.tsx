@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import ScrollFx from "@/components/fx/ScrollFx";
 import BrandsMarquee from "@/components/home/BrandsMarquee";
-import ClutchStrip from "@/components/home/ClutchStrip";
 import SocialHero from "@/components/social/SocialHero";
 import SocialUnique from "@/components/social/SocialUnique";
 import SocialTabs from "@/components/social/SocialTabs";
@@ -32,7 +31,6 @@ export default function SocialMediaManagementPage() {
       <SocialProjects />
       <SocialTestimonials />
       <SocialFaq />
-      <ClutchStrip />
     </>
   );
 }
