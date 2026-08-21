@@ -638,3 +638,22 @@ prop-configurable `CaseStudyCta` for the closing CTA rather than building a new 
 rendered-HTML content smoke test (both section headings, the GoHighLevel disclosure, the real
 email, 35 scroll-reveal markers, and the home page's footer link confirmed pointing at the new
 route).
+
+### 2026-08-21 — Re-read migration-plan.md + progress.md end-to-end; corrected 3 stale plan entries
+User asked "which page is next?" — with all 28 pages now shipped there wasn't one; asked for a
+recommendation instead. User then asked me to read `migration-plan.md` and `progress.md`
+carefully and deeply before answering, rather than just picking from the "What's Next" list.
+Full read of `migration-plan.md` surfaced 3 places where the original plan document (written
+2026-08-18, before Phase 3 decisions were made) had gone stale and never been corrected:
+Section 3 still said "React Hook Form paired with a Next.js API route for the contact form" even
+though Contact Us was rebuilt on 2026-08-20 to use the real GoHighLevel iframe embed directly
+(no API route); Section 7 still described building that same API-route contact form; Section 10's
+tools summary still listed "Framer Motion" even though Section 3 itself documents GSAP as the
+replacement decision. All 3 corrected with strikethrough + explanation rather than silently
+rewritten, so the document keeps its history legible. `docs/progress.md`'s "What's Next" section
+was also restructured: confirmed Phase 3 is fully done, noted that the plan's own phase order
+puts Phase 4 (blog backend) next but it's blocked on an unmade Phase 1 decision (DB/CMS choice),
+and reordered to surface the Phase 5 items that need no decision and could start immediately
+(per-page metadata audit, JSON-LD schema, sitemap/robots, image/alt audit) ahead of the
+decision-blocked items. Removed a duplicate/stale numbered-list fragment left over from an
+earlier edit in the same section. No code changes this task — docs only.

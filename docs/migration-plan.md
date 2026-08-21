@@ -22,7 +22,7 @@ Rebuild the current Adex360 WordPress (Elementor-based) website in Next.js while
 - **Framework:** Next.js 14+ (App Router) with React and TypeScript.
 - **Styling:** Tailwind CSS, to efficiently match and maintain the existing design system.
 - **Animations:** GSAP + ScrollTrigger (decision updated during Phase 3 — originally Framer Motion). GSAP powers the shared ScrollFx reveal engine, hero timelines, SVG path drawing, counters, and shape morphs; a second animation library is unnecessary.
-- **Forms:** React Hook Form paired with a Next.js API route for the contact form.
+- **Forms:** ~~React Hook Form paired with a Next.js API route~~ — superseded during Phase 3: Contact Us embeds the client's real GoHighLevel (LeadConnector) form widget directly via iframe, so submissions go straight into their existing GHL account with no custom API route needed. `react-hook-form` remains installed for a possible future static form (e.g. the SEO-score form below) but is unused by Contact Us. The SEO-score form (`SeoScoreCta.tsx`) still needs its own email-delivery decision — see Section 6/Phase 5.
 - **Blog backend:** a custom admin panel and database, or a headless CMS (both options detailed in Section 5).
 - **Hosting:** Vercel, which offers native Next.js support, a fast global CDN, and automatic image optimization.
 - **Version control:** GitHub, with a CI/CD pipeline that auto-deploys to Vercel.
@@ -83,8 +83,8 @@ Since the team needs to publish new blog posts in the future, this section requi
 - Rebuild the existing visual design closely using Tailwind CSS components: gradient hero sections, isometric illustration placement, rounded stat cards, icon-based feature grids, the sticky mega-menu navigation, and the footer — matching the current brand colors (purple, blue, orange).
 - Export and reuse existing images, icons and illustrations from the WordPress media library.
 - Recreate the multi-level dropdown navigation (Growth Marketing, Web & App Development, Custom Solutions, Company) as an accessible, mobile-responsive React component.
-- Rebuild the contact form exactly as-is (Full Name, Email, Phone, service checkboxes, Website/Social URL, message) and connect it to a Next.js API route that emails submissions (via Resend or Nodemailer) and optionally logs them to the database.
-- Add basic spam protection (a honeypot field or Google reCAPTCHA v3) to the contact form.
+- ~~Rebuild the contact form exactly as-is ... and connect it to a Next.js API route that emails submissions~~ — superseded: the real GHL "Website Submission Form" widget is embedded via iframe instead (see Section 3). Spam protection, validation, and email routing are handled on GHL's side for this form.
+- Add basic spam protection (a honeypot field or Google reCAPTCHA v3) to the SEO-score form (`SeoScoreCta.tsx`) once its email-delivery route is built — see Phase 5.
 
 ## 8. Migration & Launch Safeguards
 
@@ -109,7 +109,7 @@ Since the team needs to publish new blog posts in the future, this section requi
 
 ## 10. Tools & Services Summary
 
-- Next.js, TypeScript, Tailwind CSS, Framer Motion
+- Next.js, TypeScript, Tailwind CSS, GSAP + ScrollTrigger (updated from the original Framer Motion decision — see Section 3)
 - Database: Supabase/Neon (Postgres) or MongoDB Atlas
 - Authentication: NextAuth.js
 - Rich text editor: TipTap or Lexical

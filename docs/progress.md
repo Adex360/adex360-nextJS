@@ -2,7 +2,7 @@
 
 This file tracks progress through the phases defined in [migration-plan.md](./migration-plan.md). It is updated after every work session/prompt. For the raw, sequential "what was asked → what was done" history at the individual-task level, see [task-log.md](./task-log.md) — this file tracks status by phase/feature instead.
 
-**Last updated:** August 21, 2026 (Terms & Privacy Policy page built (`/terms-and-privacy`), footer link repointed from `/faqs`)
+**Last updated:** August 21, 2026 (migration-plan.md corrected — 3 stale entries fixed: Framer Motion → GSAP, and the contact-form API-route/React-Hook-Form plan superseded by the real GHL iframe embed; re-read migration-plan.md + progress.md end-to-end to confirm Phase 3 is fully done and identify genuinely next work)
 
 ## Status Legend
 - **Done** — phase fully complete
@@ -178,13 +178,17 @@ Launch and post-launch monitoring.
 - [ ] Monitor GSC and analytics for 2–4 weeks post-launch
 
 ## What's Next (recommended order)
+
+**Phase 3 (all static pages) is fully done.** Per the migration plan's own phase order, Phase 4 (blog backend) comes next — but it's blocked on a decision from Phase 1 that was never finalized (DB choice, CMS vs. custom admin). Until that's decided, the highest-value work is the parts of Phase 5 that need no decision at all:
+
 0. **Commit + push the uncommitted batch** (all pages/components built and updated so far — nothing has been pushed to GitHub yet this phase).
-1. **SEO-score form email delivery** — waiting on the user to pick Resend / SMTP / GHL webhook (see Phase 5); quick to wire up once decided.
-2. **Confirm 3 flagged Performance Marketing content blocks** (Unique paragraph/CTA, Growth eyebrow/paragraph, Advantage's 8 bullets) — sent to user for closer screenshots; low-priority polish, page already ships.
-3. ~~Individual case-study pages~~ — **done (2026-08-21).** All 13 shipped; the Portfolio grid's 16 cards all resolve to real, fully-built pages.
-4. **Remaining assets** — service-tab illustrations, Clutch embed code; drop into `public/images/` and swap in (the Blog section and Clutch strip/badge stay removed until their real backing content exists). Portfolio's project thumbnails are done.
-5. **Phase 4 blog backend** — after static pages are done; needs the DB/CMS decision from Phase 1.
-6. **Phase 5 wiring** — SEO-score API route with email delivery, per-page JSON-LD, sitemap/robots.
+1. **Phase 5 items with no open decision — can start immediately:** per-page Next.js Metadata API audit (root is done, per-page pending), JSON-LD schema (Organization/LocalBusiness sitewide, Service on each service page, BreadcrumbList, FAQPage on `/faqs`), `sitemap.xml`/`robots.txt`, `next/image` optimization + alt-text audit.
+2. **Decision needed from the user to unblock Phase 4:** DB choice (Supabase/Neon Postgres vs. MongoDB Atlas) and CMS vs. custom admin panel for the blog backend (`/resources`). Nothing in Phase 4 can start until this is picked.
+3. **SEO-score form email delivery** — waiting on the user to pick Resend / SMTP / GHL webhook (see Phase 5); quick to wire up once decided.
+4. **Confirm 3 flagged Performance Marketing content blocks** (Unique paragraph/CTA, Growth eyebrow/paragraph, Advantage's 8 bullets) — sent to user for closer screenshots; low-priority polish, page already ships.
+5. **Remaining assets** — service-tab illustrations, Clutch embed code; drop into `public/images/` and swap in (the Blog section and Clutch strip/badge stay removed until their real backing content exists). Portfolio's project thumbnails are done.
+
+~~Individual case-study pages~~ — **done (2026-08-21).** All 13 shipped; the Portfolio grid's 16 cards all resolve to real, fully-built pages.
 
 ## Engineering Notes (read before touching animations)
 - **Never put CSS `transition-all` (or any transition covering `opacity`/`transform`) on an element GSAP animates** — the transition fights GSAP's per-frame writes and elements get stuck invisible. `ScrollFx.tsx` suspends transitions during tweens and restores them via `clearProps`; custom-animated sections (Workflow, Team, DrivingGrowth) follow the same suspend/clearProps pattern manually.
