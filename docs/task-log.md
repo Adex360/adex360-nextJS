@@ -464,3 +464,21 @@ retailer, and now a footwear/accessories brand all fit the same 6 sections). Ver
 tsc/eslint/`next build` (new static route, 20th total) + a rendered-HTML content smoke test
 (title, a Challenges subsection heading, Final Thoughts, the "Back to Portfolio" link, and
 scroll-reveal marker count all confirmed present). **8 individual case-study pages remain.**
+
+### 2026-08-21 — Weltew Home case-study page built (`/weltew-home`)
+Built the 6th of the 13 individual case-study pages from full-page screenshots + the WP article
+HTML. Same 6-section `AppCaseStudy` shape as AK Galleria and Logo Official, reused directly with
+a new `Sofa` icon (brown-to-violet gradient, fitting a furniture brand). One new wrinkle: this
+page's Overview paragraph has 2 inline orange-highlighted stats ("over 150 stores," "80+
+locations") — the WP source's `color: #f08821` inline styling, same treatment as the narrative
+template's `<Stat>` component — but `AppCaseStudy`'s `overview` field was typed as a plain
+`string`, so it couldn't hold JSX. Generalized `AppCaseStudyContent.overview` from `string` to
+`ReactNode` in `AppCaseStudy.tsx` — backward-compatible, since a plain string is a valid
+`ReactNode`, so the 4 prior pages' content files needed zero changes. This page's own content
+file is `weltewHome.content.tsx` (not `.ts`, since it needs JSX) and imports the shared `Stat`
+component from the narrative template's folder to keep the visual treatment identical to how
+BeOneShopOne/Butterfly highlight their stats. Verified via tsc/eslint/`next build` (new static
+route, 21st total; re-verified all 5 prior `AppCaseStudy`-based pages still render correctly
+after the type change, not just this new one) + a rendered-HTML content smoke test (title, both
+inline stats, a Challenges subsection, Final Thoughts, and the "Back to Portfolio" link all
+confirmed present). **7 individual case-study pages remain.**

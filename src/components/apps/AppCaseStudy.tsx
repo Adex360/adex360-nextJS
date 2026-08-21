@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import type { ReactNode } from "react";
 import {
   CheckCircle2,
   Target,
@@ -15,10 +16,11 @@ import {
   Bell,
   ShoppingBag,
   Footprints,
+  Sofa,
 } from "lucide-react";
 import BackToPortfolio from "../casestudy/BackToPortfolio";
 
-const APP_ICONS = { Rss, Bot, Mail, Bell, ShoppingBag, Footprints } as const;
+const APP_ICONS = { Rss, Bot, Mail, Bell, ShoppingBag, Footprints, Sofa } as const;
 
 export type AppIconKey = keyof typeof APP_ICONS;
 
@@ -31,7 +33,7 @@ export type AppChallenge = {
 export type AppCaseStudyContent = {
   eyebrow: string;
   title: string;
-  overview: string;
+  overview: ReactNode;
   icon: AppIconKey;
   gradient: string;
   goals: { heading: string; intro: string; items: string[] };
