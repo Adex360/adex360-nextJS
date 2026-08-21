@@ -348,3 +348,34 @@ hidden legacy accordion, correctly identified as dead content rather than built)
 tsc/eslint/`next build` (new static route, 16th total) + a rendered-HTML content smoke test
 (title, "Backlink Growth" subheading, "55%" stat, "Final Thoughts", and the closing CTA all
 confirmed present). **12 individual case-study pages remain**, to be sent one at a time.
+
+### 2026-08-21 — EU Naturals case-study page built (`/eu`) — 2nd template introduced
+Built the 2nd of the 13 individual case-study pages from full-page screenshots + the WP article
+HTML. This one is a fundamentally different content shape than BeOneShopOne's narrative-article
+template — a richer "brand story" layout: a dark hero that cross-links to sibling case studies
+(BeOneShop/SEO, Weltew Home/Web Dev) plus a "View All Case Studies" button, a right-aligned
+overview paragraph, a centered strategy quote on a dark band, a challenge/solution/result trio
+next to a real product photo, an "Overall Result" stats band (38% Conversion Rate / 900% Traffic
+Uplift / Sub-1s Product Page Loads), a "Services Provided" card, a "Key Teams & Expertise" dark
+band, a closing CTA, and a "Related Case Studies" 2-card grid with hover-reveal quotes. Rather
+than force this into the BeOneShopOne template, built a second reusable set of components under
+`src/components/casestudy/brand/*` — `BrandHero`, `BrandOverview`, `StrategyQuote`,
+`ChallengeSolutionResult`, `OverallResult`, `ServicesProvided`, `KeyTeams`,
+`RelatedCaseStudies`. Generalized the existing `CaseStudyCta` (built for BeOneShopOne) to accept
+optional heading/paragraph/CTA-label/CTA-href props instead of duplicating it, so this page
+reuses it with "Let's Build What's Next" copy instead of BeOneShopOne's "Want results like this?"
+default. The WP source's hero background photo had no image URL available in the provided markup
+(likely an Elementor-generated CSS background not included in the pasted HTML snippet), so used a
+premium gradient in its place — same honest fallback approach as every other missing-raster-asset
+case this phase, flagged rather than silently invented. All 3 real images that *were* available
+(the EU product tube photo, and 2 related-case-study preview images) were fetched from the user's
+local XAMPP URLs via `curl`. Caught and corrected one content issue while transcribing: the WP
+source's quote for the "Seona" related-case-study card actually referenced an unrelated brand
+name, "AAFMAA" — a leftover copy-paste artifact from a different WP theme template, not
+Adex360/Seona content — corrected to "Adex360" to match the case study the card actually links
+to. Verified via tsc/eslint/`next build` (new static route, 17th total, BeOneShopOne re-verified
+unaffected by the `CaseStudyCta` prop change) + a rendered-HTML content smoke test (all section
+headings, all 3 stats, all 3 cross-links to `/beoneshopone`/`/seona`/`/weltew-home`, and 6 real
+image srcsets confirmed present). **The site now has 2 distinct case-study templates** — future
+case-study pages should be checked against both before deciding whether to reuse one or extend
+further; 11 individual case-study pages remain.

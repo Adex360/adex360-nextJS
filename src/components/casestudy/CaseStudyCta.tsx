@@ -1,7 +1,17 @@
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 
-export default function CaseStudyCta() {
+export default function CaseStudyCta({
+  heading = "Want results like this for your brand?",
+  paragraph = "Adex360 builds data-driven strategies tailored to your market. Let's talk about what growth looks like for you.",
+  ctaLabel = "Start Your Growth Story",
+  ctaHref = "/contact-us",
+}: {
+  heading?: string;
+  paragraph?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}) {
   return (
     <section className="overflow-hidden bg-white px-4 pb-16 sm:px-6 md:pb-24 lg:px-8">
       <div
@@ -15,18 +25,15 @@ export default function CaseStudyCta() {
         <span className="relative mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-white/15 text-[#E38A19]">
           <Sparkles className="h-6 w-6" />
         </span>
-        <h2 className="relative mt-5 text-xl font-extrabold text-white sm:text-2xl">
-          Want results like this for your brand?
-        </h2>
+        <h2 className="relative mt-5 text-xl font-extrabold text-white sm:text-2xl">{heading}</h2>
         <p className="relative mx-auto mt-3 max-w-md text-sm leading-relaxed text-white/70">
-          Adex360 builds data-driven strategies tailored to your market. Let&rsquo;s talk about
-          what growth looks like for you.
+          {paragraph}
         </p>
         <Link
-          href="/contact-us"
+          href={ctaHref}
           className="relative mt-7 inline-flex items-center gap-2 rounded-full bg-white px-8 py-3.5 text-sm font-semibold text-brand-900 shadow-lg shadow-black/20 transition-transform hover:-translate-y-0.5"
         >
-          Start Your Growth Story
+          {ctaLabel}
           <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
