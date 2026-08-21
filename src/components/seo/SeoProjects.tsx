@@ -1,10 +1,15 @@
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+
+import imgD2cWesternClothing from "../../../public/images/portfolio/one.png";
+import imgHealthPersonalCare from "../../../public/images/portfolio/butterfly.png";
+import imgD2cFashion from "../../../public/images/portfolio/nishat.png";
 
 const projects = [
-  { name: "D2C Western Clothing", service: "SEO Services", gradient: "from-brand-blue to-brand-900" },
-  { name: "Health & Personal Care", service: "SEO Services", gradient: "from-[#F7B45C] to-[#C26F0B]" },
-  { name: "D2C Fashion", service: "SEO Services", gradient: "from-brand-600 to-brand-blue" },
+  { name: "D2C Western Clothing", service: "SEO Services", href: "/beoneshopone", image: imgD2cWesternClothing },
+  { name: "Health & Personal Care", service: "SEO Services", href: "/butterfly", image: imgHealthPersonalCare },
+  { name: "D2C Fashion", service: "SEO Services", href: "/nishat-uae", image: imgD2cFashion },
 ];
 
 export default function SeoProjects() {
@@ -22,21 +27,30 @@ export default function SeoProjects() {
 
         <div data-reveal-group="" data-stagger="0.12" data-parallax="4" className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3">
           {projects.map((project) => (
-            <div
+            <Link
               key={project.name}
+              href={project.href}
               data-reveal="up"
               className="group overflow-hidden rounded-3xl border border-[#E4E8F3] bg-white shadow-lg shadow-brand-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
             >
-              <div
-                className={`flex aspect-[4/3] items-center justify-center bg-gradient-to-br ${project.gradient} px-6 text-center text-lg font-extrabold text-white transition-transform duration-500 group-hover:scale-105`}
-              >
-                {project.name}
+              <div className="relative aspect-[4/3] overflow-hidden">
+                <Image
+                  src={project.image}
+                  alt={project.name}
+                  fill
+                  sizes="(min-width: 640px) 33vw, 100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
+                <span className="group/arrow absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/20 text-white opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
+                  <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/arrow:rotate-[45deg]" />
+                </span>
               </div>
               <div className="px-6 py-5">
                 <p className="text-sm font-bold text-ink">{project.name}</p>
                 <p className="mt-0.5 text-xs text-muted">{project.service}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 

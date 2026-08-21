@@ -68,8 +68,8 @@ export default function PortfolioGrid() {
                 className="object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
-              <span className="absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/20 text-white opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
-                <ArrowUpRight className="h-4 w-4" />
+              <span className="group/arrow absolute bottom-3 right-3 flex h-9 w-9 items-center justify-center rounded-full bg-white/20 text-white opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
+                <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover/arrow:rotate-[45deg]" />
               </span>
             </div>
             <div className="p-6">

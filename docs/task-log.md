@@ -268,3 +268,58 @@ confirming every card renders a real `next/image` srcset (not a broken/missing s
 manually fetched one resized variant through the dev server to confirm it decodes as a valid
 image, not an error page. **The Portfolio page's asset work is now fully done** — only the 13
 individual case-study pages remain as unscoped follow-up work.
+
+### 2026-08-21 — Real images + case-study links wired into 4 service pages' Projects sections
+User pointed out (via a screenshot of SEO Services' "Our Featured Projects" section) that this
+solid-gradient-with-name-text placeholder pattern likely also existed on other service pages,
+and asked what was needed to fix it. Checked `SeoProjects.tsx`, `SocialProjects.tsx`,
+`PerformanceProjects.tsx`, and `WebDevProjects.tsx` — all 4 use the same placeholder pattern, and
+all 12 project names across them turned out to be exact-string matches for projects already on
+the Portfolio grid built the day before (D2C Western Clothing, Health & Personal Care, D2C
+Fashion, Luxury Pret Wear, Fashion & Apparel, Heritage Fashion Ecommerce, Footwear Retail, Urban
+Fashion & Lifestyle Retail, Skin Care & Makeup, Premium Footwear, Fashion Retail, B2C Home Décor).
+So nothing further was needed from the user — reused the same `public/images/portfolio/*.png`
+files already downloaded, and additionally wrapped each card in a `Link` to its real case-study
+slug (was previously a static, unlinked div) to match the Portfolio grid's interaction pattern.
+Verified via tsc/eslint/`next build` (still 15 static routes, no new pages) + a rendered-HTML
+smoke test on all 4 pages confirming real `next/image` srcsets and all 4 sampled case-study links
+present. **Also strengthened the standing `task-log-file` memory**: the user explicitly restated
+that both `progress.md` and `task-log.md` must be kept current after every task without being
+asked — including small content/asset fixes like this one, not just new page builds — so this is
+now written into the memory as a firm standing rule rather than something to re-confirm.
+
+### 2026-08-21 — Hover arrow added to service pages' project cards
+User asked to match the Portfolio grid's hover-arrow treatment on the 4 service pages' project
+cards just updated. Added the same gradient scrim (`bg-gradient-to-t from-black/35`) and circular
+`ArrowUpRight` badge (fades in on hover, bottom-right corner) from `PortfolioGrid.tsx` to
+`SeoProjects.tsx`, `SocialProjects.tsx`, `PerformanceProjects.tsx`, and `WebDevProjects.tsx` —
+copied verbatim for visual consistency rather than approximated. Verified via tsc/eslint/
+`next build` (still 15 static routes) + a rendered-HTML smoke test confirming the arrow icon
+renders on all 3 cards across all 4 pages.
+
+### 2026-08-21 — Arrow icon rotates on its own hover, not the whole card's
+User asked for a more specific interaction: the arrow badge should sit diagonal by default, but
+rotate to point straight left-to-right only while the pointer is directly over the arrow button
+itself — not just whenever the card is hovered — and snap back to diagonal the moment the pointer
+leaves the badge, even if it's still somewhere else on the card. A plain `group-hover:` tied to
+the card's existing hover group couldn't express "hover this one small element specifically,
+independent of the card," so used a nested Tailwind v4 named group instead: added `group/arrow`
+to the badge `<span>` and `group-hover/arrow:rotate-[-45deg]` to the `ArrowUpRight` icon inside
+it — scoped separately from the outer card's plain `group` (which still owns the image zoom and
+the badge's fade-in/out). `ArrowUpRight` points diagonally by default; rotating it -45° swings it
+to point straight right, giving the "diagonal → horizontal" effect asked for. Applied identically
+to `PortfolioGrid.tsx` and all 4 service-page project card components. Verified via tsc/eslint/
+`next build`, then went a step further than a DOM/text smoke test since this is a pure-CSS hover
+effect with nothing to grep in server-rendered HTML — grepped the actual compiled production CSS
+chunk and confirmed the rule exists verbatim:
+`.group-hover\/arrow\:rotate-\[-45deg\]:is(:where(.group\/arrow):hover *){rotate:-45deg}`.
+
+### 2026-08-21 — Arrow hover rotation flipped from -45deg to 45deg
+User asked to flip the rotation direction added moments earlier. Swapped `rotate-[-45deg]` for
+`rotate-[45deg]` on the `group-hover/arrow:` class across the same 5 files
+(`PortfolioGrid.tsx`, `SeoProjects.tsx`, `SocialProjects.tsx`, `PerformanceProjects.tsx`,
+`WebDevProjects.tsx`). Verified via tsc/eslint/`next build`, then confirmed in the rendered HTML
+that every card's icon now carries only the `45deg` class. Noted (not a real issue): a stale
+`-45deg` CSS rule lingered in a Tailwind/Turbopack build-cache chunk even after a full `.next`
+wipe and rebuild — harmless, since no element in the actual markup references that class anymore,
+confirmed by checking the rendered class list directly rather than trusting the CSS chunk alone.
