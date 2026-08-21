@@ -13,7 +13,7 @@ export default function AkGalleriaPage() {
   return (
     <>
       <ScrollFx />
-      <AppCaseStudy content={akGalleriaContent} showBackToPortfolio />
+      <AppCaseStudy content={akGalleriaContent} />
     </>
   );
 }

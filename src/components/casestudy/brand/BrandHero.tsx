@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import BackToPortfolio from "../BackToPortfolio";
 
 export type RelatedLink = {
   brand: string;
@@ -26,7 +27,9 @@ export default function BrandHero({
       <div className="pointer-events-none absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-[#E38A19]/15 blur-3xl" />
 
       <div data-reveal-group="" className="relative mx-auto max-w-5xl">
-        <p data-reveal="up" className="text-xs font-semibold uppercase tracking-widest text-brand-blue-light">
+        <BackToPortfolio variant="dark" />
+
+        <p data-reveal="up" className="mt-6 text-xs font-semibold uppercase tracking-widest text-brand-blue-light">
           {eyebrow}
         </p>
         <h1 data-reveal="up" className="mt-3 max-w-2xl text-3xl font-extrabold leading-tight text-white sm:text-4xl">

@@ -1,6 +1,5 @@
 import Image, { type StaticImageData } from "next/image";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import BackToPortfolio from "./BackToPortfolio";
 
 export default function CaseStudyHero({
   eyebrow,
@@ -19,14 +18,9 @@ export default function CaseStudyHero({
       <div className="pointer-events-none absolute -right-24 bottom-0 h-64 w-64 rounded-full bg-[#E38A19]/10 blur-3xl" />
 
       <div data-reveal-group="" className="relative mx-auto max-w-4xl text-center">
-        <Link
-          data-reveal="fade"
-          href="/portfolio"
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted transition-colors hover:text-brand-blue"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" />
-          Back to Portfolio
-        </Link>
+        <div className="flex justify-center">
+          <BackToPortfolio variant="light" />
+        </div>
 
         <p data-reveal="up" className="mt-5 text-xs font-semibold uppercase tracking-widest text-brand-blue">
           {eyebrow} &middot; Case Study

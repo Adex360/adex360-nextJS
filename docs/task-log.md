@@ -402,3 +402,52 @@ total) + a rendered-HTML content smoke test (title, the corrected merged bullet,
 and the conditional back-link present here / absent on Universal Product Feed, all confirmed).
 **10 individual case-study pages remain**, to be sent one at a time; the site now has 3 distinct
 case-study shapes to check new ones against before building anything new.
+
+### 2026-08-21 — Verified GSAP scroll-reveal coverage on all case-study pages
+User asked to make sure every case-study page has scroll-reveal animation. Audited all 3
+templates built so far (`CaseStudyHero`/`CaseStudyCta`/`Stat` + `BeOneShopOneArticle`,
+`BrandHero`/`BrandOverview`/`StrategyQuote`/`ChallengeSolutionResult`/`OverallResult`/
+`ServicesProvided`/`KeyTeams`/`RelatedCaseStudies`, and the reused `AppCaseStudy`) by grepping
+every file for `data-reveal` usage, then confirmed in the actual rendered HTML that
+`/beoneshopone`, `/eu`, and `/ak-galleria` all carry plenty of `data-reveal`/`data-reveal-group`
+markers (33/59/23 respectively) and each page mounts `<ScrollFx />`. All 3 already had full
+coverage from when they were built — no gaps found, no code changes needed. This is now a
+standing check to run on every future case-study page before calling it done, same as the
+tsc/eslint/build/smoke-test routine.
+
+### 2026-08-21 — Butterfly case-study page built (`/butterfly`)
+Built the 4th of the 13 individual case-study pages from HTML only — no screenshots were sent
+this time, which was fine since the source markup carries the exact headings and copy needed.
+Content shape matched the BeOneShopOne narrative template closely enough to reuse it
+(`CaseStudyHero` + `CaseStudyCta` + `Stat`), but this page's numbered lists (Strategies
+Implemented, Results Achieved, Challenges and Solutions) use a "bold title on its own line,
+paragraph underneath" pattern rather than BeOneShopOne's flat inline bullets — built a new
+shared `NumberedList.tsx` (numbered circle badge + optional bold title + paragraph; title is
+omitted for the Objectives list, which is plain numbered sentences with no bold lead-in) instead
+of styling this page's lists as a one-off. Hero illustration fetched from the user's local XAMPP
+URL via `curl`, same as the previous two pages. Content: all 20 targeted keywords hit page one,
+organic traffic grew 10.3K → 24K (+133%) over one year. Verified via tsc/eslint/`next build`
+(new static route, 19th total) + a rendered-HTML content smoke test (title, a numbered-list
+item, the 133% stat, Conclusion heading, and 33 scroll-reveal markers all confirmed present).
+**9 individual case-study pages remain.**
+
+### 2026-08-21 — "Back to Portfolio" standardized across all case-study pages
+User noticed the "Back to Portfolio" link (added ad hoc while building the narrative and
+app-page templates) was inconsistent — present on some pages, missing on EU's `BrandHero`, and
+styled as a plain text link — and asked for it on every case-study page with a properly designed
+button, placement and styling left to my judgment. Built one reusable `BackToPortfolio.tsx`: a
+pill-shaped link (arrow-left icon + label, subtle border, backdrop-blur, hover slide-left +
+color shift) with `light`/`dark` variants so it reads correctly on both the light `CaseStudyHero`
+background and the two dark hero backgrounds (`AppCaseStudy`, `BrandHero`). Wired it into all 3
+templates: `CaseStudyHero.tsx` (replacing its old inline text link), `AppCaseStudy.tsx`
+(replacing its old inline text link and removing the `showBackToPortfolio` opt-in prop entirely
+— it's now unconditional, since all 3 Shopify app pages are also linked from the Portfolio grid,
+so hiding it there was a real gap, not just an inconsistency), and `BrandHero.tsx` (added fresh,
+positioned above the eyebrow, complementing rather than replacing its existing "View All Case
+Studies" CTA lower in the hero). Removed the now-unused `showBackToPortfolio` flag from
+`ak-galleria/page.tsx`. Verified via tsc/eslint/`next build` (still 21 static routes, no new
+route) + a rendered-HTML smoke test across all 7 case-study-family pages
+(`beoneshopone`/`butterfly`/`eu`/`ak-galleria`/`universal-product-feed`/`pushbot`/`mailbot`),
+confirming the real DOM link renders on every one (a second match on 3 of them was just Next's
+RSC hydration payload duplicating the string server-side, not an actual duplicate element —
+checked the surrounding context before concluding that).
