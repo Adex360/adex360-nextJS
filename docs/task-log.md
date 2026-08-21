@@ -519,3 +519,24 @@ illustration fetched from the user's local XAMPP URL via `curl`. Verified via ts
 `next build` (new static route, 23rd total; ECS re-verified unaffected) + a rendered-HTML
 content smoke test (title, a challenge heading, the 76% stat, Conclusion, "Back to Portfolio,"
 and 35 scroll-reveal markers all confirmed present). **5 individual case-study pages remain.**
+
+### 2026-08-21 — Nishat UAE case-study page built (`/nishat-uae`)
+Built the 9th of the 13 individual case-study pages from full-page screenshots + the WP article
+HTML. Narrative template again (`CaseStudyHero` + `CaseStudyCta` + `Stat`), closer in shape to
+BeOneShopOne than to ECS/Nishat USA — most sections are plain bullet lists with inline `<Stat>`
+highlights (rendered via a small page-local `Bullets` helper since the list items needed to be
+`ReactNode`s carrying `<Stat>` spans, not just strings). The one place this page differs from
+its siblings: "Challenges & Solutions" gives each challenge a title and a single "Solution:"
+bullet with no "Problem:" statement at all — the shared `ChallengeBlock` component requires both,
+so rather than force an empty/fabricated Problem line into it, built a lighter page-local
+`SolutionBlock` (title + Solution only). This is the most stat-dense page built so far — 15+
+inline `<Stat>` highlights across SEO rankings, domain authority, page authority, linking
+domains, and backlinks, including a Conclusion section that recaps 3 of the same stats already
+shown earlier in the page (matched the source's repetition rather than tightening it, since
+that's a legitimate summary/recap pattern, not a content bug like the earlier stray-`<br>` or
+split-bullet issues). Content: first-page keyword rankings up 347% (17% → 76%), domain authority
++36% (11 → 15), backlinks +40% (1.5K → 2.1K) over 10 months. Hero illustration fetched from the
+user's local XAMPP URL via `curl`. Verified via tsc/eslint/`next build` (new static route, 24th
+total) + a rendered-HTML content smoke test (title, the 347% stat, a Challenges subsection,
+Conclusion, "Back to Portfolio," and 37 scroll-reveal markers all confirmed present). **4
+individual case-study pages remain.**
