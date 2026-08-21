@@ -570,3 +570,20 @@ Hero illustration fetched from the user's local XAMPP URL via `curl`. Verified v
 tsc/eslint/`next build` (new static route, 26th total) + a rendered-HTML content smoke test
 (title, a challenge heading, "Back to Portfolio," Conclusion, and 15 scroll-reveal markers all
 confirmed present). **2 individual case-study pages remain** (`/seona`, `/kiko-milano`).
+
+### 2026-08-21 — Seona case-study page built (`/seona`)
+Built the 12th of the 13 individual case-study pages from full-page screenshots + the WP article
+HTML. Same shape as Beechtree/ONE/ECS/Nishat USA — 3 problem/solution challenge cards (Low
+Engagement & Brand Awareness, Inconsistent Conversions from Social Channels, Underutilized
+Influencer & Community Marketing), a "Key Achievements" labeled-stat list (4 stats this time,
+one more than Beechtree's 3), two more labeled-bullet content sections (Content Optimization /
+Influencer & Community Marketing), a "Sales Growth" labeled-bullet section, and a Conclusion —
+reused `ChallengeBlock` and `LabeledBullets` as-is, zero new components, the 3rd case study this
+session needing purely content work. Skipped the source's `elementor-hidden-*` "Project Info"
+sidebar widget, same pattern as every other case-study page. Content: 30% increase in sales, 25%
+rise in number of orders, 47% improvement in conversion rate, 56% increase in average order
+value, for an artisanal handmade-crafts brand founded by Samia. Hero illustration fetched from
+the user's local XAMPP URL via `curl`. Verified via tsc/eslint/`next build` (new static route,
+27th total) + a rendered-HTML content smoke test (title, a challenge heading, "Back to
+Portfolio," Conclusion, the 56% stat, and 15 scroll-reveal markers all confirmed present). **Only
+1 individual case-study page remains: `/kiko-milano`.**
