@@ -587,3 +587,27 @@ the user's local XAMPP URL via `curl`. Verified via tsc/eslint/`next build` (new
 27th total) + a rendered-HTML content smoke test (title, a challenge heading, "Back to
 Portfolio," Conclusion, the 56% stat, and 15 scroll-reveal markers all confirmed present). **Only
 1 individual case-study page remains: `/kiko-milano`.**
+
+### 2026-08-21 — Kiko Milano case-study page built (`/kiko-milano`) — 13th and last case study
+Built the 13th and final individual case-study page from full-page screenshots + the WP article
+HTML. Same shape as Seona/Beechtree/ONE/ECS/Nishat USA — 3 problem/solution challenge cards (Low
+Return on Ad Spend, Inefficient Audience Targeting, Lack of Real-Time Campaign Optimization), a
+"Key Achievements" labeled-stat list (5X Increase in ROAS / 28% Reduction in CPA / 40% Increase
+in Conversion Rate), two more labeled-bullet content sections (Content Optimization / Influencer
+Collaborations & User-Generated Content), a "Sales Growth" labeled-bullet section, and a
+Conclusion — reused `ChallengeBlock` and `LabeledBullets` as-is, zero new components, the 4th
+case study this session needing purely content work. Skipped the source's `elementor-hidden-*`
+"Project Info" sidebar widget, same pattern as every other case-study page. Content: 5X increase
+in ROAS, 28% reduction in cost per acquisition, 40% increase in conversion rate, for the global
+cosmetics brand Kiko Milano. Hero illustration fetched from the user's local XAMPP URL via
+`curl`. Verified via tsc/eslint/`next build` (new static route, 28th total) + a rendered-HTML
+content smoke test (title, a challenge heading, "Back to Portfolio," Conclusion, the 5X stat, and
+15 scroll-reveal markers all confirmed present).
+
+**All 13 individual case-study pages are now complete.** Every one of the Portfolio grid's 16
+cards resolves to a real, fully-built page (3 Shopify app pages + 13 case studies). Phase 3's
+full page list — home, all 6 service pages, both company pages, FAQ's, Portfolio, all 3 app
+pages, and all 13 case studies — is done. `docs/progress.md` Phase 3 status updated to "Done."
+Remaining open work: Phase 4 (blog backend, not started), Phase 5 (SEO-score form email
+delivery — awaiting user's Resend/SMTP/GHL choice; per-page JSON-LD; sitemap/robots), and a large
+batch of uncommitted local work still pending a `git commit` + push.
