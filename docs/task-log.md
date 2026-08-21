@@ -554,3 +554,19 @@ fetched from the user's local XAMPP URL via `curl`. Verified via tsc/eslint/`nex
 static route, 25th total) + a rendered-HTML content smoke test (title, a challenge heading, the
 55.8% stat, Conclusion, "Back to Portfolio," and 35 scroll-reveal markers all confirmed present).
 **3 individual case-study pages remain** (`/beechtree`, `/seona`, `/kiko-milano`).
+
+### 2026-08-21 — Beechtree case-study page built (`/beechtree`)
+Built the 11th of the 13 individual case-study pages from full-page screenshots + the WP article
+HTML. Same shape as ONE/ECS/Nishat USA — 3 problem/solution challenge cards (Inconsistent
+Engagement & Weak Brand Positioning, Low Conversion Rates from Social Traffic, Underutilization
+of Paid Social Advertising), a "Key Achievements" labeled-stat list, two more labeled-bullet
+content sections (Content Optimization / Influencer & Community Marketing), a "Sales Growth"
+labeled-bullet section, and a Conclusion — reused `ChallengeBlock` and `LabeledBullets` as-is,
+zero new components, the 2nd case study this session needing purely content work. Skipped the
+source's `elementor-hidden-*` "Project Info" sidebar widget, same pattern as every other
+case-study page. Content: 2.5M+ impressions, 8% of total sales from recovered carts, 12% increase
+in conversion rates, for a high-street fashion brand's social media program launched in 2010.
+Hero illustration fetched from the user's local XAMPP URL via `curl`. Verified via
+tsc/eslint/`next build` (new static route, 26th total) + a rendered-HTML content smoke test
+(title, a challenge heading, "Back to Portfolio," Conclusion, and 15 scroll-reveal markers all
+confirmed present). **2 individual case-study pages remain** (`/seona`, `/kiko-milano`).
