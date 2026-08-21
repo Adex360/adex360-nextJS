@@ -540,3 +540,17 @@ user's local XAMPP URL via `curl`. Verified via tsc/eslint/`next build` (new sta
 total) + a rendered-HTML content smoke test (title, the 347% stat, a Challenges subsection,
 Conclusion, "Back to Portfolio," and 37 scroll-reveal markers all confirmed present). **4
 individual case-study pages remain.**
+
+### 2026-08-21 — ONE case-study page built (`/one`)
+Built the 10th of the 13 individual case-study pages from full-page screenshots + the WP article
+HTML. Same shape as ECS/Nishat USA — 3 problem/solution challenge cards, a "Key Achievements"
+labeled-stat list, two more labeled-bullet content sections, a "Sales Growth" labeled-bullet
+section, and a Conclusion — so this one reused `ChallengeBlock` and `LabeledBullets` as-is with
+zero new components, the first case study this session that needed purely content work and no
+shell changes at all. Content: 55.8% increase in site traffic, 40% boost in organic sales, 30%
+improvement in customer retention, for a fashion retailer with 42 stores nationwide (that "42"
+is itself one of the inline `<Stat>` highlights, in the intro paragraph). Hero illustration
+fetched from the user's local XAMPP URL via `curl`. Verified via tsc/eslint/`next build` (new
+static route, 25th total) + a rendered-HTML content smoke test (title, a challenge heading, the
+55.8% stat, Conclusion, "Back to Portfolio," and 35 scroll-reveal markers all confirmed present).
+**3 individual case-study pages remain** (`/beechtree`, `/seona`, `/kiko-milano`).
