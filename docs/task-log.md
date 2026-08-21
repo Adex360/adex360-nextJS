@@ -482,3 +482,22 @@ route, 21st total; re-verified all 5 prior `AppCaseStudy`-based pages still rend
 after the type change, not just this new one) + a rendered-HTML content smoke test (title, both
 inline stats, a Challenges subsection, Final Thoughts, and the "Back to Portfolio" link all
 confirmed present). **7 individual case-study pages remain.**
+
+### 2026-08-21 — ECS case-study page built (`/ecs`)
+Built the 7th of the 13 individual case-study pages from full-page screenshots + the WP article
+HTML. Reused the narrative template again (`CaseStudyHero` + `CaseStudyCta` + `Stat`) — this
+source has no "Overview" heading at all, just the intro paragraph straight after the H1, so none
+was invented. The recurring content shape here is different from Butterfly's: a "bold label:
+description" bullet pattern shows up 3 separate times (Key Achievements with inline stats,
+Content Optimization/Influencer Collaborations, Steps Taken for Sales Growth) rather than
+Butterfly's numbered sub-sections — built a new shared `LabeledBullets.tsx` (bullet dot + bold
+label + description; label can carry an inline `<Stat>`) instead of reusing `NumberedList`,
+since these aren't sequential steps. The "Challenges Identified & Solutions Implemented" section
+has 3 problem/solution pairs styled as bordered cards via a local `ChallengeBlock` helper (title
++ bold "Problem:"/"Solution:" labels) — page-specific since this exact card shape hasn't recurred
+elsewhere yet. Content: 53% sales increase, 40% faster order processing, 95% data-reporting
+accuracy for a 1954-founded Lahore footwear retailer. Hero illustration fetched from the user's
+local XAMPP URL via `curl`. Verified via tsc/eslint/`next build` (new static route, 22nd total)
++ a rendered-HTML content smoke test (title, a challenge block heading, the 53% stat, Influencer
+Collaborations, Conclusion, "Back to Portfolio," and 35 scroll-reveal markers all confirmed
+present). **6 individual case-study pages remain.**
