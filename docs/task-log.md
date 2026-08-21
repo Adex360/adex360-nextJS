@@ -501,3 +501,21 @@ local XAMPP URL via `curl`. Verified via tsc/eslint/`next build` (new static rou
 + a rendered-HTML content smoke test (title, a challenge block heading, the 53% stat, Influencer
 Collaborations, Conclusion, "Back to Portfolio," and 35 scroll-reveal markers all confirmed
 present). **6 individual case-study pages remain.**
+
+### 2026-08-21 — Nishat USA case-study page built (`/nishat-usa`)
+Built the 8th of the 13 individual case-study pages from full-page screenshots + the WP article
+HTML. Structurally near-identical to ECS: intro paragraph with no "Overview" heading, a
+"Challenges Identified & Solutions Implemented" section with the exact same 3-problem/solution
+card pattern, a "Key Achievements" stat list, two plain content sections, a "Sales Growth"
+section, and a Conclusion. Since this is now the second page using that problem/solution card
+shape, extracted ECS's inline `ChallengeBlock` helper into a shared
+`src/components/casestudy/ChallengeBlock.tsx` instead of copy-pasting it again — re-verified ECS
+still renders correctly after the refactor, not just the new page. The "Key Achievements" list
+here has a slightly different label shape than ECS's ("**76%** increase in sales..." vs ECS's
+"**53%** Increase in Sales:") — `LabeledBullets`' `label`/`text` split handled both without
+changes, confirming it generalizes correctly. Content: 76% sales increase, 53% rise in website
+sessions, 100% growth in order count, for a textile/fashion brand's social media program. Hero
+illustration fetched from the user's local XAMPP URL via `curl`. Verified via tsc/eslint/
+`next build` (new static route, 23rd total; ECS re-verified unaffected) + a rendered-HTML
+content smoke test (title, a challenge heading, the 76% stat, Conclusion, "Back to Portfolio,"
+and 35 scroll-reveal markers all confirmed present). **5 individual case-study pages remain.**
