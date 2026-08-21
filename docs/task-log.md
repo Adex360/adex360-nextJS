@@ -227,3 +227,44 @@ of `/case-studies`. Confirmed no `/case-studies` string remains anywhere in `src
 All Projects" banner across the service pages already pointed to `/portfolio`, so the site is now
 fully consistent — all Case-Studies-labeled links resolve to the same future Portfolio page,
 currently showing the under-construction fallback until it's built.
+
+### 2026-08-21 — Portfolio page built (`/portfolio`)
+Built from full-page screenshots (mobile+desktop) + the `digaluprojects` widget HTML listing all
+16 real projects with their real WordPress slugs. Confirmed with the user beforehand that the
+Clutch achievement-badges row visible at the bottom of the screenshot should be excluded, same
+as every other Clutch section removed this phase — this one looked like a genuine award strip
+rather than the earlier fake review widget, so it was worth double-checking rather than assuming.
+`PortfolioHero` adds a small "Our Work / Portfolio" heading that the WP source doesn't actually
+have (the screenshots show the project grid starting directly under the nav) — added deliberately
+for on-page SEO/UX consistency with every other interior page, flagged rather than silently
+introduced. `PortfolioGrid` renders all 16 cards as real `Link`s to their source slugs: 3 already
+resolve to real pages built earlier this phase (`/universal-product-feed`, `/mailbot`,
+`/pushbot`), the other 13 (`/eu`, `/beoneshopone`, `/ak-galleria`, `/butterfly`,
+`/logo-official`, `/weltew-home`, `/ecs`, `/nishat-usa`, `/nishat-uae`, `/one`, `/beechtree`,
+`/seona`, `/kiko-milano`) don't have case-study pages yet and currently resolve to the
+under-construction fallback — building those out is a separate, not-yet-scoped follow-up.
+Cards use category-coded icon/gradient placeholders (one style per service line) since no real
+thumbnails were provided for this page specifically; the user offered to share local XAMPP
+screenshot URLs so they can be fetched directly with `curl` (confirmed this works since Bash/
+PowerShell run directly on the user's machine, not a remote sandbox) once sent. Verified via
+tsc/eslint/`next build` (new static route, 15th total) + a rendered-HTML content smoke test (all
+16 project names and their href slugs confirmed present, zero "Clutch" leakage). **This closes
+out every page originally scoped for Phase 3** — remaining work is the 13 case-study pages (new
+scope, not yet defined) and real image assets, not new top-level pages.
+
+### 2026-08-21 — Real images wired into all 16 Portfolio cards
+User asked to pull the actual images out of the `digaluprojects` HTML they'd already sent (real
+`adex360.com/wp-content/uploads/...` URLs) rather than wait on local XAMPP screenshots. Confirmed
+this session's Bash/PowerShell tools run directly on the user's machine, so `curl` could fetch the
+live production URLs directly — downloaded all 14 unique files (two source URLs are reused across
+2 cards each: `One.png` for both "D2C Western Clothing" and "Urban Fashion & Lifestyle Retail",
+`nishat.png` for both "Luxury Pret Wear" and "D2C Fashion") into `public/images/portfolio/`,
+verified none came back as tiny error-page stand-ins before wiring them in. Rewrote
+`PortfolioGrid.tsx` to replace every category-coded icon/gradient placeholder with a real
+`next/image` (`fill`, `object-cover`, hover scale + gradient overlay + external-link icon on
+hover), same visual treatment as the Home page's project grid. Verified via tsc/eslint/
+`next build` (still 15 static routes, no new route needed) + a rendered-HTML smoke test
+confirming every card renders a real `next/image` srcset (not a broken/missing source) and
+manually fetched one resized variant through the dev server to confirm it decodes as a valid
+image, not an error page. **The Portfolio page's asset work is now fully done** — only the 13
+individual case-study pages remain as unscoped follow-up work.
