@@ -451,3 +451,16 @@ route) + a rendered-HTML smoke test across all 7 case-study-family pages
 confirming the real DOM link renders on every one (a second match on 3 of them was just Next's
 RSC hydration payload duplicating the string server-side, not an actual duplicate element —
 checked the surrounding context before concluding that).
+
+### 2026-08-21 — Logo Official case-study page built (`/logo-official`)
+Built the 5th of the 13 individual case-study pages from full-page screenshots + the WP article
+HTML. Content shape was another exact match for `AppCaseStudy` — same 6-section structure as AK
+Galleria (Overview → Development Goals & Objectives → Technologies & Features Implemented →
+Challenges & Solutions → Results & Impact → Final Thoughts) — so it was reused directly with a
+new `Footprints` icon (violet-to-blue gradient) and its own content file
+(`logoOfficial.content.ts`); no template changes were needed this time, which is a good sign the
+app-page shape generalizes cleanly across unrelated brands (a Shopify app landing page, a fashion
+retailer, and now a footwear/accessories brand all fit the same 6 sections). Verified via
+tsc/eslint/`next build` (new static route, 20th total) + a rendered-HTML content smoke test
+(title, a Challenges subsection heading, Final Thoughts, the "Back to Portfolio" link, and
+scroll-reveal marker count all confirmed present). **8 individual case-study pages remain.**

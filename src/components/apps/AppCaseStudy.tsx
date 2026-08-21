@@ -14,10 +14,11 @@ import {
   Mail,
   Bell,
   ShoppingBag,
+  Footprints,
 } from "lucide-react";
 import BackToPortfolio from "../casestudy/BackToPortfolio";
 
-const APP_ICONS = { Rss, Bot, Mail, Bell, ShoppingBag } as const;
+const APP_ICONS = { Rss, Bot, Mail, Bell, ShoppingBag, Footprints } as const;
 
 export type AppIconKey = keyof typeof APP_ICONS;
 
