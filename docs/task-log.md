@@ -323,3 +323,28 @@ that every card's icon now carries only the `45deg` class. Noted (not a real iss
 `-45deg` CSS rule lingered in a Tailwind/Turbopack build-cache chunk even after a full `.next`
 wipe and rebuild — harmless, since no element in the actual markup references that class anymore,
 confirmed by checking the rendered class list directly rather than trusting the CSS chunk alone.
+
+### 2026-08-21 — BeOneShopOne case-study page built (`/beoneshopone`)
+Built the 1st of the 13 individual case-study pages linked from Portfolio, from a full-page
+screenshot + the WP article HTML. This content shape is meaningfully different from every page
+built so far — a narrative SEO results case study (Overview → SEO Performance Growth with July/
+December subsections → Content Optimization & Backlink Growth → Sales Impact → Key Takeaways →
+Final Thoughts), with nested h2/h3/h4 headings and inline orange-highlighted stat callouts
+(`color:#f08821` in the source) rather than the tabs/testimonials/FAQ shape of the service pages
+or the fixed 5-section shape of the Shopify app pages. Rather than force this into
+`AppCaseStudy`'s rigid schema, built a lighter reusable shell instead: `CaseStudyHero.tsx`
+(back-to-Portfolio link, eyebrow + title, hero illustration), `CaseStudyCta.tsx` (closing "Want
+results like this?" gradient CTA band — not present in the WP source, added for consistency
+with every other page's closing CTA), and `Stat.tsx` (a small bold-orange inline wrapper for the
+highlighted numbers). The actual article body (`BeOneShopOneArticle.tsx`) is hand-authored JSX
+per page rather than a generic data-driven renderer — case-study content structures vary too
+much page-to-page (this one has July/December sub-splits; others will likely differ) to force
+into one fixed schema; the hero/CTA/Stat pieces are what's actually shared and reused. The hero
+image was fetched directly from the user's local XAMPP URL (`http://localhost/adex360/...`) via
+`curl` — confirmed this works exactly like the earlier `adex360.com` production fetches, since
+Bash runs directly on the user's machine either way. Skipped the source's `elementor-hidden-*`
+"Project Info" sidebar widget (permanently hidden in the markup — same pattern as the FAQ page's
+hidden legacy accordion, correctly identified as dead content rather than built). Verified via
+tsc/eslint/`next build` (new static route, 16th total) + a rendered-HTML content smoke test
+(title, "Backlink Growth" subheading, "55%" stat, "Final Thoughts", and the closing CTA all
+confirmed present). **12 individual case-study pages remain**, to be sent one at a time.
