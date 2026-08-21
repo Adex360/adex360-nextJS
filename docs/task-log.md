@@ -611,3 +611,30 @@ pages, and all 13 case studies — is done. `docs/progress.md` Phase 3 status up
 Remaining open work: Phase 4 (blog backend, not started), Phase 5 (SEO-score form email
 delivery — awaiting user's Resend/SMTP/GHL choice; per-page JSON-LD; sitemap/robots), and a large
 batch of uncommitted local work still pending a `git commit` + push.
+
+### 2026-08-21 — Terms & Privacy Policy page built (`/terms-and-privacy`)
+User pointed out the footer's "Terms & Privacy" link was wired to `/faqs` as a placeholder and
+asked for a real dedicated page, written from the site's actual content/services rather than
+generic boilerplate, following the project's established page schema. No WP source existed for
+this page — content was authored from scratch based on the real business: the 6 real services
+offered, real USA/Pakistan office addresses, `info@adex360.com`, and — most importantly — an
+accurate disclosure of the real GoHighLevel (LeadConnector) third-party platform that powers the
+site's contact form and booking widget (confirmed from `ContactForm.tsx`), rather than inventing
+generic "we use cookies for analytics" filler not actually wired up in the codebase. Built a new
+`src/components/legal/` folder following the same Hero → content → closing-CTA schema as every
+other content page (FAQ's, case studies): `LegalHero.tsx` (same minimal centered-hero pattern as
+`FaqHero`), `LegalNav.tsx` (new pattern — a sticky in-page anchor nav between "Terms of Service"
+and "Privacy Policy" sections, `IntersectionObserver`-driven active-section highlight, offset to
+match the header's real `h-20` height), `LegalSection.tsx` (numbered-circle-badge list item,
+same visual language as the case-study `NumberedList`/`LabeledBullets` components), and
+`LegalContent.tsx` (11 Terms of Service sections: acceptance, who we are, site use/IP, services &
+engagements, client responsibilities, payment, third-party platforms, liability, termination,
+governing law, changes; 12 Privacy Policy sections: information collected, how it's used,
+cookies, the real GoHighLevel disclosure, data sharing, retention, security, user rights,
+children's privacy, international transfers, policy changes, contact). Reused the existing
+prop-configurable `CaseStudyCta` for the closing CTA rather than building a new one. Footer's
+"Terms & Privacy" link (`src/components/layout/Footer.tsx`) repointed from `/faqs` to
+`/terms-and-privacy`. Verified via tsc/eslint/`next build` (new static route, 28th total) + a
+rendered-HTML content smoke test (both section headings, the GoHighLevel disclosure, the real
+email, 35 scroll-reveal markers, and the home page's footer link confirmed pointing at the new
+route).

@@ -35,11 +35,16 @@ All pages below will be rebuilt as fully static pages using Static Site Generati
 - Growth Marketing: `/seo-services`, `/social-media-management`, `/performance-marketing`
 - Web & App Development: `/web-development`, `/shopify-app-development`
 - Custom Solutions: `/crm-integration`
-- Company: `/about-us`, `/faqs`, `/case-studies`
+- Company: `/about-us`, `/faqs`, `/portfolio` (renamed from the originally-planned `/case-studies` — see note below)
 - Contact: `/contact-us`
 - Blog / Marketing Insights: `/resources` (listing page) and `/resources/[slug]` (individual posts) — these two are the only dynamic, database-driven pages.
 
-**Added during Phase 3 (not in the original WP sitemap above):** three individual Shopify app landing pages, linked from `/shopify-app-development`'s "Apps We Developed" project cards per the client's explicit slugs — `/universal-product-feed`, `/pushbot`, `/mailbot`. These are net-new pages (no equivalent existed on the old WordPress site), not part of the original 1:1 URL migration; content/screenshots for each are still pending from the client. See `docs/progress.md` for live status.
+**Added during Phase 3 (not in the original WP sitemap above):**
+- Three individual Shopify app landing pages, linked from `/shopify-app-development`'s "Apps We Developed" project cards per the client's explicit slugs — `/universal-product-feed`, `/pushbot`, `/mailbot`. These are net-new pages (no equivalent existed on the old WordPress site).
+- `/portfolio` — the client's real project grid (16 projects), replacing the originally-planned `/case-studies` placeholder entirely; the header/footer "Case Studies" nav links now point here. 13 individual case-study detail pages, one per project slug, are linked from its cards: `/beoneshopone`, `/eu`, `/ak-galleria`, `/butterfly`, `/logo-official`, `/weltew-home`, `/ecs`, `/nishat-usa`, `/nishat-uae`, `/one`, `/beechtree`, `/seona`, `/kiko-milano`.
+- `/terms-and-privacy` — a Terms of Service + Privacy Policy page. The footer previously linked its "Terms & Privacy" label to `/faqs` as a placeholder; this is the real page, content authored from scratch (no equivalent existed in the client-provided WP export) based on the site's actual services and infrastructure.
+
+None of the above were part of the original 1:1 URL migration; all are complete. See `docs/progress.md` for live status.
 
 Wherever a slug must change for technical reasons, a 301 redirect will be put in place (see Section 8) so no SEO value is lost.
 

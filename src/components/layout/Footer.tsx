@@ -200,7 +200,7 @@ export default function Footer() {
             <Link href="/portfolio" className="hover:text-white">
               Case Studies
             </Link>
-            <Link href="/faqs" className="hover:text-white">
+            <Link href="/terms-and-privacy" className="hover:text-white">
               Terms &amp; Privacy
             </Link>
           </div>
