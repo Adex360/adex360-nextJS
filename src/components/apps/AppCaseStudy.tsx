@@ -13,9 +13,11 @@ import {
   Bot,
   Mail,
   Bell,
+  ShoppingBag,
+  ArrowLeft,
 } from "lucide-react";
 
-const APP_ICONS = { Rss, Bot, Mail, Bell } as const;
+const APP_ICONS = { Rss, Bot, Mail, Bell, ShoppingBag } as const;
 
 export type AppIconKey = keyof typeof APP_ICONS;
 
@@ -64,7 +66,13 @@ function BulletList({ items }: { items: string[] }) {
   );
 }
 
-export default function AppCaseStudy({ content }: { content: AppCaseStudyContent }) {
+export default function AppCaseStudy({
+  content,
+  showBackToPortfolio = false,
+}: {
+  content: AppCaseStudyContent;
+  showBackToPortfolio?: boolean;
+}) {
   const Icon = APP_ICONS[content.icon];
 
   return (
@@ -73,6 +81,16 @@ export default function AppCaseStudy({ content }: { content: AppCaseStudyContent
         <div className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-brand-blue/20 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-24 -left-24 h-80 w-80 rounded-full bg-[#E38A19]/10 blur-3xl" />
         <div className="relative mx-auto flex max-w-4xl flex-col items-center text-center">
+          {showBackToPortfolio && (
+            <Link
+              data-reveal="fade"
+              href="/portfolio"
+              className="mb-6 inline-flex items-center gap-1.5 self-start text-xs font-semibold text-white/50 transition-colors hover:text-white"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" />
+              Back to Portfolio
+            </Link>
+          )}
           <div
             data-reveal="up"
             className={`flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br ${content.gradient} shadow-xl shadow-brand-900/30`}

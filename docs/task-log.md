@@ -379,3 +379,26 @@ headings, all 3 stats, all 3 cross-links to `/beoneshopone`/`/seona`/`/weltew-ho
 image srcsets confirmed present). **The site now has 2 distinct case-study templates** — future
 case-study pages should be checked against both before deciding whether to reuse one or extend
 further; 11 individual case-study pages remain.
+
+### 2026-08-21 — AK Galleria case-study page built (`/ak-galleria`) — reused the AppCaseStudy template
+Built the 3rd of the 13 individual case-study pages from full-page screenshots + the WP article
+HTML. Unlike the previous two (which each needed a new template), this one's content shape was
+an exact structural match for `AppCaseStudy.tsx` — the same template already built for the 3
+Shopify app pages (Overview → Development Goals & Objectives → Technologies & Features
+Implemented → Challenges & Solutions → Results & Impact → Final Thoughts) — so it was reused
+directly instead of building a 3rd template. Added a `ShoppingBag` icon key to the template's
+icon map (teal-to-blue gradient) and a new opt-in `showBackToPortfolio` prop, defaulted to
+`false` so the 3 existing app pages render unchanged — set to `true` only here, since this page
+is reached from the Portfolio grid and benefits from a way back there, unlike the app pages which
+are reached from the Shopify service page. Verified the prop's default behavior by smoke-testing
+both this page (link present) and Universal Product Feed (link absent) side by side. Caught and
+fixed a real bug in the WP source while transcribing: a stray `<br>` had split one bullet's
+text across two separate `<li>` elements ("Boosted Conversions – ...higher purchase
+rate.<br>Improved Search" as one bullet, "Visibility – The SEO-friendly structure..." as the
+next) — merged them back into the single intended bullet, "Improved Search Visibility – The
+SEO-friendly structure helped increase organic traffic and discoverability," rather than
+reproducing the broken split. Verified via tsc/eslint/`next build` (new static route, 18th
+total) + a rendered-HTML content smoke test (title, the corrected merged bullet, Final Thoughts,
+and the conditional back-link present here / absent on Universal Product Feed, all confirmed).
+**10 individual case-study pages remain**, to be sent one at a time; the site now has 3 distinct
+case-study shapes to check new ones against before building anything new.
