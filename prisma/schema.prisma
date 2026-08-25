@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
+
+/// Staff account for admin-dashboard login only (NextAuth Credentials
+/// provider, no public sign-up). Not the same as a post's byline "Author" —
+/// a blog post can be attributed to a team member who never logs in.
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+/// The byline shown on a post. Independent of admin login (`User`) — editors
+/// pick or create an Author by name only, same "select or add new" UX as Category.
+model Author {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+
+  posts Post[]
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  createdAt DateTime @default(now())
+
+  posts Post[]
+}
+
+model Post {
+  id          String     @id @default(cuid())
+  title       String
+  slug        String     @unique
+  excerpt     String
+  content     String
+  featuredImage String?
+  seoTitle    String?
+  seoDescription String?
+  status      PostStatus @default(DRAFT)
+  publishedAt DateTime?
+  tags        String[]   @default([])
+  views       Int        @default(0)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  authorId   String
+  author     Author   @relation(fields: [authorId], references: [id])
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  @@index([status, publishedAt])
+}
