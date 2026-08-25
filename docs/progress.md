@@ -2,7 +2,7 @@
 
 This file tracks progress through the phases defined in [migration-plan.md](./migration-plan.md). It is updated after every work session/prompt. For the raw, sequential "what was asked → what was done" history at the individual-task level, see [task-log.md](./task-log.md) — this file tracks status by phase/feature instead.
 
-**Last updated:** August 25, 2026 (new reusable `ReadMoreButton` — skewed dark-overlay hover sweep, built pure-Tailwind to match the codebase's existing convention — applied to every `/resources` card — see Phase 4 notes below)
+**Last updated:** August 25, 2026 (**site confirmed live on adex360.com** — added keyword-matched 301 redirects for old WordPress `/tag/*` archive URLs Google still has indexed, so they land on the closest real page instead of 404ing — see Phase 6/7 notes below)
 
 ## Status Legend
 - **Done** — phase fully complete
@@ -175,8 +175,9 @@ Metadata, schema, sitemap, and contact form integration.
 
 ### Phase 6 — QA & Redirects
 QA, performance tuning, and redirect mapping.
-**Status:** Not started
-- [ ] Full URL redirect map (old WordPress URLs → new Next.js URLs) + 301s
+**Status:** In Process — site is already live (see Phase 7); redirect map started reactively based on real 404s Google is surfacing, not run proactively as a full audit yet
+- [x] **`/tag/:slug` → real page redirects — done (2026-08-25), reactive fix, not the full redirect map.** User discovered via a live Google search for "adex360" that old WordPress tag-archive URLs (e.g. `/tag/best-seo-company-in-the-world`) are still indexed and getting real search traffic, but 404 on the new site. Rather than a fixed list of exact old→new URL pairs, used Next.js `redirects()` in `next.config.ts` with path-to-regexp custom per-segment regex (`/tag/:slug(.*seo.*)` etc.) to keyword-match the old slug and 301/308-redirect to the closest real page — `seo`→`/seo-services`, `social`→`/social-media-management`, `performance`→`/performance-marketing`, `shopify`→`/shopify-app-development`, `crm`→`/crm-integration`, `web-dev`/`website`→`/web-development`, with a catch-all `/tag/:path*` → `/resources` for anything else (closest real equivalent to a WP tag archive, which listed blog posts). **This only covers `/tag/*` URLs surfaced so far — it is not the full "old WordPress URLs → new Next.js URLs" redirect map** that Phase 6 originally scoped; other old WP URL patterns (individual old post slugs, category archives, author pages, etc.) haven't been audited yet and may need their own redirects once/if they surface the same way.
+- [ ] Full URL redirect map (old WordPress URLs → new Next.js URLs) + 301s — beyond the reactive `/tag/*` fix above, a proper audit (Google Search Console's Coverage report, or crawling the old site's URL list) hasn't been done
 - [ ] Cross-browser and mobile responsiveness testing
 - [ ] Form submission testing
 - [ ] Broken-link checks
@@ -185,10 +186,11 @@ QA, performance tuning, and redirect mapping.
 
 ### Phase 7 — Launch & Monitoring
 Launch and post-launch monitoring.
-**Status:** Not started
-- [ ] DNS cutover after final sign-off
-- [ ] Submit updated sitemap to Google Search Console
-- [ ] Monitor GSC and analytics for 2–4 weeks post-launch
+**Status:** In Process — **the site is live on adex360.com** (discovered 2026-08-25 via the user's own Google search, not a planned/announced cutover in this log — noting the fact so this tracker matches reality, not the original phase order)
+- [x] DNS cutover — done, timing/date not communicated to this log, discovered retroactively
+- [ ] Submit updated sitemap to Google Search Console — no `sitemap.xml` exists yet (Phase 5 item), and unclear if GSC has been set up for the new site at all
+- [ ] Monitor GSC and analytics for 2–4 weeks post-launch — can't start until the above is set up
+- **Practical consequence of launching before Phase 6 QA/Phase 5 SEO wiring finished:** old WordPress URLs Google indexed (tag archives confirmed so far) 404 on the live site until redirected; per-page JSON-LD, sitemap.xml/robots.txt, and the SEO-score form's email delivery are all still outstanding Phase 5 items now live on a real, publicly-indexed domain rather than a pre-launch staging site.
 
 ## What's Next (recommended order)
 

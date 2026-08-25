@@ -1153,3 +1153,48 @@ specific arbitrary-value classes): fetched the live compiled stylesheet directly
 contains the literal `25deg` skew value and both `var(--btn-bg)`/`var(--btn-hover-bg)` variable
 references, which only exist in the output if Tailwind's JIT scanner genuinely picked up and
 compiled those exact utility classes. Full `tsc --noEmit` and `eslint` clean.
+
+### 2026-08-25 — Live-site discovery + old WordPress /tag/* URLs redirected
+User shared a screenshot of Google search results for "adex360" — **the site is now live on
+adex360.com**, a fact not previously communicated to this log; DNS cutover happened at some point
+without being tracked here, so `docs/progress.md`'s Phase 6/7 status was updated to match reality
+rather than the original planned order (QA and SEO wiring were still incomplete when the site
+went live). The immediate, concrete problem: two old WordPress tag-archive URls Google still has
+indexed (`/tag/best-seo-company-in-the-world`, `/tag/best-seo-companies-in-the-world`) 404 on the
+new site. User's request went beyond just those two URLs: redirect any `/tag/:slug` where the
+slug mentions SEO to `/seo-services`, social media to `/social-media-management`, performance
+marketing to `/performance-marketing`, "and also look for others as well" — i.e., generalize the
+same keyword-matching logic across all the service pages, not hand-list two fixes.
+
+Implemented via Next.js's `redirects()` in `next.config.ts` using path-to-regexp's per-segment
+custom regex syntax (`/tag/:slug(.*seo.*)`) rather than a middleware/proxy, since this is exactly
+what `redirects()` is designed for and keeps the logic declarative and colocated with the rest of
+the redirect config the migration plan already calls for. Mapped: shopify→
+`/shopify-app-development`, crm→`/crm-integration`, social→`/social-media-management`,
+performance→`/performance-marketing`, web-dev/website→`/web-development`, seo→`/seo-services`,
+with a catch-all `/tag/:path*`→`/resources` (the closest real equivalent to a WP tag archive,
+which listed blog posts) for anything not matching a known keyword. Ordered specific keywords
+before broader ones and the catch-all last, since Next.js redirects use first-match-wins.
+
+**Broke the user's live dev server in the process, then fixed it and said so plainly.** The first
+version of the config used a capturing group — `/tag/:slug(.*(web-dev|website).*)` — which
+path-to-regexp's redirect matcher explicitly forbids ("Capturing groups are not allowed"). Next.js
+auto-restarts its dev server whenever `next.config.ts` changes, so this bad config crashed the
+user's own `npm run dev` process immediately on save. Diagnosed the exact cause by starting an
+independent `next dev` instance on a throwaway port and reading its startup log directly rather
+than guessing, which surfaced the precise Next.js error message and character offset. Fixed by
+splitting the offending rule into two separate non-alternating rules
+(`.*web-dev.*` / `.*website.*`) instead of risking whether a non-capturing group `(?:...)` would
+be accepted either. Verified the corrected config starts cleanly with zero errors and that every
+mapping redirects correctly (confirmed via curl against the throwaway instance, including both
+exact URLs from the user's screenshot landing on `/seo-services`, and an unrelated tag correctly
+falling through to the `/resources` catch-all) — then explicitly told the user their own dev
+server needed a manual restart, since a process crashed in their own terminal window isn't
+something this session can restart on their behalf. `tsc --noEmit` clean on the final config.
+
+Also updated `docs/progress.md`'s Phase 6 and Phase 7 sections to reflect the live-site discovery
+honestly: Phase 7 (Launch) marked In Process with DNS cutover checked off retroactively rather
+than claimed as a tracked, planned event, and Phase 6's redirect-map item explicitly flagged as
+only reactively covering `/tag/*` so far — not the full old-WP-URL audit the phase originally
+scoped, since other old URL patterns (individual posts, categories, author pages) haven't been
+checked yet and may need the same treatment if/when they surface the same way.
