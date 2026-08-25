@@ -169,9 +169,26 @@ export default function ScrollFx() {
     window.addEventListener("load", refresh);
     const settleTimer = window.setTimeout(refresh, 800);
 
+    // In-page interactions also change the document height long after mount —
+    // filtering the projects grid, expanding a footer accordion, switching a
+    // tab panel. Every trigger below the change then measures against a stale
+    // position, and anything whose start point now sits past the new end of
+    // the page can never fire, leaving whole sections stuck at opacity 0.
+    // Watching the body catches those content-driven resizes (window resizes
+    // ScrollTrigger already handles itself). Debounced because a re-measure of
+    // every trigger is not something to run on each observer tick.
+    let resizeTimer = 0;
+    const observer = new ResizeObserver(() => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(refresh, 120);
+    });
+    observer.observe(document.body);
+
     return () => {
       window.removeEventListener("load", refresh);
       window.clearTimeout(settleTimer);
+      window.clearTimeout(resizeTimer);
+      observer.disconnect();
       ctx.revert();
     };
   }, []);

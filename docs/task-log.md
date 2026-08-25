@@ -657,3 +657,39 @@ and reordered to surface the Phase 5 items that need no decision and could start
 (per-page metadata audit, JSON-LD schema, sitemap/robots, image/alt audit) ahead of the
 decision-blocked items. Removed a duplicate/stale numbered-list fragment left over from an
 earlier edit in the same section. No code changes this task — docs only.
+
+### 2026-08-25 — Old WordPress `/tag/*` URLs redirected to real pages (`main`)
+The site is now live on adex360.com, and a Google search for "adex360" still surfaces old
+WordPress tag-archive URLs (`/tag/best-seo-company-in-the-world`, `/tag/best-seo-companies-in-the-world`)
+that have no equivalent on the new site and were 404ing. Added a `redirects()` block to
+`next.config.ts` that routes any `/tag/*` URL by keyword in the old slug to the closest real
+page — shopify → `/shopify-app-development`, crm → `/crm-integration`, social →
+`/social-media-management`, performance → `/performance-marketing`, web-dev/website →
+`/web-development`, seo → `/seo-services` — with a catch-all to `/resources` for everything else
+(including WP's `/tag/:slug/page/2/` pagination). Order matters: first match wins, so the
+discriminating keywords are listed before the broad `seo`/`web` ones. All permanent (Next.js
+emits 308, not literal 301 — equivalent for SEO). One gotcha found the hard way: path-to-regexp
+rejects capturing groups inside a `:param(regex)` matcher, so `(web-dev|website)` had to be split
+into two separate rules; the invalid config crashed the running dev server, since `next dev`
+auto-restarts on `next.config.ts` changes. This work was originally done on the `blog-posts`
+branch; only `next.config.ts` was carried over to `main` (via `git show blog-posts:next.config.ts`
+rather than a cherry-pick, which would have dragged the branch's doc changes along) and pushed as
+`353c3e9`. The blog dashboard, test posts, and Prisma/Postgres work stay on `blog-posts`.
+Note: GitHub reported the repo has moved to `https://github.com/Adex360/adex360-nextJS.git`; the
+push still succeeded through the old URL's redirect.
+
+### 2026-08-25 — Fixed Team + Footer disappearing when a Projects filter tab is clicked
+On the home page, clicking any category tab other than "All" (FMCG, D2C, Apparel, Footwear, Home
+Decor) left the Team Members section and the footer blank — the footer rendered as an empty dark
+band. Cause: filtering shrinks the Projects grid from 4 cards to 1, which drops several hundred
+px of page height, but every GSAP ScrollTrigger below it is still measured against positions
+cached at mount. Their start points now sit past the new end of the document, so `onEnter` can
+never fire and the elements stay parked at the `opacity: 0` that `captureElement` sets — Team has
+its own trigger in `Team.tsx`, and the footer's reveals come from the shared `ScrollFx` walker.
+Fixed generically in `src/components/fx/ScrollFx.tsx` rather than patching `Projects.tsx`: a
+`ResizeObserver` on `document.body` now re-runs `ScrollTrigger.refresh()` (debounced 120ms) on
+any content-driven height change, which re-measures every trigger globally — including the ones
+other components create. Window resizes were already handled by ScrollTrigger itself; this covers
+the in-page interactions it can't see. Also fixes the same class of bug for the mobile footer
+accordion and any future filter/tab UI. Observer disconnected and the debounce timer cleared in
+the effect cleanup alongside the existing `gsap.context` revert. Verified with `tsc --noEmit`.
