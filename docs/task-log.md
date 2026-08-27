@@ -1327,3 +1327,115 @@ Verification: `prisma migrate dev` + `generate` + reseed, `tsc --noEmit`, `eslin
 newest projects with the 3 tabs those 4 actually belong to, the new-project form no longer has
 Summary or the checkbox, and the admin table's "On Home" badge lines up with those same 4 rows.
 Same stale-Turbopack-Prisma-client restart needed as both earlier migrations today.
+
+### 2026-08-27 — Spacing fixes on /portfolio and /resources grid sections
+User pointed out the grid of cards on `/portfolio` sat flush against the hero-style heading above
+it with no visual gap, then flagged the same issue on `/resources`' "Our Blog" heading (a
+different page/component than the home page's blog slider fixed a couple tasks ago). Both
+`PortfolioGrid.tsx`'s section and `/resources`' post-grid section had zero top padding of their
+own — the only separation came from the hero component's own bottom padding. Added
+`pt-6 sm:pt-8 md:pt-10` to both grid sections, and bumped the home blog slider's own
+header-to-slider gap from `mt-8 md:mt-12` to `mt-10 md:mt-14` while at it. Verified with
+`tsc --noEmit`, a full `next build`, and a live-server check that the exact classes render.
+
+### 2026-08-27 — /resources blog grid: 2 columns → 3 on desktop
+User asked for 3 blog cards per row instead of 2. The grid was capped at `max-w-4xl
+md:grid-cols-2` — no room for a 3rd column at that container width. Widened to `max-w-6xl` and
+switched the breakpoint pattern to `sm:grid-cols-2 lg:grid-cols-3` (was a single `md:` jump
+straight to 2). Verified with `tsc --noEmit`, a full `next build`, and a live-server check of the
+rendered grid class.
+
+### 2026-08-27 — Deleted all test blog posts
+User asked to delete "all testing blogs which we are added just for test." Queried the `Post`
+table directly rather than guessing from titles alone — found 6 rows with deterministic
+`testpost000000000000000N` ids (5 `PUBLISHED`, 1 `DRAFT`, all titled `[TEST] ...` /
+`[TEST DRAFT] ...`, seeded 2026-08-25 for the client's QA pass) plus one genuine post with a
+normal cuid id ("Landing Pages Paid Ads and Funnels..."). Deleted only the 6 `testpost*` ids via
+`prisma.post.deleteMany({ where: { id: { startsWith: "testpost" } } } )` — confirmed the deletion
+count matched (6) and that the one real post was untouched immediately after, before removing the
+temporary script.
+
+### 2026-08-27 — Blog category/author cleanup; taxonomy renamed
+Follow-up request: remove the "Adex360" blog category, remove "Munib Ahmad" from Authors, and
+rename "Adex360 Admin" to just "Adex360." Listed every Category/Author with their post counts
+first — both the category and the author being removed had 0 posts, so no reassignment was
+needed before deleting. Renamed the "Adex360 Admin" author row to "Adex360" directly, and also
+updated the matching NextAuth `User.name` field for consistency (not user-visible anywhere in the
+dashboard today, but avoided leaving it mismatched). Updated `.env`'s `ADMIN_NAME` from
+"Adex360 Admin" to "Adex360" so a future `npm run db:seed` run won't recreate the old name or
+create a duplicate default author — `seed.ts`'s `defaultAuthor` lookup matches by name, so keeping
+`.env` in sync with the manual DB rename matters.
+
+**Anomaly surfaced, not caused by this task**: re-checking the `Post` table as part of this
+cleanup found it completely empty — including the one real post ("Landing Pages Paid Ads...")
+that was confirmed present immediately after the test-post deletion a few messages earlier.
+Nothing run in this session between those two points touched the `Post` table (the taxonomy
+script only ever queried/updated `Category`/`Author`/`User`). Most likely explanation: the post
+was deleted through the `/admin` dashboard UI directly by the user (or anyone with the login)
+in between — flagged plainly to the user rather than assumed away, since it can't be confirmed
+from here.
+
+### 2026-08-27 — Blog slider: arrows/loop only when a breakpoint actually overflows
+User showed a screenshot of the home blog slider with only 2 posts, both fitting side-by-side on
+desktop (3-slides-per-view breakpoint) with nothing to slide to — yet the prev/next arrows still
+rendered and were clickable-looking. The existing guard (`posts.length > 1`) was a single global
+check, not aware that the Swiper instance has different `slidesPerView` at each breakpoint
+(1 mobile / 2 tablet / 3 desktop), so it couldn't tell "2 posts total" apart from "2 posts, but
+the *current* breakpoint only needs 1 or 2 of them visible at once."
+
+Fixed with Swiper's built-in `watchOverflow` option, which locks the swiper instance whenever the
+slide count doesn't exceed the current breakpoint's `slidesPerView` — confirmed this exists in
+the installed Swiper version by grepping the package's own `.d.ts`/`.mjs` files rather than
+assuming from memory. Mirrored `swiper.isLocked` into a React `isLocked` state via `onSwiper`,
+`onResize`, and `onBreakpoint` callbacks, since the custom prev/next `<button>`s aren't Swiper's
+own navigation module — its automatic button-hiding via CSS class doesn't reach them, so the
+lock state has to be read out and applied manually. Arrows now render only when `!isLocked`.
+
+Immediately after, user asked for `loop` to also be active whenever the slider is actually usable
+(previously always `off` after removing the old flat `posts.length > 1` loop condition). Checked
+whether Swiper's React wrapper supports changing `loop` after initial mount by reading
+`node_modules/swiper/shared/update-swiper.mjs` directly — confirmed `_loop` is in the watched
+`paramsList` and the update function calls `loopDestroy()`/`loopCreate()` when it changes, so
+binding `loop={!isLocked}` is safe and dynamically toggles as the lock state changes across
+breakpoints, rather than only applying at first render. Net behavior now matches exactly what was
+asked: mobile activates (arrows + loop) at 2+ posts, tablet at 3+, desktop at 4+.
+
+Verified with `tsc --noEmit`, `eslint --max-warnings=0`, and a full `next build`. The
+breakpoint-dependent runtime behavior itself (resizing a real browser window) couldn't be
+verified directly — no headless-browser tooling is available in this environment — so this relied
+on Swiper's documented, stable `watchOverflow`/`isLocked` API rather than custom logic.
+
+### 2026-08-27 — All of today's + 2026-08-25's blog-branch work committed and pushed to `blog-posts`
+User asked to push everything done so far to the `blog-posts` branch (already the active branch
+throughout all of the above). Reviewed the diff before staging — 11 modified files, 18 new files,
+nothing touching `.env` or any other secret-bearing file, `git status --porcelain` clean apart
+from the intended changes. Staged and committed as a single commit (`6bf522e`, 29 files changed,
+"Add Projects dashboard tab, fix scroll reveals on filter, blog polish") covering: the Projects
+dashboard tab and its 3 migrations, the `ScrollFx` resize-observer fix, the blog slider
+arrow/loop fix, the `/portfolio` + `/resources` spacing and 3-column grid changes, and the test
+post/taxonomy cleanup. Pushed to `origin/blog-posts` (`4b28b93..6bf522e`) — same repo-relocation
+notice as every push this session (`Adex360/adex360-nextJS.git`), push still succeeds via the old
+URL's redirect.
+
+### 2026-08-27 — Updated docs/progress.md and docs/task-log.md; reviewed .env for the user
+User asked for both tracking docs to be brought up to date with everything done so far, and asked
+specifically about `.env` — what changed, and what it needs for the blog + Projects dashboard to
+work. `.env` holds 6 vars, none of them new from this session: `DATABASE_URL` (local Postgres,
+set up before this session), `ADMIN_NAME`/`ADMIN_EMAIL`/`ADMIN_PASSWORD` (used once by
+`npm run db:seed`), and `NEXTAUTH_SECRET`/`NEXTAUTH_URL` (NextAuth session signing + callback
+base URL). The only edit made to it this session was updating `ADMIN_NAME` from "Adex360 Admin"
+to "Adex360" as part of today's author-rename cleanup (see above) — done to keep the seed script's
+default-author lookup in sync with the manually-renamed DB row, not a new capability. `.env` is
+gitignored throughout (confirmed via `git check-ignore`) and was never part of any commit.
+
+Rewrote `docs/progress.md`'s "Last updated" summary, added a new "Branch structure" paragraph to
+the Current State section (explaining that `main` is blog-free production and `blog-posts` holds
+the full Phase 4 stack, plus the GitHub repo-relocation notice), corrected a stale Phase 3 bullet
+that still described the home Projects section as 4 hardcoded cards, added a full "Projects
+dashboard tab" entry plus entries for the scroll fix / slider fix / spacing / test-post cleanup
+under Phase 4, marked the two superseded 2026-08-25 entries (the old flat-condition slider loop,
+the seeded test posts) as struck through with pointers to what replaced them, and rewrote the
+stale "What's Next" section (previously assumed Phase 4 was fully blocked on an undecided DB
+choice, which was resolved weeks ago) to reflect the real current priority list: deciding when
+`blog-posts` merges into `main`, the missing-post anomaly, production image storage/DB, and the
+rest of Phase 5/6.
