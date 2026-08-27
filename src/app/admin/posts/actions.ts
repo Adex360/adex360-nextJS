@@ -3,64 +3,13 @@
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { mkdir, writeFile, unlink } from "fs/promises";
-import path from "path";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { slugify } from "@/lib/slugify";
+import { createImageStore } from "@/lib/imageStore";
 import { PostStatus } from "@/generated/prisma/client";
 
-const PUBLIC_DIR = path.join(process.cwd(), "public");
-const BLOG_IMAGE_DIR = path.join(PUBLIC_DIR, "images", "blog");
-
-/**
- * Deletes a previously-uploaded featured image from disk. Only ever touches
- * files under public/images/blog — a no-op for external URLs (e.g. legacy
- * posts saved back when this was a plain URL field) or missing files.
- */
-async function deleteLocalImage(imagePath: string | null) {
-  if (!imagePath || !imagePath.startsWith("/images/blog/")) return;
-  try {
-    await unlink(path.join(PUBLIC_DIR, imagePath));
-  } catch {
-    // File already gone (or never existed) — nothing to clean up.
-  }
-}
-
-/**
- * Saves an uploaded featured image to public/images/blog and returns its
- * public URL, deleting whatever image it replaces. Falls back to the
- * existing image (edit) or null (new post + no file chosen) when no new
- * file was uploaded; deletes the existing image outright when the user
- * explicitly removed it.
- */
-async function saveFeaturedImage(
-  formData: FormData,
-  fallback: string | null
-): Promise<string | null> {
-  if (formData.get("removeFeaturedImage") === "true") {
-    await deleteLocalImage(fallback);
-    return null;
-  }
-
-  const file = formData.get("featuredImage");
-
-  if (file instanceof File && file.size > 0) {
-    const bytes = Buffer.from(await file.arrayBuffer());
-    const ext = path.extname(file.name) || ".jpg";
-    const base = slugify(path.basename(file.name, ext)) || "image";
-    const filename = `${Date.now()}-${base}${ext}`;
-
-    await mkdir(BLOG_IMAGE_DIR, { recursive: true });
-    await writeFile(path.join(BLOG_IMAGE_DIR, filename), bytes);
-    await deleteLocalImage(fallback);
-
-    return `/images/blog/${filename}`;
-  }
-
-  const existing = String(formData.get("existingFeaturedImage") ?? "").trim();
-  return existing || fallback;
-}
+const featuredImages = createImageStore("/images/blog/");
 
 async function requireSession() {
   const session = await getServerSession(authOptions);
@@ -98,7 +47,7 @@ export async function createPost(formData: FormData) {
 
   const f = readPostFields(formData);
   const slug = slugify(f.slugInput || f.title);
-  const featuredImage = await saveFeaturedImage(formData, null);
+  const featuredImage = await featuredImages.save(formData, "featuredImage", null);
 
   await prisma.post.create({
     data: {
@@ -131,7 +80,11 @@ export async function updatePost(postId: string, formData: FormData) {
   const existing = await prisma.post.findUnique({ where: { id: postId } });
   if (!existing) throw new Error("Post not found.");
 
-  const featuredImage = await saveFeaturedImage(formData, existing.featuredImage);
+  const featuredImage = await featuredImages.save(
+    formData,
+    "featuredImage",
+    existing.featuredImage
+  );
 
   await prisma.post.update({
     where: { id: postId },
@@ -165,7 +118,7 @@ export async function deletePost(formData: FormData) {
 
   const existing = await prisma.post.findUnique({ where: { id: postId } });
   await prisma.post.delete({ where: { id: postId } });
-  await deleteLocalImage(existing?.featuredImage ?? null);
+  await featuredImages.remove(existing?.featuredImage ?? null);
 
   revalidatePath("/admin");
   revalidatePath("/resources");

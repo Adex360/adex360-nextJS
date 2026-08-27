@@ -63,11 +63,11 @@ export default async function ResourcesPage({
         </div>
       </section>
 
-      <section className="overflow-hidden bg-white px-4 pb-16 sm:px-6 md:pb-24 lg:px-8">
+      <section className="overflow-hidden bg-white px-4 pb-16 pt-6 sm:px-6 sm:pt-8 md:pb-24 md:pt-10 lg:px-8">
         <div
           data-reveal-group=""
           data-stagger="0.06"
-          className="mx-auto grid max-w-4xl grid-cols-1 gap-6 md:grid-cols-2"
+          className="mx-auto grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
         >
           {posts.map((post) => (
             <div

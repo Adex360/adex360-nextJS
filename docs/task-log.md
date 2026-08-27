@@ -1198,3 +1198,132 @@ than claimed as a tracked, planned event, and Phase 6's redirect-map item explic
 only reactively covering `/tag/*` so far — not the full old-WP-URL audit the phase originally
 scoped, since other old URL patterns (individual posts, categories, author pages) haven't been
 checked yet and may need the same treatment if/when they surface the same way.
+
+### 2026-08-25 — Admin dashboard split into Blog Posts + Projects tabs; projects made editable
+User asked for the dashboard to open with two top-level tabs (Blog Posts, Projects) and to be
+able to add projects the same way posts are added, with a free hand on what the tabs should
+contain. Built the Projects half end-to-end and reorganised the dashboard around it.
+
+**Data model.** Two new Prisma models plus a `ProjectStatus` enum (migration
+`20260825134855_add_projects_and_industries`). `Project` carries name, slug, service, summary,
+image, optional `caseStudyUrl`, `featured`, `sortOrder`, and status. `Industry` is a lookup table
+(FMCG, D2C, Apparel, Footwear, Home Decor) that doubles as the home page's filter tabs, created
+inline from the form via the same "select or add new" modal blog Categories use. Service is
+deliberately *not* a table: the six services are fixed by the site's own nav, so `src/lib/
+services.ts` derives the option list from `navItems` — one source of truth, and no way for an
+editor to invent a seventh service with no page behind it.
+
+**Dashboard.** `src/app/admin/page.tsx` is now a thin orchestrator over `?tab=` / `?status=`
+search params, delegating to `PostsPanel` and `ProjectsPanel`. Both tabs get four stat cards
+(posts: total / published / drafts / categories+authors; projects: total / published / on home
+page / industries) and keep the All-Draft-Published pills, which were generalised into a shared
+`StatusFilterTabs`. Only the open tab's rows and stats are queried; both totals are fetched for
+the tab badges. Table chrome (`TH`/`TD`/`StatusBadge`/date format) moved to a shared `tableUi`
+so the two tables can't drift apart. Posts gained an Author column and a slug line under the
+title; projects show a thumbnail, industry, service, a Featured badge, and a link out to the
+case-study page. Everything stays URL-driven, so a filtered view is linkable and survives the
+redirect back from a save.
+
+**Home page.** `Projects.tsx` used to hardcode four projects and six filter tabs; it's now an
+async server component reading published+featured projects from the DB, with the client-side
+filtering split into `ProjectsFilter.tsx`. Design is unchanged apart from two deliberate
+improvements: cards with a `caseStudyUrl` are now links (with a hover arrow), and the tabs are
+derived from the industries that actually have projects — so the old "Footwear" tab, which
+filtered to nothing, no longer renders. The seed upserts the previous four projects and five
+industries by slug, so the section looks identical to before but is now editable.
+
+**Refactor picked up along the way.** Blog and project image uploads were about to be two copies
+of the same fs code, so both now use `createImageStore(urlPrefix)` (`src/lib/imageStore.ts`).
+Deletes are scoped to the store's own prefix, and project uploads land in
+`public/images/projects/uploads/` rather than beside the screenshots committed to the repo —
+deleting a seeded project can't unlink a file that's in git. `ImagePicker`'s companion hidden
+fields are now namespaced off the input name (`featuredImage__existing` rather than a hardcoded
+`existingFeaturedImage`), so more than one picker can share a form.
+
+Also carried the `ScrollFx` ResizeObserver fix (committed to `main` as `1c7f4cb`) onto this
+branch, since the rebuilt projects filter changes page height exactly the way that bug needs.
+The change is byte-identical to main's, so the eventual merge won't conflict.
+
+Verification: `prisma migrate dev` + `generate` + seed, `tsc --noEmit`, `eslint --max-warnings=0`,
+a full `next build` (both new admin routes compiled), and a logged-in smoke test against
+`next start` — home page renders all four projects with FMCG/D2C/Apparel/Home Decor tabs and no
+Footwear tab, `/admin` and `/admin?tab=projects` both render their panels and stats, and
+`/admin/projects/new` renders the full form. One gotcha: the running dev server 500'd on every
+route after the migration because Turbopack had cached the pre-`ProjectStatus` Prisma client —
+disk was correct, the process was stale. Read the real error out of
+`.next/dev/logs/next-development.log` (Next 16 refuses to start a second dev server in the same
+directory, so the throwaway-port trick from the redirects task doesn't work any more) and cycled
+the server rather than guessing.
+
+### 2026-08-25 — Project cards simplified (no case-study link/slug/sort field); all 16 real projects seeded
+Follow-up to the Projects tab built earlier today. User pointed out the new-project form didn't
+need a Case Study Link, a manual Slug field, or Sort Order — the home page cards are just display
+data, not navigation, so linking to a case study was the wrong feature to ask an editor to fill
+in. Also asked for the real `/portfolio` project list (16 client projects, not just the original
+4) to be brought into the dashboard, with the Industry dropdown built from what that data
+actually contains.
+
+Removed `caseStudyUrl` and `sortOrder` from the `Project` model entirely (migration
+`20260825141839_remove_project_case_study_and_sort_order`) rather than just hiding them in the
+form — dead schema fields are worse than no fields. `ProjectForm.tsx` is now four things: name,
+industry/service/status, summary, image, plus the on-home-page checkbox. Slug is still generated
+server-side from the name for DB uniqueness, just never exposed as input. `ProjectsFilter.tsx`
+(home page) dropped the Link-vs-div branching that used to make case-study-linked cards
+clickable — every card is now a plain non-interactive tile, matching what was asked for. Ordering
+without `sortOrder` falls back to `createdAt` (ascending on the home page, so first-added shows
+first; descending in the admin table, newest first — same convention posts already use).
+
+Reseeded from `PortfolioGrid.tsx`'s 16 entries: name and service copied over as-is, image reused
+directly from `public/images/portfolio/` (no new uploads needed), and industry assigned by
+judgment per project since the portfolio page itself only tracks service, not vertical (e.g.
+"Premium Footwear" → Footwear, "Skin Care & Makeup" → FMCG, the three Shopify products
+Universal Product Feed/Mailbot/PushBot → a new "Shopify Apps" industry). This corrected one
+existing mismatch: Logo Official was originally seeded as "D2C" back when Projects was a static
+4-item prototype, but portfolio classifies it as "Premium Footwear" — moved to Footwear, and D2C
+dropped from the industry list entirely since nothing in the real 16 actually belongs there.
+Final industry set / home page tab order: FMCG, Apparel, Footwear, Home Decor, Shopify Apps.
+`seedProjects()` now deletes and recreates every Project/Industry row on each run instead of
+upserting — noted in a comment that this needs to switch back to upsert-only once real editors
+start adding projects by hand, so a reseed can't clobber their work.
+
+Verification: `prisma migrate dev` + `generate` + reseed ("Seeded 5 industries and 16 projects"),
+`tsc --noEmit`, `eslint --max-warnings=0`, full `next build`, and a logged-in smoke test — home
+page renders all 16 names and the 5 correct tabs with no stray "D2C" tab, the new-project form no
+longer contains Case Study Link / Sort Order / Slug fields, and the admin table's case-study
+column is gone. Hit the same stale-Turbopack-Prisma-client issue as the earlier migration (dev
+server 500ing with "column does not exist" from the pre-migration client cached in memory) —
+same fix, cycle the server.
+
+### 2026-08-25 — Project cards drop Summary + manual "show on home" toggle; home page auto-shows the latest 4
+Second follow-up on the same feature. User pointed out the Summary field wasn't needed either,
+and asked for the "show on home page" checkbox to go away in favor of automatic behaviour: the
+home page should just always show the 4 most recent projects, the same way the section behaved
+originally when it was 4 hardcoded entries.
+
+Removed `summary` and `featured` from the `Project` model entirely (migration
+`20260825143425_remove_project_summary_and_featured`) — same reasoning as dropping
+`caseStudyUrl`/`sortOrder` earlier today: no dead schema fields once a form field is gone.
+`ProjectForm.tsx` is down to name, industry/service/status, and image. Publishing is now the only
+lever — there's no separate "feature this on home" step.
+
+The home page's `Projects.tsx` query dropped the `featured` filter and instead does
+`orderBy: createdAt desc, take: HOME_PROJECTS_COUNT` — a new shared constant
+(`src/lib/projects.ts`, value 4) so the home page query and the admin dashboard's "on home page"
+indicator can't drift out of sync with each other. The industry filter tabs still derive from
+whichever projects are actually being shown (unchanged behaviour, just now sourced from "latest
+4" instead of "flagged featured") — so with the current seed data, the home page shows Skin Care
+& Makeup, Heritage Fashion E-commerce, PushBot, and Fashion & Apparel (the last 4 inserted), with
+tabs narrowed to just FMCG, Apparel, and Shopify Apps.
+
+Since "on home page" is no longer a stored flag, the admin table computes it: a separate
+`{ status: PUBLISHED, orderBy: createdAt desc, take: HOME_PROJECTS_COUNT, select: id }` query
+builds a Set of the current home-page project ids, and each table row checks membership in it
+for the "On Home" badge — same visual as before, just derived instead of stored. The "On Home
+Page" stat card's hint changed from "Featured in Latest Projects" to "Automatically the 4 most
+recently published" to make the new mechanic legible to whoever's using the dashboard.
+
+Verification: `prisma migrate dev` + `generate` + reseed, `tsc --noEmit`, `eslint
+--max-warnings=0`, full `next build`, and a logged-in smoke test — home page shows exactly the 4
+newest projects with the 3 tabs those 4 actually belong to, the new-project form no longer has
+Summary or the checkbox, and the admin table's "On Home" badge lines up with those same 4 rows.
+Same stale-Turbopack-Prisma-client restart needed as both earlier migrations today.

@@ -50,7 +50,7 @@ const projects: Project[] = [
 
 export default function PortfolioGrid() {
   return (
-    <section className="overflow-hidden bg-white px-4 pb-14 sm:px-6 md:pb-20 lg:px-8">
+    <section className="overflow-hidden bg-white px-4 pb-14 pt-6 sm:px-6 sm:pt-8 md:pb-20 md:pt-10 lg:px-8">
       <div data-reveal-group="" data-stagger="0.05" className="mx-auto grid max-w-7xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((project) => (
           <Link

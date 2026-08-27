@@ -84,10 +84,13 @@ export default function ImagePicker({
         </div>
       </div>
 
+      {/* Companion fields, namespaced off the file input's own name so more
+          than one picker can sit in the same form. Server actions read them
+          via the readImageFields() helper. */}
       {defaultImageUrl && !removed && (
-        <input type="hidden" name="existingFeaturedImage" value={defaultImageUrl} />
+        <input type="hidden" name={`${name}__existing`} value={defaultImageUrl} />
       )}
-      {removed && <input type="hidden" name="removeFeaturedImage" value="true" />}
+      {removed && <input type="hidden" name={`${name}__remove`} value="true" />}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { Swiper as SwiperType } from "swiper";
@@ -20,6 +20,17 @@ export type HomeBlogPost = {
 
 export default function BlogPosts({ posts }: { posts: HomeBlogPost[] }) {
   const swiperRef = useRef<SwiperType | null>(null);
+  // Swiper's slidesPerView breakpoints are 1 / 2 / 3 (mobile / tablet /
+  // desktop) — with `watchOverflow`, Swiper locks itself whenever there
+  // aren't more posts than the current breakpoint can show at once (e.g. 2
+  // posts on desktop, which fits inside 3 slots with nothing to slide to).
+  // Mirror that lock into React state to drive two things Swiper can't do
+  // on its own here: hide the custom arrow buttons (not Swiper's built-in
+  // nav, so its automatic button-hiding doesn't reach them), and gate
+  // `loop` — loop mode needs enough real slides to duplicate, so it must
+  // stay off exactly while locked and turn on once there's something to
+  // actually loop through.
+  const [isLocked, setIsLocked] = useState(true);
 
   return (
     <section className="overflow-hidden bg-surface px-4 py-14 sm:px-6 md:py-20 lg:px-8">
@@ -47,8 +58,8 @@ export default function BlogPosts({ posts }: { posts: HomeBlogPost[] }) {
           </Link>
         </div>
 
-        <div data-reveal="up" data-reveal-delay="0.15" className="relative mt-8 px-11 md:mt-12 lg:px-14">
-          {posts.length > 1 && (
+        <div data-reveal="up" data-reveal-delay="0.15" className="relative mt-10 px-11 md:mt-14 lg:px-14">
+          {!isLocked && (
             <>
               <button
                 onClick={() => swiperRef.current?.slidePrev()}
@@ -70,8 +81,12 @@ export default function BlogPosts({ posts }: { posts: HomeBlogPost[] }) {
           <Swiper
             onSwiper={(swiper) => {
               swiperRef.current = swiper;
+              setIsLocked(swiper.isLocked);
             }}
-            loop={posts.length > 1}
+            onResize={(swiper) => setIsLocked(swiper.isLocked)}
+            onBreakpoint={(swiper) => setIsLocked(swiper.isLocked)}
+            watchOverflow
+            loop={!isLocked}
             speed={600}
             spaceBetween={24}
             slidesPerView={1}
