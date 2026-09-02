@@ -16,6 +16,9 @@ export const metadata: Metadata = {
   title: "Adex360: E-Commerce Digital Marketing Agency",
   description:
     "Adex360 is your growth marketing wingman, driving brands to their full potential with performance marketing, SEO, web development and more.",
+  verification: {
+    google: "EnvkZ8vZWv8j0nD0QP7JD0W8q3Y_0oc0ZO4BmmCelNo",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
