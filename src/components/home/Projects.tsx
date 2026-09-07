@@ -1,30 +1,55 @@
-"use client";
+import { prisma } from "@/lib/prisma";
+import { HOME_PROJECTS_COUNT } from "@/lib/projects";
+import ProjectsFilter, { type ProjectCard } from "./ProjectsFilter";
 
-import { useState } from "react";
-import Image from "next/image";
-import imgButterfly from "../../../public/images/projects/butterfly.png";
-import imgNishatUae from "../../../public/images/projects/nishat-uae.png";
-import imgLogoOfficial from "../../../public/images/projects/logo-official.png";
-import imgWeltewHome from "../../../public/images/projects/weltew-home.png";
+/**
+ * "Our Latest and Completed Project" — always the most recently published
+ * projects from the admin dashboard's Projects tab; there's no manual
+ * per-project toggle, so publishing is what puts a project here. The filter
+ * tabs are the industries those specific projects belong to, so there's
+ * never a tab that filters to nothing.
+ *
+ * Fetches its own data rather than taking props: the query belongs next to the
+ * markup that needs it, and the home page is already dynamic for the blog.
+ */
+export default async function Projects() {
+  const projects = await prisma.project.findMany({
+    where: { status: "PUBLISHED" },
+    orderBy: { createdAt: "desc" },
+    take: HOME_PROJECTS_COUNT,
+    include: { industry: true },
+  });
 
-const categories = ["All", "FMCG", "D2C", "Apparel", "Footwear", "Home Decor"];
+  if (projects.length === 0) return null;
 
-const projects = [
-  { name: "Butterfly", category: "FMCG", service: "SEO Services", image: imgButterfly },
-  { name: "Nishat UAE", category: "Apparel", service: "SEO Services", image: imgNishatUae },
-  { name: "Logo Official", category: "D2C", service: "Web Development", image: imgLogoOfficial },
-  { name: "Weltew Home", category: "Home Decor", service: "Web Development", image: imgWeltewHome },
-];
+  const cards: ProjectCard[] = projects.map((project) => ({
+    id: project.id,
+    name: project.name,
+    service: project.service,
+    image: project.image,
+    industryName: project.industry.name,
+  }));
 
-export default function Projects() {
-  const [active, setActive] = useState("All");
-  const filtered = active === "All" ? projects : projects.filter((p) => p.category === active);
+  // Tab order follows when each industry was created, which keeps the
+  // long-standing FMCG → D2C → Apparel → Home Decor order stable no matter
+  // how the projects themselves get sorted.
+  const industries = [
+    ...new Map(
+      projects
+        .slice()
+        .sort((a, b) => a.industry.createdAt.getTime() - b.industry.createdAt.getTime())
+        .map((project) => [project.industry.id, project.industry.name])
+    ).values(),
+  ];
 
   return (
     <section className="px-4 py-14 sm:px-6 md:py-20 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="text-center">
-          <p data-reveal="up" className="text-xs font-semibold uppercase tracking-widest text-brand-blue">
+          <p
+            data-reveal="up"
+            className="text-xs font-semibold uppercase tracking-widest text-brand-blue"
+          >
             Latest Projects
           </p>
           <h2 data-reveal="up" className="mt-3 text-2xl font-extrabold text-ink sm:text-3xl">
@@ -32,55 +57,7 @@ export default function Projects() {
           </h2>
         </div>
 
-        <div
-          data-reveal-group=""
-          data-stagger="0.05"
-          className="-mx-4 mt-8 flex items-center gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:mx-0 sm:flex-wrap sm:justify-center sm:overflow-visible sm:px-0 sm:pb-0"
-        >
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              data-reveal="fade"
-              onClick={() => setActive(cat)}
-              className={`shrink-0 whitespace-nowrap rounded-full px-5 py-2 text-sm font-semibold transition-colors ${
-                active === cat
-                  ? "bg-brand-blue text-white shadow-lg shadow-brand-blue/30"
-                  : "bg-surface text-muted hover:bg-surface-alt hover:text-ink"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-
-        <div data-reveal-group="" data-stagger="0.1" data-parallax="4" className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
-          {filtered.map((project) => (
-            <div
-              key={project.name}
-              data-reveal="up"
-              className="group overflow-hidden rounded-3xl border border-black/5 bg-white shadow-lg shadow-brand-900/5 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
-            >
-              <div className="relative aspect-video overflow-hidden">
-                <Image
-                  src={project.image}
-                  alt={`${project.name} — ${project.service} project screenshot`}
-                  fill
-                  sizes="(min-width: 640px) 50vw, 100vw"
-                  className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
-              <div className="flex items-center justify-between px-6 py-5">
-                <div>
-                  <p className="text-sm font-bold text-ink">{project.name}</p>
-                  <p className="text-xs text-muted">{project.service}</p>
-                </div>
-                <span className="rounded-full bg-surface px-3 py-1 text-xs font-semibold text-brand-blue">
-                  {project.category}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
+        <ProjectsFilter projects={cards} industries={industries} />
       </div>
     </section>
   );

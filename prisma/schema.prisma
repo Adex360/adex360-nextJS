@@ -1,0 +1,116 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum ProjectStatus {
+  DRAFT
+  PUBLISHED
+}
+
+/// Staff account for admin-dashboard login only (NextAuth Credentials
+/// provider, no public sign-up). Not the same as a post's byline "Author" —
+/// a blog post can be attributed to a team member who never logs in.
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+/// The byline shown on a post. Independent of admin login (`User`) — editors
+/// pick or create an Author by name only, same "select or add new" UX as Category.
+model Author {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+
+  posts Post[]
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  createdAt DateTime @default(now())
+
+  posts Post[]
+}
+
+model Post {
+  id          String     @id @default(cuid())
+  title       String
+  slug        String     @unique
+  excerpt     String
+  content     String
+  featuredImage String?
+  seoTitle    String?
+  seoDescription String?
+  status      PostStatus @default(DRAFT)
+  publishedAt DateTime?
+  tags        String[]   @default([])
+  views       Int        @default(0)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  authorId   String
+  author     Author   @relation(fields: [authorId], references: [id])
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  @@index([status, publishedAt])
+}
+
+/// The industry vertical a project was delivered for ("FMCG", "Apparel", …).
+/// Doubles as the filter tabs on the home page's "Latest Projects" section —
+/// the tabs are derived from the industries that actually have live projects,
+/// so adding a project in a new vertical adds its tab automatically. Editors
+/// can create one inline, same "select or add new" UX as a blog Category.
+model Industry {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  createdAt DateTime @default(now())
+
+  projects Project[]
+}
+
+/// A client project card — display data only, not a link to a case-study
+/// page. The home page's "Latest Projects" section always shows the 4 most
+/// recently published projects; there's no manual "show on home" toggle, so
+/// publishing is the only lever an editor has. `service` is one of the six
+/// real service pages rather than a relation — the list is fixed by the
+/// site's own nav, so it lives in src/lib/services.ts instead of a lookup
+/// table editors could drift out of sync. `slug` exists purely as a stable
+/// unique key (auto-generated from the name), not an editable field or a route.
+model Project {
+  id        String        @id @default(cuid())
+  name      String
+  slug      String        @unique
+  service   String
+  image     String?
+  status    ProjectStatus @default(PUBLISHED)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  industryId String
+  industry   Industry @relation(fields: [industryId], references: [id])
+
+  @@index([status, createdAt])
+}
