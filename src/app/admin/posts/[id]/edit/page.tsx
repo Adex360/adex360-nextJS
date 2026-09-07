@@ -18,7 +18,7 @@ export default async function EditPostPage({ params }: { params: Promise<{ id: s
   const { id } = await params;
 
   const [post, categories, authors] = await Promise.all([
-    prisma.post.findUnique({ where: { id } }),
+    prisma.post.findUnique({ where: { id }, include: { tags: true } }),
     prisma.category.findMany({ orderBy: { name: "asc" } }),
     prisma.author.findMany({ orderBy: { name: "asc" } }),
   ]);
@@ -52,7 +52,7 @@ export default async function EditPostPage({ params }: { params: Promise<{ id: s
           featuredImage: post.featuredImage ?? "",
           categoryId: post.categoryId,
           authorId: post.authorId,
-          tags: post.tags.join(", "),
+          tags: post.tags.map((tag) => tag.name).join(", "),
           status: post.status,
           seoTitle: post.seoTitle ?? "",
           seoDescription: post.seoDescription ?? "",

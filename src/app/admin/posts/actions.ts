@@ -37,7 +37,9 @@ function readPostFields(formData: FormData) {
   const tags = tagsInput
     .split(",")
     .map((t) => t.trim())
-    .filter(Boolean);
+    .filter(Boolean)
+    .map((name) => ({ name, slug: slugify(name) }))
+    .filter((tag, index, all) => tag.slug && all.findIndex((item) => item.slug === tag.slug) === index);
 
   return { title, slugInput, excerpt, content, seoTitle, seoDescription, categoryId, authorId, tags, status };
 }
@@ -60,7 +62,12 @@ export async function createPost(formData: FormData) {
       seoDescription: f.seoDescription || null,
       status: f.status,
       publishedAt: f.status === "PUBLISHED" ? new Date() : null,
-      tags: f.tags,
+      tags: {
+        connectOrCreate: f.tags.map((tag) => ({
+          where: { slug: tag.slug },
+          create: tag,
+        })),
+      },
       authorId: f.authorId,
       categoryId: f.categoryId,
     },
@@ -99,7 +106,13 @@ export async function updatePost(postId: string, formData: FormData) {
       status: f.status,
       publishedAt:
         f.status === "PUBLISHED" ? existing.publishedAt ?? new Date() : null,
-      tags: f.tags,
+      tags: {
+        set: [],
+        connectOrCreate: f.tags.map((tag) => ({
+          where: { slug: tag.slug },
+          create: tag,
+        })),
+      },
       authorId: f.authorId,
       categoryId: f.categoryId,
     },

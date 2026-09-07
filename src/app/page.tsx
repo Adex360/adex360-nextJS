@@ -12,7 +12,7 @@ import Team from "@/components/home/Team";
 import BlogPosts from "@/components/home/BlogPosts";
 import { prisma } from "@/lib/prisma";
 
-// The blog widget below reads live, published posts from Postgres, so this
+// The blog widget below reads live, published posts from MySQL, so this
 // page can no longer be fully static — it needs to re-render per request to
 // stay in sync with the admin panel. Revisit once ISR is wired up for the
 // blog (see docs/progress.md Phase 4/5).
