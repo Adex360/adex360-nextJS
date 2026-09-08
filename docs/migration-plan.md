@@ -23,9 +23,9 @@ Rebuild the current Adex360 WordPress (Elementor-based) website in Next.js while
 - **Styling:** Tailwind CSS, to efficiently match and maintain the existing design system.
 - **Animations:** GSAP + ScrollTrigger (decision updated during Phase 3 — originally Framer Motion). GSAP powers the shared ScrollFx reveal engine, hero timelines, SVG path drawing, counters, and shape morphs; a second animation library is unnecessary.
 - **Forms:** ~~React Hook Form paired with a Next.js API route~~ — superseded during Phase 3: Contact Us embeds the client's real GoHighLevel (LeadConnector) form widget directly via iframe, so submissions go straight into their existing GHL account with no custom API route needed. `react-hook-form` remains installed for a possible future static form (e.g. the SEO-score form below) but is unused by Contact Us. The SEO-score form (`SeoScoreCta.tsx`) still needs its own email-delivery decision — see Section 6/Phase 5.
-- **Blog backend:** a custom admin panel and database, or a headless CMS (both options detailed in Section 5).
-- **Hosting:** Vercel, which offers native Next.js support, a fast global CDN, and automatic image optimization.
-- **Version control:** GitHub, with a CI/CD pipeline that auto-deploys to Vercel.
+- **Blog backend:** a custom admin panel and database, or a headless CMS (both options detailed in Section 5) — **decided 2026-08-24: custom admin panel + database**, not a headless CMS.
+- **Hosting:** ~~Vercel, which offers native Next.js support, a fast global CDN, and automatic image optimization.~~ — superseded: the site actually runs on a self-managed server deployed via **Laravel Forge** (surfaced 2026-09-07 via a note accidentally left in `README.md` by a teammate). Not serverless — this changes the image-upload production-readiness assumption in `docs/progress.md` Phase 4 (local-disk uploads may actually survive on a persistent Forge-managed server, unlike Vercel's ephemeral functions), though that hasn't been confirmed yet. Exact deploy trigger (auto-deploy-on-push vs. a manual "Deploy Now") is still unconfirmed.
+- **Version control:** GitHub. ~~with a CI/CD pipeline that auto-deploys to Vercel~~ — superseded, see Hosting above: deploys go through Laravel Forge instead.
 
 ## 4. Site Architecture (Static Pages)
 
@@ -54,7 +54,7 @@ Since the team needs to publish new blog posts in the future, this section requi
 
 **Recommended approach — Custom Admin Panel + Database, built inside the same Next.js project:**
 
-- **Database:** PostgreSQL (hosted on Supabase or Neon) or MongoDB Atlas, storing posts, categories and author data.
+- **Database:** ~~PostgreSQL (hosted on Supabase or Neon) or MongoDB Atlas~~ — superseded 2026-09-07: switched to **MySQL**, self-hosted on the Forge-managed production server (which already ran MySQL, per a teammate's direct commit to `main`). Local development ran Postgres 17 from 2026-08-24 until this switch; see `docs/progress.md` Phase 1/Phase 4 for the full history. Storing posts, categories, authors, tags, projects and industries.
 - **Authentication:** NextAuth.js with email/password or Google login restricted to agency staff only — no public sign-ups.
 - **Admin dashboard** (private route, e.g. `/admin`): login screen; create, edit and delete blog posts; a rich text editor (TipTap or Lexical) for formatting; image upload via Cloudinary or Vercel Blob storage; per-post fields for Title, Slug, Featured Image, Category/Tags, Author, Excerpt, Content, SEO Title, SEO Meta Description, Publish/Draft status and Publish Date; and a post list view with search, filter, edit and delete actions.
 - **Frontend rendering:** the blog listing and single-post pages will use Incremental Static Regeneration (ISR), keeping pages fast and static while automatically refreshing shortly after a new post is published — no manual redeploy required.
@@ -110,11 +110,11 @@ Since the team needs to publish new blog posts in the future, this section requi
 ## 10. Tools & Services Summary
 
 - Next.js, TypeScript, Tailwind CSS, GSAP + ScrollTrigger (updated from the original Framer Motion decision — see Section 3)
-- Database: Supabase/Neon (Postgres) or MongoDB Atlas
+- Database: ~~Supabase/Neon (Postgres) or MongoDB Atlas~~ — actual: self-hosted **MySQL** (see Section 5)
 - Authentication: NextAuth.js
 - Rich text editor: TipTap or Lexical
-- Image storage: Cloudinary or Vercel Blob
+- Image storage: Cloudinary or Vercel Blob — status pending; may be unnecessary if the Forge server's local disk turns out to be persistent enough (see Hosting note in Section 3)
 - Email delivery: Resend or Nodemailer
-- Hosting: Vercel
+- Hosting: ~~Vercel~~ — actual: a self-managed server deployed via **Laravel Forge**
 - Version control: GitHub
 - SEO testing & monitoring: Google Search Console, Google Rich Results Test, Lighthouse
