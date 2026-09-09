@@ -5,7 +5,7 @@ import UnderConstruction from "@/components/layout/UnderConstruction";
 import ScrollFx from "@/components/fx/ScrollFx";
 import Pagination from "@/components/resources/Pagination";
 import ReadMoreButton from "@/components/resources/ReadMoreButton";
-import { prisma } from "@/lib/prisma";
+import { prisma, withDbFallback } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
@@ -22,7 +22,13 @@ export default async function ResourcesPage({
 }: {
   searchParams: Promise<{ page?: string }>;
 }) {
-  const totalPublished = await prisma.post.count({ where: { status: "PUBLISHED" } });
+  // A database outage reads as "no posts yet" and shows the same branded
+  // under-construction screen an empty blog does, instead of a 500.
+  const totalPublished = await withDbFallback(
+    "resources post count",
+    () => prisma.post.count({ where: { status: "PUBLISHED" } }),
+    0
+  );
 
   if (totalPublished === 0) {
     return <UnderConstruction />;
@@ -32,13 +38,18 @@ export default async function ResourcesPage({
   const totalPages = Math.max(1, Math.ceil(totalPublished / PAGE_SIZE));
   const currentPage = Math.min(totalPages, Math.max(1, Number(page) || 1));
 
-  const posts = await prisma.post.findMany({
-    where: { status: "PUBLISHED" },
-    orderBy: { publishedAt: "desc" },
-    include: { category: true, author: true },
-    skip: (currentPage - 1) * PAGE_SIZE,
-    take: PAGE_SIZE,
-  });
+  const posts = await withDbFallback(
+    "resources post list",
+    () =>
+      prisma.post.findMany({
+        where: { status: "PUBLISHED" },
+        orderBy: { publishedAt: "desc" },
+        include: { category: true, author: true },
+        skip: (currentPage - 1) * PAGE_SIZE,
+        take: PAGE_SIZE,
+      }),
+    []
+  );
 
   return (
     <>

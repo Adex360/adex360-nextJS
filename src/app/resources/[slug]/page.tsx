@@ -3,15 +3,21 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Calendar, Eye, User } from "lucide-react";
 import ScrollFx from "@/components/fx/ScrollFx";
-import { prisma } from "@/lib/prisma";
+import { prisma, withDbFallback } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
-async function getPost(slug: string) {
-  return prisma.post.findFirst({
-    where: { slug, status: "PUBLISHED" },
-    include: { category: true, author: true },
-  });
+// A database outage resolves to "no such post" → the branded 404, not a 500.
+function getPost(slug: string) {
+  return withDbFallback(
+    `post ${slug}`,
+    () =>
+      prisma.post.findFirst({
+        where: { slug, status: "PUBLISHED" },
+        include: { category: true, author: true },
+      }),
+    null
+  );
 }
 
 export async function generateMetadata({
@@ -38,12 +44,17 @@ export default async function ResourcePostPage({
   const post = await getPost(slug);
   if (!post) notFound();
 
-  const updated = await prisma.post.update({
-    where: { id: post.id },
-    data: { views: { increment: 1 } },
-    select: { views: true },
-  });
-  post.views = updated.views;
+  const updated = await withDbFallback(
+    `post ${slug} view count`,
+    () =>
+      prisma.post.update({
+        where: { id: post.id },
+        data: { views: { increment: 1 } },
+        select: { views: true },
+      }),
+    null
+  );
+  if (updated) post.views = updated.views;
 
   return (
     <>

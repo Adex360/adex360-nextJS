@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { prisma, withDbFallback } from "@/lib/prisma";
 import { HOME_PROJECTS_COUNT } from "@/lib/projects";
 import ProjectsFilter, { type ProjectCard } from "./ProjectsFilter";
 
@@ -13,12 +13,17 @@ import ProjectsFilter, { type ProjectCard } from "./ProjectsFilter";
  * markup that needs it, and the home page is already dynamic for the blog.
  */
 export default async function Projects() {
-  const projects = await prisma.project.findMany({
-    where: { status: "PUBLISHED" },
-    orderBy: { createdAt: "desc" },
-    take: HOME_PROJECTS_COUNT,
-    include: { industry: true },
-  });
+  const projects = await withDbFallback(
+    "home latest projects",
+    () =>
+      prisma.project.findMany({
+        where: { status: "PUBLISHED" },
+        orderBy: { createdAt: "desc" },
+        take: HOME_PROJECTS_COUNT,
+        include: { industry: true },
+      }),
+    []
+  );
 
   if (projects.length === 0) return null;
 
