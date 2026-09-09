@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   title: "FAQ's | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "Answers to the most common questions about digital marketing, SEO, performance marketing, social media management, and web development from Adex360.",
+  alternates: { canonical: "/faqs" },
 };
 
 export default function FaqsPage() {

@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Seona Case Study | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "How Adex360's social media strategy drove a 30% increase in sales, 47% improvement in conversion rate, and 56% increase in average order value for Seona.",
+  alternates: { canonical: "/seona" },
 };
 
 export default function SeonaPage() {

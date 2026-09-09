@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   title: "Performance Marketing | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "Maximize ROI and amplify growth with Adex360's performance marketing services — PPC advertising, affiliate marketing, email marketing, display ads, and conversion rate optimization designed for scalable growth.",
+  alternates: { canonical: "/performance-marketing" },
 };
 
 export default function PerformanceMarketingPage() {

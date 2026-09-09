@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   title: "Marketing Insights | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "Guides, strategies, and insights on SEO, performance marketing, social media, and web development from the Adex360 team.",
+  alternates: { canonical: "/resources" },
 };
 
 const PAGE_SIZE = 10;

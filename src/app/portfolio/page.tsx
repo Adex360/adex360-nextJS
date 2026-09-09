@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Portfolio | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "Explore Adex360's portfolio of SEO, performance marketing, social media, web development, and Shopify app projects delivered for real e-commerce and B2C brands.",
+  alternates: { canonical: "/portfolio" },
 };
 
 export default function PortfolioPage() {

@@ -16,6 +16,7 @@ export const metadata: Metadata = {
   title: "SEO Services | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "Elevate rankings with Adex360's expert SEO services — On-Page, Off-Page, Technical and Local SEO that drive organic traffic, leads and growth. Get your free SEO score today.",
+  alternates: { canonical: "/seo-services" },
 };
 
 export default function SeoServicesPage() {

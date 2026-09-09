@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "About Us | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "Meet Adex360, a leading growth marketing and technology company. 2000+ happy clients, 150+ active brands, and a creative-performance team dedicated to your digital success.",
+  alternates: { canonical: "/about-us" },
 };
 
 export default function AboutUsPage() {

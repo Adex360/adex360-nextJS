@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Terms & Privacy Policy | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "Read Adex360's Terms of Service and Privacy Policy — how we operate, and how we collect, use, and protect your information.",
+  alternates: { canonical: "/terms-and-privacy" },
 };
 
 export default function TermsAndPrivacyPage() {

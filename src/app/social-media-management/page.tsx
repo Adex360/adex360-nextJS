@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   title: "Social Media Management | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "Adex360 provides expert, meta-savvy social media management — content creation, community management, influencer marketing, analytics and strategy that amplify voices, spark engagement, and turn clicks into connections.",
+  alternates: { canonical: "/social-media-management" },
 };
 
 export default function SocialMediaManagementPage() {

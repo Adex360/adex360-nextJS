@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Mailbot | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "Mailbot is a Shopify email marketing automation app by Adex360 that helps merchants recover abandoned carts, boost engagement, and drive repeat sales with personalized, automated campaigns.",
+  alternates: { canonical: "/mailbot" },
 };
 
 export default function MailbotPage() {

@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   title: "EU Naturals Case Study | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "How Adex360 helped EU Naturals take back control of its customer journey with a high-performing, education-led Shopify store — 38% conversion rate, 900% traffic uplift, sub-1s product page loads.",
+  alternates: { canonical: "/eu" },
 };
 
 export default function EuPage() {

@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Beechtree Case Study | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "How Adex360's social media strategy drove 2.5M+ impressions, 8% of sales from recovered carts, and a 12% increase in conversion rates for Beechtree.",
+  alternates: { canonical: "/beechtree" },
 };
 
 export default function BeechtreePage() {

@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "ONE Case Study | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "How Adex360's performance marketing strategy drove a 55.8% increase in site traffic, 40% boost in organic sales, and 30% improvement in customer retention for ONE.",
+  alternates: { canonical: "/one" },
 };
 
 export default function OnePage() {

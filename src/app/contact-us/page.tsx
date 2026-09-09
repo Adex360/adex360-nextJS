@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Contact Us | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "Get in touch with Adex360 for performance marketing, SEO, web development and more. Call our hotline, email us, or send us a message — your growth partner is one step away.",
+  alternates: { canonical: "/contact-us" },
 };
 
 function FlagGB({ className }: { className?: string }) {

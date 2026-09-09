@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   title: "CRM Integration | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "Adex360 seamlessly integrates GoHighLevel CRM to automate workflows, enhance engagement, and drive scalable growth — lead nurturing, pipeline management, marketing automation, appointment scheduling, and reputation management.",
+  alternates: { canonical: "/crm-integration" },
 };
 
 export default function CrmIntegrationPage() {

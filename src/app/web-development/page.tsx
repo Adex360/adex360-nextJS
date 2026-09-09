@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   title: "Web Development | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "Crafting code, building futures — Adex360 designs and develops fast, scalable, SEO-friendly websites and e-commerce stores, from front-end to back-end to ongoing maintenance.",
+  alternates: { canonical: "/web-development" },
 };
 
 export default function WebDevelopmentPage() {

@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "ECS Case Study | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "How Adex360's performance marketing strategy drove a 53% increase in sales, 40% faster order processing, and 95% data-reporting accuracy for Ehsan Chappal Store.",
+  alternates: { canonical: "/ecs" },
 };
 
 export default function EcsPage() {

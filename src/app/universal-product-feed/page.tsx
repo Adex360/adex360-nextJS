@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Universal Product Feed | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "Universal Product Feed is a Shopify app by Adex360 that automates multi-channel product syncing across Google Shopping, Facebook, Instagram, TikTok, Pinterest, and more.",
+  alternates: { canonical: "/universal-product-feed" },
 };
 
 export default function UniversalProductFeedPage() {

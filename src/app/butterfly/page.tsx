@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Butterfly Sanitary Napkin Case Study | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "How Adex360's SEO strategy took Butterfly Sanitary Napkin's organic traffic from 10.3K to 24K in a year, with all 20 targeted keywords ranking on page one.",
+  alternates: { canonical: "/butterfly" },
 };
 
 export default function ButterflyPage() {

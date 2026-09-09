@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Logo Official Case Study | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "How Adex360 built Logo Official a premium, conversion-optimized Shopify store — custom theme, mobile-first design, and SEO-tuned performance for a leading footwear and accessories brand.",
+  alternates: { canonical: "/logo-official" },
 };
 
 export default function LogoOfficialPage() {

@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "BeOneShopOne Case Study | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "How Adex360's SEO strategy grew BeOneShopOne's first-page keyword rankings from 35% to 55%, backlinks by 36%, and SEO-driven revenue to nearly half of total sales over six months.",
+  alternates: { canonical: "/beoneshopone" },
 };
 
 export default function BeOneShopOnePage() {

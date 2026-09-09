@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Nishat USA Case Study | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "How Adex360's social media strategy drove a 76% increase in sales, 53% rise in website sessions, and 100% growth in orders for Nishat USA.",
+  alternates: { canonical: "/nishat-usa" },
 };
 
 export default function NishatUsaPage() {

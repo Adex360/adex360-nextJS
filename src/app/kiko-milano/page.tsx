@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Kiko Milano Case Study | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "How Adex360's performance marketing strategy drove a 5X increase in ROAS, 28% reduction in CPA, and 40% increase in conversion rate for Kiko Milano.",
+  alternates: { canonical: "/kiko-milano" },
 };
 
 export default function KikoMilanoPage() {

@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Nishat UAE Case Study | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "How Adex360's SEO strategy grew Nishat UAE's first-page keyword rankings by 347% (17% to 76%), domain authority by 36%, and backlinks by 40% in a year.",
+  alternates: { canonical: "/nishat-uae" },
 };
 
 export default function NishatUaePage() {

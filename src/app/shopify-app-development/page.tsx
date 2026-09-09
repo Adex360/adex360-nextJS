@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   title: "Shopify App Development | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "Build your Shopify app with Adex360 — custom app development, UI/UX design, seamless integrations, advanced features, performance optimization, and full app audits.",
+  alternates: { canonical: "/shopify-app-development" },
 };
 
 export default function ShopifyAppDevelopmentPage() {

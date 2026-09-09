@@ -32,6 +32,7 @@ export async function generateMetadata({
   return {
     title: post.seoTitle || `${post.title} | Adex360 Marketing Insights`,
     description: post.seoDescription || post.excerpt,
+    alternates: { canonical: `/resources/${slug}` },
   };
 }
 

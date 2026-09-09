@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Pushbot | Adex360: E-Commerce Digital Marketing Agency",
   description:
     "Pushbot is a Shopify web push notification app by Adex360 that helps merchants recover abandoned carts, re-engage customers, and drive repeat sales with automated, real-time notifications.",
+  alternates: { canonical: "/pushbot" },
 };
 
 export default function PushbotPage() {
